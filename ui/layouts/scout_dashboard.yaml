@@ -1,0 +1,156 @@
+# 📊 Scout Analytics UI Layout – Enhanced Version with GeoChart & Drilldowns
+# Version: 2.1.0
+# Last Updated: 2025-01-15
+
+dashboard:
+  id: scout-analytics-v2
+  title: Scout Analytics – Philippine Market Intelligence
+  pages:
+    - id: overview
+      title: Executive Overview
+      path: /overview
+      components:
+        - kpi_card:
+            metrics:
+              - name: Total Revenue
+                field: revenue_total
+                unit: ₱
+              - name: Transactions
+                field: total_transactions
+              - name: Avg Order Value
+                field: average_order_value
+                unit: ₱
+              - name: Units Sold
+                field: units_sold
+              - name: Unique Customers
+                field: unique_customers
+              - name: Gross Margin %
+                field: gross_margin_percent
+        - chart:
+            type: trend_line
+            title: Revenue Trend
+            field: revenue_by_day
+        - chart:
+            id: chart_regional_performance_map
+            type: geo_chart
+            component: GeoChart
+            title: "🗺️ Revenue by Region"
+            data_source: |
+              SELECT region, SUM(revenue_total) AS revenue
+              FROM transactions
+              GROUP BY region
+            props:
+              regionKey: region
+              valueKey: revenue
+        - ai_panel:
+            id: ai_overview
+            source: yummy
+            confidence_threshold: 80
+
+    - id: trends
+      title: Transaction Trends
+      path: /trends
+      components:
+        - chart:
+            type: heatmap
+            title: Transaction Volume by Hour
+            field: transaction_volume_by_hour
+        - chart:
+            id: transaction_by_region
+            type: bar
+            title: Region-Based Growth
+            field: revenue_by_region
+            interactive: true
+            on_click:
+              set_filter: region
+              navigate: /consumers
+        - chart:
+            type: toggle_chart
+            toggles:
+              - time_of_day
+              - region
+              - weekday_vs_weekend
+        - ai_panel:
+            id: ai_trends
+            source: yummy
+            confidence_threshold: 85
+
+    - id: products
+      title: Product Mix & SKU Insights
+      path: /products
+      components:
+        - chart:
+            type: stacked_bar
+            title: SKU per Basket Distribution
+            field: sku_distribution
+        - chart:
+            type: sankey
+            title: Substitution Flow
+            field: substitution_flows
+        - chart:
+            type: pie
+            title: Top Categories by Revenue
+            field: category_revenue_share
+        - ai_panel:
+            id: ai_product_mix
+            source: yummy
+            confidence_threshold: 87
+
+    - id: consumers
+      title: Consumer Insights
+      path: /consumers
+      components:
+        - chart:
+            type: donut
+            title: Gender Split
+            field: gender_distribution
+        - chart:
+            type: bar
+            title: Age Group Purchasing Patterns
+            field: age_bracket_purchases
+        - chart:
+            type: funnel
+            title: Customer Loyalty
+            field: repeat_customer_analysis
+        - ai_panel:
+            id: ai_consumer
+            source: yummy
+            confidence_threshold: 82
+
+  filters:
+    - id: brand
+      label: 🏷️ Brand
+      type: multi-select
+      source: distinct_brands
+      pill_style: true
+      highlight_tbwa: true
+      pill_tbwa: "bg-yellow-50 text-yellow-800 border-l-4 border-yellow-400"
+    - id: date_range
+      label: 📅 Date Range
+      type: date_range
+      default: last_30_days
+    - id: region
+      label: 🗺️ Region
+      type: single_select
+      source: distinct_regions
+    - id: category
+      label: 📦 Category
+      type: multi_select
+      source: distinct_categories
+
+  global:
+    ai_recommendations_enabled: true
+    refresh_interval: 5min
+    responsive_grid: true
+    grid_class: "grid-cols-dashboard"
+
+deployment:
+  url: "https://scout-analytics-mvp.vercel.app"
+  strategy: "hybrid"
+  frontend_host: "vercel"
+  backend_host: "azure"
+  model_host: "edge"
+  fallback_mode: "vercel-static"
+  versioning: true
+  zoom_responsive: true
+  geospatial_ready: true

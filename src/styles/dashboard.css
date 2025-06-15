@@ -1,0 +1,74 @@
+/* Dashboard-specific styles for Scout Analytics */
+
+.grid-cols-dashboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem;
+}
+
+/* TBWA brand pill styles */
+.pill-tbwa {
+  @apply bg-yellow-50 text-yellow-800 border-l-4 border-yellow-400 px-3 py-1 rounded-r-md font-medium;
+}
+
+/* Interactive chart enhancements */
+.chart-interactive {
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.chart-interactive:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Geospatial chart styling */
+.geo-chart-region {
+  transition: opacity 0.2s ease;
+}
+
+.geo-chart-region:hover {
+  opacity: 0.8;
+}
+
+/* AI panel styling */
+.ai-panel {
+  @apply border-l-4 border-blue-400 bg-blue-50 p-4 rounded-r-lg;
+}
+
+.ai-panel-confidence-high {
+  @apply border-green-400 bg-green-50;
+}
+
+.ai-panel-confidence-low {
+  @apply border-yellow-400 bg-yellow-50;
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+  .grid-cols-dashboard {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .chart-container {
+    min-height: 200px;
+  }
+}
+
+/* Filter pill enhancements */
+.filter-pills {
+  @apply flex flex-wrap gap-2 mb-4;
+}
+
+.filter-pill {
+  @apply px-3 py-1 rounded-full text-sm font-medium border cursor-pointer transition-colors;
+}
+
+.filter-pill-active {
+  @apply bg-blue-600 text-white border-blue-600;
+}
+
+.filter-pill-inactive {
+  @apply bg-gray-100 text-gray-700 border-gray-300 hover:bg-gray-200;
+}
