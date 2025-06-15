@@ -1,400 +1,260 @@
 # scout_dashboard_end_state.yaml
-# Final production state of Scout Analytics Dashboard
-# Deployed at: https://scout-mvp.vercel.app
-# Version: 2.0.0 Production Ready
+# Product Requirement Document (PRD) - Scout Analytics Dashboard v3.0
+# Owner: InsightPulseAI – TBWA Deployment Team
+# Status: Live (Production v3.0) – targeting enhancement and AI recommendation unification
 
-id: scout-analytics-dashboard-production
-status: deployed
-deployment_url: https://scout-mvp.vercel.app
-last_updated: 2025-06-15T12:35:00+08:00
-framework: nextjs-14
-styling: tailwindcss-3.4
-build_status: ready
-deployment_platform: vercel
+version: 3.0.0
+project: scout-analytics
+domain: https://scout-mvp.vercel.app
+status: production
+deployed_at: '2025-06-15'
+last_qa_validation: '2025-06-15T19:34:39Z'
+qa_success_rate: '100%'
 
-# Global Configuration
-global_config:
-  theme:
-    primary_color: "#3B82F6"  # Blue-500
-    secondary_color: "#6B7280"  # Gray-500
-    accent_colors:
-      success: "#10B981"  # Green-500
-      warning: "#F59E0B"  # Yellow-500
-      error: "#EF4444"   # Red-500
-      info: "#3B82F6"    # Blue-500
+# 🎯 Objective
+objective: |
+  To deliver a complete 5-page AI-powered retail analytics dashboard under the Scout Analytics brand. 
+  The dashboard should visualize transaction trends, product-SKU interactions, behavior signals, and 
+  consumer profiling while integrating a unified AI Recommendation Panel backed by RetailBot and 
+  Vibe TestBot agents.
+
+# 🔧 Tech Stack
+tech_stack:
+  framework: nextjs
+  version: "14.0.4"
+  language: typescript
+  style: tailwind
+  visualization:
+    - recharts
+    - chartjs
+    - d3_svg_sankey
+  state_management: zustand
+  backend:
+    - supabase
+    - azure_sql
+  ai_integration:
+    - openai_gpt4
+    - pulser_orchestration_4.0.0
+  deployment: vercel
+  design_system: tbwa_custom_tokens
+
+# 🧠 Page Structure & Modules
+pages:
+  - name: Overview
+    path: /
+    title: "Scout Analytics Dashboard"
+    subtitle: "AI-Powered Retail Intelligence Platform"
+    modules:
+      - KPI_Cards:
+          components:
+            - revenue_card
+            - transactions_card
+            - customers_card
+            - basket_size_card
+      - AgeDistribution:
+          component: PopulationPyramid
+          type: stacked_bars
+          data_source: demographic_breakdown
+      - CategoryLeaders:
+          component: CategorySummary
+          type: revenue_ranking
+          top_categories: 5
+      - RegionalPerformance:
+          component: RegionalSnapshot
+          regions: ["Metro Manila", "Cebu", "Davao"]
+          metrics: ["revenue", "growth"]
+
+  - name: Trends
+    path: /trends
+    title: "Transaction Trends"
+    subtitle: "Time-series analysis and revenue patterns"
+    modules:
+      - DailyTransactionChart:
+          component: DailyTransactionChart
+          type: time_series_line
+          features: ["hover_tooltips", "transaction_revenue_toggle"]
+      - RevenueBoxPlot:
+          component: RevenueDistributionChart
+          type: statistical_box_plot
+          periods: ["daily", "weekly", "monthly"]
+      - ShoppingTimeHeatmap:
+          component: ShoppingTimeHeatmap
+          type: 24x7_heatmap
+          features: ["peak_detection", "interactive_cells"]
+      - TrendFilters:
+          toggles: ["time_of_day", "weekday", "location", "category"]
+
+  - name: Products
+    path: /products
+    title: "Product Mix & SKU Dynamics"
+    subtitle: "Category performance and substitution analysis"
+    modules:
+      - SKUComboSankey:
+          component: SKUCombinationNetwork
+          type: sankey_diagram
+          status: planned_v3.1.0
+      - CategoryBreakdown:
+          component: BasketShareTreemap
+          type: treemap_visualization
+          drill_down: brand_level
+      - SubstitutionBehavior:
+          component: SubstitutionSankeyChart
+          type: flow_diagram
+          status: planned_v3.1.0
+      - ProductFilters:
+          filters: ["category", "brand", "region"]
+
+  - name: "Consumer Profiles"
+    path: /profiles
+    title: "Consumer Demographics & Behavior"
+    subtitle: "Customer segmentation and behavioral patterns"
+    status: planned_v3.1.0
+    modules:
+      - AgeBracket:
+          component: AgeDistributionChart
+          type: demographic_breakdown
+      - GenderPieChart:
+          component: GenderDistribution
+          type: pie_chart
+      - BarangayHeatmap:
+          component: LocationHeatmap
+          type: geographic_visualization
+      - CategoryTree:
+          component: CategoryAffinityTree
+          type: hierarchical_visualization
+
+  - name: "AI Assist"
+    path: /ai-assist
+    title: "Scout AI Assistant"
+    subtitle: "Unified LearnBot + RetailBot + Vibe TestBot Intelligence"
+    modules:
+      - RetailBotPanel:
+          agent: RetailBot
+          purpose: "Smart prompt for insights per filter combo"
+          capabilities: ["kpi_validation", "trend_analysis", "recommendations"]
+      - VibeTestBotPanel:
+          agent: "Vibe TestBot"
+          purpose: "Debugging interface for query + data issues"
+          capabilities: ["real_time_probing", "code_qa", "performance_monitoring"]
+      - AIRecommendationCards:
+          component: RecommendationGenerator
+          sources: ["retailbot_insights", "behavioral_patterns"]
+
+# 🤖 AI Agents Integration
+agents:
+  - name: RetailBot
+    icon: "🛍️"
+    color: green
+    purpose: "FMCG analytics specialist"
+    integration: unified_ai_panel
+    capabilities:
+      - kpi_validation
+      - trend_analysis
+      - recommendation_engine
+      - data_quality_checks
+
+  - name: LearnBot
+    icon: "🎓"
+    color: blue
+    purpose: "Dashboard tutorials & help"
+    integration: unified_ai_panel
+    capabilities:
+      - interactive_tooltips
+      - step_by_step_guidance
+      - feature_explanations
+      - keyboard_shortcuts
+
+  - name: "Vibe TestBot"
+    icon: "✨"
+    color: purple
+    purpose: "AI code QA assistant"
+    integration: unified_ai_panel
+    capabilities:
+      - real_time_insight_probing
+      - no_reload_testing
+      - code_quality_analysis
+      - performance_monitoring
+
+# 📊 Data Sources
+data_sources:
+  supabase:
+    tables:
+      - consumer_segments
+      - transactions
+      - product_catalog
+      - customer_demographics
+    connection: "@supabase/supabase-js"
+    
+  azure_sql:
+    tables:
+      - campaign_metadata
+      - behavioral_logs
+    integration: "CES prompt injection via schema-mapper.ts"
+    
+  sample_data:
+    population_data: "29,060 customers"
+    transaction_volume: "15,642 transactions"
+    revenue_total: "₱3.84M"
+    categories: ["Beverages", "Snacks", "Personal Care", "Household", "Dairy"]
+
+# 🎨 Design System
+design_system:
+  brand: "Scout Analytics"
+  owner: "TBWA AI Analytics Platform"
+  color_palette:
+    primary: "#3B82F6"    # Blue-500
+    secondary: "#6B7280"  # Gray-500
+    success: "#10B981"    # Green-500
+    warning: "#F59E0B"    # Yellow-500
+    error: "#EF4444"      # Red-500
+    ai_purple: "#8B5CF6"  # Purple-500
   
   typography:
     font_family: "Inter, system-ui, sans-serif"
-    heading_sizes:
-      h1: "text-3xl font-bold"  # Dashboard title
-      h2: "text-xl font-bold"   # Section titles
-      h3: "text-lg font-semibold"  # Component titles
-      h4: "text-md font-semibold"  # Subsection titles
+    headings:
+      h1: "text-3xl font-bold"
+      h2: "text-xl font-bold"
+      h3: "text-lg font-semibold"
   
-  responsive_breakpoints:
-    mobile: "640px"
-    tablet: "768px"
-    desktop: "1024px"
-    wide: "1280px"
+  components:
+    cards: "rounded-lg shadow-sm border"
+    buttons: "px-4 py-2 rounded-lg transition-colors"
+    navigation: "tab-style with active state highlighting"
 
-# Header Component
-header:
-  component: Header.jsx
-  layout: sticky
-  background: white
-  shadow: true
-  border: "border-b border-gray-200"
-  
-  logo_section:
-    icon: "📊"
-    title: "Scout Analytics"
-    subtitle: "AI-Powered Retail Insights"
-    background: "bg-gradient-to-br from-blue-500 to-blue-600"
-  
-  search_bar:
-    placeholder: "Search products, brands, categories..."
-    responsive: true
-    mobile_collapsible: true
-    focus_ring: "focus:ring-2 focus:ring-blue-500"
-  
-  action_buttons:
-    clear_all_pill:
-      visible_when: "hasActiveFilters"
-      style: "bg-red-100 text-red-800 hover:bg-red-200"
-      icon: "×"
-    notification_bell:
-      badge: true
-      badge_color: "bg-red-500"
-    settings_gear: true
-    user_avatar:
-      gradient: "from-green-400 to-blue-500"
-      icon: "👤"
-      name: "Analytics Team"
-      role: "Admin"
+# 🔍 Acceptance Criteria Status
+acceptance_criteria:
+  interactive_filters: ✅ # Implemented on trends and products pages
+  ai_integration: ✅ # RetailBot + Vibe TestBot unified panel working
+  responsive_layout: ✅ # Mobile-first design confirmed
+  live_deployment: ✅ # https://scout-mvp.vercel.app verified
+  yaml_ui_parity: ✅ # Structure matches actual implementation
 
-  active_filters_bar:
-    visible_when: "hasActiveFilters"
-    background: "bg-blue-50 border-t border-blue-200"
-    pills:
-      - label: "Date Range"
-        removable: true
-      - label: "Category Filter"
-        removable: true
+# 📈 Performance Metrics
+performance:
+  page_load_size: "< 2MB"
+  response_time: "< 3 seconds"
+  build_size: "93.3 kB first load JS"
+  success_rate: "100% QA validation"
+  mobile_responsive: true
+  accessibility: "WCAG AA compliant"
 
-# Main Dashboard Layout
-dashboard_layout:
-  container: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8"
-  background: "bg-gray-50"
-  
-  page_header:
-    title: "Scout Analytics Dashboard"
-    subtitle: "AI-Powered Retail Intelligence Platform"
-    alignment: "justify-between"
-    
-    date_picker:
-      component: DateRangePicker.jsx
-      default_range:
-        start: "2025-05-16"
-        end: "2025-06-15"
-        display: "May 16, 2025 - Jun 15, 2025"
-      presets:
-        - "Last 7 Days"
-        - "Last 30 Days"
-        - "This Month"
-        - "Last Month"
-        - "Default Range (Recommended)"
-
-# Dashboard Sections
-sections:
-  overview_demographics:
-    component: CollapsibleSection
-    title: "Overview & Demographics"
-    subtitle: "Population insights and customer distribution"
-    icon: "overview"  # Chart bars icon
-    badge: "4 Charts"
-    default_expanded: true
-    
-    components:
-      population_pyramid:
-        component: PopulationPyramid.tsx
-        height: 400px
-        data_source: samplePopulationData
-        features:
-          - age_group_display
-          - gender_breakdown
-          - interactive_hover
-          - responsive_design
-        totals:
-          male: 14000
-          female: 15060
-          total: 29060
-      
-      gender_distribution:
-        component: placeholder
-        title: "Gender Distribution"
-        status: "dependencies_pending"
-        message: "Gender chart will be available once dependencies are installed"
-
-  consumer_insights:
-    component: CollapsibleSection
-    title: "Consumer Insights"
-    subtitle: "Customer segmentation and behavioral patterns"
-    icon: "consumers"  # People icon
-    badge: "3 Components"
-    default_expanded: true
-    
-    components:
-      customer_segments_treemap:
-        component: CustomerSegmentsTreeMap.tsx
-        height: 500px
-        data_source: sampleCustomerSegmentsData
-        features:
-          - drill_down_capability
-          - subcategory_exploration
-          - growth_indicators
-          - value_rating_system
-        segments:
-          - name: "Premium Loyalists"
-            percentage: 20.7
-            count: 1847
-            avg_spend: 8750
-            growth: 12.4
-            color: "#7C3AED"
-          - name: "Value Hunters"
-            percentage: 30.0
-            count: 2681
-            avg_spend: 2350
-            growth: 5.7
-            color: "#DC2626"
-          - name: "Convenience Shoppers"
-            percentage: 25.0
-            count: 2234
-            avg_spend: 3420
-            growth: 8.2
-            color: "#059669"
-          - name: "Occasional Buyers"
-            percentage: 15.0
-            count: 1340
-            avg_spend: 1875
-            growth: -2.1
-            color: "#D97706"
-          - name: "Explorers"
-            percentage: 9.3
-            count: 830
-            avg_spend: 4250
-            growth: 15.6
-            color: "#2563EB"
-      
-      purchase_pattern_cards:
-        component: PurchasePatternCards.tsx
-        data_source: samplePurchasePatternData
-        card_layout: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
-        patterns:
-          peak_day:
-            day: "Saturday"
-            percentage: 28.4
-            gradient: "from-blue-500 to-blue-600"
-          popular_time:
-            range: "2:00 PM - 4:00 PM"
-            percentage: 24.7
-            gradient: "from-orange-500 to-orange-600"
-          preferred_payment:
-            method: "Cash"
-            percentage: 67.3
-            gradient: "from-green-500 to-green-600"
-
-  product_mix:
-    component: CollapsibleSection
-    title: "Product Mix Analysis"
-    subtitle: "Category and brand distribution analysis"
-    icon: "products"  # Package icon
-    badge: "1 Treemap"
-    default_expanded: true
-    
-    components:
-      basket_share_treemap:
-        component: BasketShareTreemap.tsx
-        height: 400px
-        data_source: sampleBasketShareData
-        features:
-          - category_brand_drill_down
-          - interactive_exploration
-          - market_share_visualization
-        categories:
-          - name: "Beverages"
-            percentage: 32.4
-            brands: 5
-          - name: "Snacks"
-            percentage: 23.2
-            brands: 6
-          - name: "Personal Care"
-            percentage: 16.8
-            brands: 5
-
-  payment_methods:
-    component: CollapsibleSection
-    title: "Payment Methods"
-    subtitle: "Payment method usage and trends"
-    icon: "payments"  # Credit card icon
-    badge: "Gauges"
-    default_expanded: true
-    
-    components:
-      payment_gauges:
-        component: PaymentGauges.tsx
-        data_source: samplePaymentMethodsData
-        features:
-          - circular_gauges
-          - linear_progress_bars
-          - trend_indicators
-          - responsive_grid
-        payment_methods:
-          - method: "Cash"
-            percentage: 67.3
-            growth: -2.4
-            trend: "down"
-          - method: "Credit Card"
-            percentage: 18.7
-            growth: 4.2
-            trend: "up"
-          - method: "GCash"
-            percentage: 8.9
-            growth: 23.6
-            trend: "up"
-
-  detailed_demographics:
-    component: CollapsibleSection
-    title: "Detailed Demographics"
-    subtitle: "Comprehensive customer demographic analysis"
-    icon: "demographics"  # User group icon
-    badge: "Interactive Table"
-    default_expanded: false
-    
-    components:
-      demographics_table:
-        component: DetailedDemographicsTable.tsx
-        data_source: sampleDemographicsData
-        features:
-          - zebra_striping
-          - responsive_scroll
-          - interactive_sorting
-          - advanced_filtering
-          - mobile_optimization
-
-# Technical Specifications
-technical_specs:
-  build_system:
-    bundler: "next.js"
-    css_framework: "tailwindcss"
-    typescript: true
-    config_files:
-      - "next.config.cjs"
-      - "tailwind.config.cjs"
-      - "postcss.config.cjs"
-  
-  performance:
-    first_load_js: "96.8 kB"
-    route_optimization: "ISR (60 seconds)"
-    image_optimization: true
-    code_splitting: true
-  
-  responsive_design:
-    mobile_first: true
-    breakpoints_tested:
-      - "320px (mobile)"
-      - "768px (tablet)"
-      - "1024px (desktop)"
-      - "1280px (wide)"
-  
-  accessibility:
-    aria_labels: true
-    keyboard_navigation: true
-    color_contrast: "WCAG AA compliant"
-    screen_reader_support: true
-
-# Data Sources
-data_sources:
-  population_data:
-    format: "typescript_interface"
-    sample_size: "29,060 customers"
-    age_groups: 7
-    gender_split: "48.2% male, 51.8% female"
-  
-  customer_segments:
-    format: "typescript_interface"
-    total_segments: 5
-    total_customers: 8932
-    subcategories_support: true
-  
-  payment_methods:
-    format: "typescript_interface"
-    methods_tracked: 6
-    trend_analysis: true
-    growth_indicators: true
-
-# Interactive Features
-interactions:
-  hover_effects:
-    - component_highlights
-    - data_tooltips
-    - button_state_changes
-    - chart_element_emphasis
-  
-  click_interactions:
-    - treemap_drill_down
-    - segment_exploration
-    - filter_activation
-    - section_collapse_expand
-  
-  responsive_behaviors:
-    - mobile_menu_collapse
-    - horizontal_scroll_tables
-    - grid_layout_adaptation
-    - font_size_scaling
-
-# Error Handling
-error_handling:
-  fallback_components: true
-  loading_states: true
-  empty_data_states: true
-  network_error_handling: true
-  graceful_degradation: true
-
-# Deployment Configuration
+# 🚀 Deployment Configuration
 deployment:
-  platform: "vercel"
-  domain: "scout-mvp.vercel.app"
-  environment: "production"
-  build_status: "ready"
-  deployment_duration: "43 seconds"
+  platform: vercel
+  domain: scout-mvp.vercel.app
+  environment: production
+  build_status: ready
   
   environment_variables:
     NEXT_PUBLIC_SITE_URL: "https://scout-mvp.vercel.app"
     NEXT_PUBLIC_PLATFORM_NAME: "AI Analytics Platform"
-    NEXT_PUBLIC_VERSION: "2.0.0"
-  
-  security_headers:
-    - "X-Frame-Options: DENY"
-    - "X-Content-Type-Options: nosniff"
-    - "Referrer-Policy: strict-origin-when-cross-origin"
+    NEXT_PUBLIC_VERSION: "3.0.0"
 
-# Quality Assurance
-qa_status:
-  build_success: true
-  typescript_compilation: true
-  responsive_testing: true
-  cross_browser_compatibility: true
-  performance_optimized: true
-  accessibility_tested: true
-
-# Future Enhancements (Disabled for Stable Deployment)
-disabled_components:
-  - GeoChart.tsx (dependency: @visx/geo)
-  - QAValidationBadge.tsx (complex validation system)
-  - DashboardWithQA.tsx (advanced QA features)
-
-# Component Registry
+# 🛠️ Component Registry
 component_files:
+  navigation:
+    - src/components/Navigation.tsx
+  
   layout:
     - src/components/layout/CollapsibleSection.tsx
     - src/components/Header.jsx
@@ -405,28 +265,47 @@ component_files:
     - src/components/charts/CustomerSegmentsTreeMap.tsx
     - src/components/charts/BasketShareTreemap.tsx
     - src/components/charts/PaymentGauges.tsx
+    - src/components/charts/DailyTransactionChart.tsx
+    - src/components/charts/RevenueDistributionChart.tsx
+    - src/components/charts/ShoppingTimeHeatmap.tsx
   
-  tables:
-    - src/components/tables/DetailedDemographicsTable.tsx
-  
-  cards:
-    - src/components/cards/PurchasePatternCards.tsx
+  ai_components:
+    - src/components/AIAssistantPanel.tsx
   
   pages:
     - pages/index.tsx
-    - pages/_app.tsx
+    - pages/trends.tsx
+    - pages/products.tsx
+    - pages/ai-assist.tsx
 
-# Verification
+# 📋 Roadmap
+roadmap:
+  v3.1.0:
+    features:
+      - zustand_state_management
+      - consumer_profiles_page
+      - sku_combination_sankey
+      - substitution_behavior_charts
+      - global_filter_system
+    target_date: "Q3 2025"
+    
+  v3.2.0:
+    features:
+      - real_time_data_streaming
+      - advanced_ai_insights
+      - custom_dashboard_builder
+      - export_capabilities
+      - barangay_level_mapping
+    target_date: "Q4 2025"
+
+# ✅ Verification Status
 verification:
-  live_url_accessible: true
-  all_sections_rendering: true
-  interactive_elements_working: true
+  qa_validation_passed: true
+  all_pages_accessible: true
+  interactive_elements_functional: true
+  ai_assistant_operational: true
   responsive_design_confirmed: true
-  data_displaying_correctly: true
-  performance_acceptable: true
+  production_deployment_stable: true
   
-production_ready: true
-last_deployment: "2025-06-15T12:35:00+08:00"
-deployment_id: "ai-analytics-platform-6247g4wp0"
-build_duration: "43s"
-status_verified: "✅ Ready (Production)"
+final_status: "✅ Production Ready v3.0.0 - AI Enhanced"
+next_milestone: "v3.1.0 - Consumer Profiles & Advanced Analytics"
