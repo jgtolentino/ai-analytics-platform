@@ -7,6 +7,9 @@ import { Header } from '../src/components/Header.jsx';
 import { DateRangePicker } from '../src/components/DateRangePicker.jsx';
 import Navigation from '../src/components/Navigation';
 import CollapsibleSection, { sectionPresets } from '../src/components/layout/CollapsibleSection';
+import DailyTransactionChart from '../src/components/charts/DailyTransactionChart';
+import RevenueDistributionChart from '../src/components/charts/RevenueDistributionChart';
+import ShoppingTimeHeatmap from '../src/components/charts/ShoppingTimeHeatmap';
 
 export default function TransactionTrends() {
   return (
@@ -46,18 +49,7 @@ export default function TransactionTrends() {
             badge="Line Chart"
             defaultExpanded={true}
           >
-            <div className="bg-white rounded-lg p-6 border border-gray-200">
-              <div className="h-80 flex items-center justify-center bg-gray-50 rounded-lg">
-                <div className="text-center">
-                  <div className="text-4xl mb-4">📈</div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">Daily Transaction Line Chart</h3>
-                  <p className="text-gray-600">Interactive time-series visualization showing daily transaction volumes</p>
-                  <div className="mt-4 text-sm text-gray-500">
-                    Features: Zoom, pan, hover tooltips, trend lines
-                  </div>
-                </div>
-              </div>
-            </div>
+            <DailyTransactionChart height={400} />
           </CollapsibleSection>
 
           {/* Revenue Distribution */}
@@ -68,18 +60,7 @@ export default function TransactionTrends() {
             badge="Box Plot"
             defaultExpanded={true}
           >
-            <div className="bg-white rounded-lg p-6 border border-gray-200">
-              <div className="h-80 flex items-center justify-center bg-gray-50 rounded-lg">
-                <div className="text-center">
-                  <div className="text-4xl mb-4">📊</div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">Revenue Distribution Box Plot</h3>
-                  <p className="text-gray-600">Statistical distribution of transaction values and revenue patterns</p>
-                  <div className="mt-4 text-sm text-gray-500">
-                    Features: Quartiles, outliers, median trends
-                  </div>
-                </div>
-              </div>
-            </div>
+            <RevenueDistributionChart height={400} />
           </CollapsibleSection>
 
           {/* Shopping Time Heatmap */}
@@ -90,18 +71,7 @@ export default function TransactionTrends() {
             badge="Heatmap"
             defaultExpanded={true}
           >
-            <div className="bg-white rounded-lg p-6 border border-gray-200">
-              <div className="h-80 flex items-center justify-center bg-gray-50 rounded-lg">
-                <div className="text-center">
-                  <div className="text-4xl mb-4">🔥</div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">Shopping Time Heatmap</h3>
-                  <p className="text-gray-600">24-hour x 7-day heatmap showing peak shopping periods</p>
-                  <div className="mt-4 text-sm text-gray-500">
-                    Features: Interactive cells, intensity scaling, peak highlighting
-                  </div>
-                </div>
-              </div>
-            </div>
+            <ShoppingTimeHeatmap height={400} />
           </CollapsibleSection>
 
           {/* Regional Performance */}
