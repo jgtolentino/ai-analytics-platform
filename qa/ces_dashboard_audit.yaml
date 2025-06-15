@@ -1,0 +1,152 @@
+# CES Dashboard Audit - Creative Effectiveness QA Validation Schema
+# Version: 1.0.0
+# Compatible with: Pulser QA Engine + Caca Validator
+# Last Updated: 2025-01-15
+
+dashboard_audit:
+  id: ces-creative-audit
+  version: 1.0.0
+  domain: creative-effectiveness
+  platform: scout-analytics-mvp
+  environment: production
+  
+  metadata:
+    description: "Comprehensive QA validation for CES Creative Effectiveness dashboard"
+    coverage: "Creative analysis, Ask CES AI, campaign optimization, business outcomes"
+    framework: "Caca automated testing + creative validation checkpoints"
+    
+  pages:
+    - id: ask_ces_chat
+      title: "💬 Ask CES Conversational AI"
+      priority: critical
+      checks:
+        - { id: chat_interface, label: "Chat interface renders correctly", required: true, type: "ui_rendering" }
+        - { id: message_history, label: "Message history persistence", required: true, type: "state_management" }
+        - { id: context_awareness, label: "Brand/campaign context in responses", required: true, type: "contextual_ai" }
+        - { id: response_time, label: "Response time <3s", required: true, type: "performance" }
+        - { id: ces_framework_knowledge, label: "Demonstrates CES framework knowledge", required: true, type: "domain_expertise" }
+        - { id: suggested_queries, label: "Suggested question prompts", required: true, type: "user_guidance" }
+        - { id: confidence_indicators, label: "Response confidence indicators", required: true, type: "ai_transparency" }
+
+    - id: creative_analysis
+      title: "🎨 Creative Analysis Engine"
+      priority: critical
+      checks:
+        - { id: asset_upload, label: "Asset upload (images, videos, docs)", required: true, type: "file_handling" }
+        - { id: ces_scoring, label: "5-pillar CES scoring display", required: true, type: "scoring_algorithm" }
+        - { id: feature_breakdown, label: "25 creative features breakdown", required: true, type: "detailed_analysis" }
+        - { id: business_outcomes, label: "Business outcome predictions", required: true, type: "predictive_analytics" }
+        - { id: analysis_confidence, label: "Analysis confidence scores", required: true, type: "quality_metrics" }
+        - { id: visual_elements, label: "Visual element recognition", required: true, type: "computer_vision" }
+        - { id: text_extraction, label: "Text content extraction", required: true, type: "ocr_processing" }
+
+    - id: campaign_insights
+      title: "📊 Campaign Performance Insights"
+      priority: high
+      checks:
+        - { id: campaign_overview, label: "Campaign overview dashboard", required: true, type: "summary_display" }
+        - { id: asset_comparison, label: "Asset-to-asset comparison", required: true, type: "comparative_analysis" }
+        - { id: performance_correlation, label: "CES score vs performance correlation", required: true, type: "correlation_analysis" }
+        - { id: temporal_trends, label: "Performance trends over time", required: true, type: "time_series_analysis" }
+        - { id: roi_tracking, label: "ROI and business impact tracking", required: true, type: "financial_metrics" }
+        - { id: competitive_benchmarks, label: "Competitive benchmarking", required: false, type: "market_intelligence" }
+
+    - id: optimization_recommendations
+      title: "🚀 Creative Optimization Panel"
+      priority: high
+      checks:
+        - { id: actionable_recommendations, label: "Actionable optimization recommendations", required: true, type: "ai_recommendations" }
+        - { id: priority_ranking, label: "Priority ranking (high/medium/low)", required: true, type: "recommendation_prioritization" }
+        - { id: implementation_guidance, label: "Implementation guidance", required: true, type: "tactical_advice" }
+        - { id: expected_impact, label: "Expected impact estimates", required: true, type: "outcome_prediction" }
+        - { id: category_grouping, label: "Recommendations by category", required: true, type: "structured_recommendations" }
+        - { id: before_after_preview, label: "Before/after creative previews", required: false, type: "visual_comparison" }
+
+    - id: brand_guidelines
+      title: "🏷️ Brand-Specific Guidelines"
+      priority: medium
+      checks:
+        - { id: brand_consistency, label: "Brand consistency scoring", required: true, type: "brand_compliance" }
+        - { id: tbwa_brands, label: "TBWA brand portfolio support", required: true, type: "brand_coverage" }
+        - { id: brand_voice, label: "Brand voice and tone analysis", required: true, type: "tone_analysis" }
+        - { id: visual_identity, label: "Visual identity compliance", required: true, type: "design_compliance" }
+        - { id: guideline_violations, label: "Guideline violation alerts", required: true, type: "compliance_monitoring" }
+
+    - id: ai_model_performance
+      title: "🤖 AI Model Performance Monitoring"
+      priority: high
+      checks:
+        - { id: model_accuracy, label: "Model accuracy tracking", required: true, type: "ml_performance" }
+        - { id: confidence_calibration, label: "Confidence score calibration", required: true, type: "uncertainty_quantification" }
+        - { id: bias_detection, label: "Bias detection and mitigation", required: true, type: "fairness_monitoring" }
+        - { id: model_drift, label: "Model drift monitoring", required: true, type: "performance_degradation" }
+        - { id: human_feedback, label: "Human feedback integration", required: true, type: "human_in_loop" }
+        - { id: a_b_testing, label: "A/B testing framework", required: false, type: "experimentation" }
+
+    - id: data_integration
+      title: "🔗 Data Integration & Pipeline"
+      priority: high
+      checks:
+        - { id: gdrive_sync, label: "Google Drive asset synchronization", required: true, type: "external_integration" }
+        - { id: metadata_extraction, label: "Asset metadata extraction", required: true, type: "data_processing" }
+        - { id: versioning, label: "Asset version control", required: true, type: "version_management" }
+        - { id: batch_processing, label: "Batch asset processing", required: true, type: "scalability" }
+        - { id: error_handling, label: "Pipeline error handling", required: true, type: "reliability" }
+        - { id: audit_trail, label: "Analysis audit trail", required: true, type: "traceability" }
+
+    - id: user_experience
+      title: "👤 User Experience & Interface"
+      priority: medium
+      checks:
+        - { id: intuitive_navigation, label: "Intuitive navigation flow", required: true, type: "ux_design" }
+        - { id: loading_states, label: "Loading states and progress indicators", required: true, type: "user_feedback" }
+        - { id: error_messages, label: "Clear error messages and recovery", required: true, type: "error_handling_ux" }
+        - { id: mobile_responsive, label: "Mobile responsive design", required: true, type: "responsive_design" }
+        - { id: accessibility, label: "Accessibility compliance", required: true, type: "inclusivity" }
+        - { id: onboarding, label: "User onboarding and tutorials", required: true, type: "user_guidance" }
+
+  validation_rules:
+    performance:
+      creative_analysis_time: "<2s per asset"
+      ask_ces_response_time: "<3s"
+      dashboard_load_time: "<1s"
+      file_upload_handling: "<10s for 50MB"
+      
+    accuracy:
+      ces_scoring_consistency: ">95%"
+      recommendation_relevance: ">85%"
+      brand_detection_accuracy: ">90%"
+      
+    ai_quality:
+      confidence_threshold: ">80%"
+      hallucination_rate: "<5%"
+      context_awareness: ">90%"
+      
+  automation:
+    caca_integration:
+      test_frequency: "every_deployment"
+      regression_coverage: ">90%"
+      ai_model_monitoring: "continuous"
+      
+    reporting:
+      format: ["json", "yaml", "html_dashboard"]
+      stakeholders: ["creative_team", "dev_team", "client_services"]
+      
+  success_criteria:
+    critical_checks_passing: "100%"
+    high_priority_checks: ">95%"
+    medium_priority_checks: ">85%"
+    ai_quality_targets_met: "100%"
+    zero_critical_ai_failures: true
+    
+  execution:
+    pulser_command: ":clodrep qa:load ces_dashboard_audit.yaml"
+    caca_validation: "qa/ping_caca.ts --audit-schema ces_dashboard_audit.yaml --ai-focus"
+    manual_review: "required for creative quality assessment"
+    
+notes:
+  - "Specialized validation schema for CES Creative Effectiveness System"
+  - "Emphasizes AI model performance and creative analysis quality"
+  - "Includes brand compliance and guideline adherence checks"
+  - "Performance benchmarks optimized for creative asset processing"
+  - "Comprehensive coverage of Ask CES conversational AI capabilities"

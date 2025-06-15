@@ -1,0 +1,152 @@
+# Scout Dashboard Signal Audit - Comprehensive QA Validation Schema
+# Version: 1.0.0
+# Compatible with: Pulser QA Engine + Caca Validator
+# Last Updated: 2025-01-15
+
+dashboard_audit:
+  id: scout-signal-audit
+  version: 1.0.0
+  domain: transaction-insights
+  platform: scout-analytics-mvp
+  environment: production
+  
+  metadata:
+    description: "Comprehensive QA validation for Scout Analytics dashboard components"
+    coverage: "UI/UX, data structure, AI panels, filters, visualizations"
+    framework: "Caca automated testing + manual validation checkpoints"
+    
+  pages:
+    - id: transaction_trends
+      title: "📊 Transaction Trends Panel"
+      priority: high
+      checks:
+        - { id: total_txns, label: "Show total # of transactions", required: true, type: "data_display" }
+        - { id: timestamp_included, label: "Include timestamp (hour/day/weekend)", required: true, type: "temporal_data" }
+        - { id: peso_value_chart, label: "Visualize peso value per txn", required: true, type: "chart_rendering" }
+        - { id: txn_duration, label: "Show duration per transaction", required: true, type: "metric_calculation" }
+        - { id: region_toggle, label: "Include regional/barangay toggles", required: true, type: "filter_functionality" }
+        - { id: avg_txn_value, label: "Show average value per transaction", required: true, type: "kpi_display" }
+        - { id: geo_overlay, label: "Include geospatial overlays", required: false, type: "advanced_visualization" }
+
+    - id: product_mix
+      title: "🧺 Product Mix & SKU Info"
+      priority: high
+      checks:
+        - { id: category_breakdown, label: "Category breakdown per transaction", required: true, type: "data_aggregation" }
+        - { id: brand_breakdown, label: "Brand breakdown per transaction", required: true, type: "brand_analytics" }
+        - { id: top_skus, label: "Top SKUs per category", required: true, type: "ranking_display" }
+        - { id: units_per_txn, label: "Units per transaction", required: true, type: "quantity_metrics" }
+        - { id: substitution_map, label: "Substitution pattern mapping", required: true, type: "behavioral_analytics" }
+        - { id: sku_combos, label: "SKU combos (frequently bought together)", required: true, type: "association_rules" }
+        - { id: sankey_substitution, label: "Sankey/flowchart for substitution", required: false, type: "advanced_visualization" }
+        - { id: ai_sku_insights, label: "AI-generated SKU insights", required: false, type: "ai_recommendations" }
+
+    - id: consumer_behavior
+      title: "🧠 Consumer Behavior & Preference Signals"
+      priority: medium
+      checks:
+        - { id: product_request_type, label: "Capture branded vs generic vs unsure", required: true, type: "preference_classification" }
+        - { id: gesture_input, label: "Pointing or gesture (indirect)", required: true, type: "behavioral_signals" }
+        - { id: accept_suggestion, label: "Acceptance of storeowner suggestion", required: true, type: "influence_tracking" }
+        - { id: vocal_hesitation, label: "Highlight hesitation/exploration", required: true, type: "sentiment_analysis" }
+        - { id: llm_request_type, label: "LLM-classified request & influence", required: false, type: "ai_classification" }
+
+    - id: consumer_profiling
+      title: "🧬 Consumer Profiling"
+      priority: high
+      checks:
+        - { id: gender_inferred, label: "Inferred gender", required: true, type: "demographic_inference" }
+        - { id: age_bracket, label: "Age bracket via audio/video", required: true, type: "age_classification" }
+        - { id: location_mapping, label: "Location mapping (region/barangay)", required: true, type: "geographic_data" }
+        - { id: income_analysis, label: "Income bracket analysis", required: true, type: "economic_segmentation" }
+        - { id: repeat_customer, label: "Repeat customer rate", required: true, type: "loyalty_metrics" }
+        - { id: geo_heatmaps, label: "Geo heatmaps + demographic overlays", required: false, type: "spatial_visualization" }
+
+    - id: toggles_filters
+      title: "🧭 Toggle Logic & Filtering"
+      priority: high
+      checks:
+        - { id: time_of_day_filter, label: "Time of day filters", required: true, type: "temporal_filtering" }
+        - { id: region_filter, label: "Region/barangay filter", required: true, type: "geographic_filtering" }
+        - { id: brand_sku_filter, label: "Brand, category, SKU toggles", required: true, type: "product_filtering" }
+        - { id: weekday_weekend_toggle, label: "Weekend vs weekday toggle", required: true, type: "calendar_filtering" }
+        - { id: store_filter, label: "Store-level toggle", required: true, type: "location_filtering" }
+        - { id: context_aware_filter, label: "Context-aware filter dependency", required: true, type: "smart_filtering" }
+
+    - id: ai_panel
+      title: "🤖 AI Recommendation Panel"
+      priority: high
+      checks:
+        - { id: tactical_recos, label: "Show tactical suggestions", required: true, type: "ai_recommendations" }
+        - { id: personalized_recos, label: "Personalized per region/brand/category", required: true, type: "contextual_ai" }
+        - { id: explainability, label: "Explainability: why this suggestion?", required: true, type: "ai_transparency" }
+        - { id: roi_estimate, label: "ROI or impact estimate", required: false, type: "business_impact" }
+        - { id: context_awareness, label: "Context awareness from current filters", required: true, type: "filter_integration" }
+
+    - id: visual_audit
+      title: "🎨 Visualization UX Audit"
+      priority: medium
+      checks:
+        - { id: responsive_resize, label: "Responsive resize behavior", required: true, type: "responsive_design" }
+        - { id: mobile_desktop_reflow, label: "Chart reflow mobile/desktop", required: true, type: "cross_platform_ux" }
+        - { id: font_scaling, label: "Consistent font scaling", required: true, type: "typography_consistency" }
+        - { id: accessibility_text, label: "Alt text/legends for a11y", required: true, type: "accessibility_compliance" }
+        - { id: tooltips, label: "Drilldown/tooltips", required: true, type: "interactive_elements" }
+        - { id: skeleton_loading, label: "Skeleton loaders", required: true, type: "loading_states" }
+        - { id: filter_url_sync, label: "URL sync + localStorage for filters", required: true, type: "state_persistence" }
+
+    - id: data_struct
+      title: "📦 Data Structure Completeness"
+      priority: high
+      checks:
+        - { id: timestamp_field, label: "Timestamp captured (transaction_date)", required: true, type: "temporal_data_integrity" }
+        - { id: brand_product_mapping, label: "Brand + product mappings", required: true, type: "relational_integrity" }
+        - { id: region_hierarchy, label: "Store region hierarchy", required: true, type: "geographic_hierarchy" }
+        - { id: sku_price_unit, label: "SKU names, prices, units", required: true, type: "product_data_completeness" }
+        - { id: anon_customer, label: "Linked customer profile (anonymized OK)", required: true, type: "customer_data_privacy" }
+        - { id: audio_video_tags, label: "Optional audio/video tags", required: false, type: "multimedia_metadata" }
+
+  validation_rules:
+    performance:
+      page_load_time: "<1s"
+      api_response_time: "<100ms"
+      chart_render_time: "<2s"
+      filter_response_time: "<500ms"
+      
+    accuracy:
+      data_completeness: ">99%"
+      calculation_accuracy: "100%"
+      ui_consistency: ">95%"
+      
+    accessibility:
+      wcag_compliance: "AA"
+      keyboard_navigation: "full_support"
+      screen_reader: "compatible"
+      
+  automation:
+    caca_integration:
+      test_frequency: "every_2_hours"
+      regression_coverage: ">85%"
+      performance_monitoring: "continuous"
+      
+    reporting:
+      format: ["json", "yaml", "markdown"]
+      stakeholders: ["dev_team", "qa_team", "product_owner"]
+      
+  success_criteria:
+    required_checks_passing: "100%"
+    optional_checks_passing: ">80%"
+    performance_targets_met: "100%"
+    zero_critical_issues: true
+    
+  execution:
+    pulser_command: ":clodrep qa:load scout_dashboard_signal_audit.yaml"
+    caca_validation: "qa/ping_caca.ts --audit-schema scout_dashboard_signal_audit.yaml"
+    manual_review: "required for UI/UX components"
+    
+notes:
+  - "Comprehensive validation schema for Scout Analytics dashboard"
+  - "Compatible with Pulser QA engine and Caca automated testing"
+  - "Covers all critical user journeys and data integrity checks"
+  - "Performance benchmarks aligned with production SLA targets"
+  - "Accessibility compliance ensures inclusive user experience"
