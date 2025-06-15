@@ -5,6 +5,7 @@
 import React from 'react';
 import { Header } from '../src/components/Header.jsx';
 import { DateRangePicker } from '../src/components/DateRangePicker.jsx';
+import Navigation from '../src/components/Navigation';
 import CollapsibleSection, { sectionPresets } from '../src/components/layout/CollapsibleSection';
 import PopulationPyramid, { samplePopulationData } from '../src/components/charts/PopulationPyramid';
 // import GenderChart, { sampleGenderData } from '../src/components/charts/GenderChart';
@@ -23,6 +24,9 @@ export default function ScoutDashboard() {
         onClearAll={() => console.log('Clear all filters')}
         hasActiveFilters={true}
       />
+
+      {/* Navigation */}
+      <Navigation />
 
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
