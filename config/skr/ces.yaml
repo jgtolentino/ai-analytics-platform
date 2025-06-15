@@ -1,0 +1,254 @@
+# CES (Creative Effectiveness System) Strategy Knowledge Repository
+# TBWA Creative Intelligence Framework
+
+system:
+  name: "Creative Effectiveness System (CES)"
+  version: "2.0"
+  type: "AI-Powered Creative Intelligence"
+  owner: "TBWA"
+  
+live_binding: true
+qa_status: validated
+llm_provider: "azure-openai"
+model_backend: "azure-openai"
+
+framework:
+  core_pillars:
+    memorability:
+      weight: 25
+      description: "How well the creative sticks in consumers' minds"
+      metrics: ["brand_recall", "aided_awareness", "top_of_mind"]
+      
+    brand_connection:
+      weight: 25
+      description: "Clear linkage between creative and brand identity"
+      metrics: ["brand_attribution", "brand_fit", "brand_personality"]
+      
+    emotional_resonance:
+      weight: 20
+      description: "Emotional impact and connection with audience"
+      metrics: ["emotional_intensity", "sentiment_score", "empathy_rating"]
+      
+    clear_communication:
+      weight: 15
+      description: "Message clarity and comprehension"
+      metrics: ["message_clarity", "comprehension_rate", "takeaway_accuracy"]
+      
+    action_strength:
+      weight: 15
+      description: "Effectiveness of desired action prompting"
+      metrics: ["cta_clarity", "action_intent", "conversion_potential"]
+
+business_outcomes:
+  media_efficiency:
+    target: 8.5
+    threshold: 7.0
+    weight: 0.3
+    
+  conversion:
+    target: 7.5
+    threshold: 6.0
+    weight: 0.25
+    
+  brand_equity:
+    target: 8.0
+    threshold: 6.5
+    weight: 0.25
+    
+  engagement:
+    target: 7.0
+    threshold: 5.5
+    weight: 0.2
+
+creative_features:
+  content:
+    - visual_impact
+    - storytelling_quality
+    - brand_integration
+    - message_hierarchy
+    
+  design:
+    - color_psychology
+    - typography_effectiveness
+    - layout_composition
+    - visual_consistency
+    
+  messaging:
+    - headline_strength
+    - copy_clarity
+    - tone_appropriateness
+    - action_oriented_language
+    
+  targeting:
+    - audience_relevance
+    - cultural_sensitivity
+    - demographic_alignment
+    - psychographic_match
+    
+  channel:
+    - format_optimization
+    - platform_native_feel
+    - technical_quality
+    - cross_platform_consistency
+
+brands:
+  alaska:
+    category: "Dairy & Nutrition"
+    positioning: "Family nutrition and care"
+    target_demographics: ["families_with_children", "health_conscious"]
+    key_values: ["nutrition", "family", "trust", "quality"]
+    creative_guidelines:
+      - emphasize_family_moments
+      - highlight_nutritional_benefits
+      - use_warm_emotional_tones
+      - feature_real_families
+      
+  oishi:
+    category: "Snacks & Confectionery"
+    positioning: "Fun and innovative snacking"
+    target_demographics: ["kids", "teens", "young_adults"]
+    key_values: ["fun", "innovation", "taste", "excitement"]
+    creative_guidelines:
+      - use_bright_vibrant_colors
+      - incorporate_playful_elements
+      - feature_social_moments
+      - emphasize_taste_experience
+      
+  del_monte:
+    category: "Processed Foods"
+    positioning: "Quality and convenience for families"
+    target_demographics: ["busy_families", "working_professionals"]
+    key_values: ["quality", "convenience", "nutrition", "reliability"]
+    creative_guidelines:
+      - show_meal_solutions
+      - emphasize_time_saving
+      - highlight_quality_ingredients
+      - feature_family_satisfaction
+      
+  peerless:
+    category: "Beverages"
+    positioning: "Local pride and refreshment"
+    target_demographics: ["mass_market", "value_conscious"]
+    key_values: ["local_pride", "affordability", "refreshment", "community"]
+    creative_guidelines:
+      - celebrate_filipino_culture
+      - show_community_moments
+      - emphasize_value_proposition
+      - use_relatable_scenarios
+      
+  jti:
+    category: "Tobacco"
+    positioning: "Premium tobacco products"
+    target_demographics: ["adult_smokers"]
+    key_values: ["quality", "heritage", "responsibility"]
+    creative_guidelines:
+      - maintain_regulatory_compliance
+      - emphasize_product_quality
+      - use_sophisticated_imagery
+      - target_adult_audiences_only
+
+regions:
+  ncr:
+    characteristics: ["urban", "high_income", "diverse"]
+    consumer_behavior: ["brand_conscious", "convenience_focused"]
+    media_preferences: ["digital", "social_media", "ooh"]
+    
+  region_3:
+    characteristics: ["mixed_urban_rural", "agricultural"]
+    consumer_behavior: ["value_conscious", "family_oriented"]
+    media_preferences: ["tv", "radio", "traditional_ooh"]
+    
+  region_4a:
+    characteristics: ["suburban", "growing_middle_class"]
+    consumer_behavior: ["aspirational", "brand_aware"]
+    media_preferences: ["digital", "tv", "social_media"]
+    
+  visayas:
+    characteristics: ["island_provinces", "diverse_economies"]
+    consumer_behavior: ["regional_preferences", "price_sensitive"]
+    media_preferences: ["local_media", "radio", "community_events"]
+    
+  mindanao:
+    characteristics: ["agricultural", "diverse_cultures"]
+    consumer_behavior: ["local_preferences", "value_focused"]
+    media_preferences: ["local_media", "traditional_channels"]
+
+ai_capabilities:
+  analysis_types:
+    - creative_scoring
+    - business_outcome_prediction
+    - competitive_benchmarking
+    - optimization_recommendations
+    - trend_identification
+    
+  data_sources:
+    - google_drive_assets
+    - campaign_performance_data
+    - consumer_research
+    - competitive_intelligence
+    - cultural_insights
+    
+  output_formats:
+    - ces_scorecard
+    - optimization_roadmap
+    - strategic_recommendations
+    - performance_predictions
+    - benchmark_reports
+
+integration:
+  platforms:
+    - google_drive
+    - azure_sql
+    - azure_openai
+    - vercel_deployment
+    
+  apis:
+    - "/api/ask-ces"
+    - "/api/creative-analysis"
+    - "/api/campaign-analysis"
+    - "/api/qa/caca"
+    
+  components:
+    - "AskCES.tsx"
+    - "CreativeAnalysisCard.tsx"
+    - "CESScorecard.tsx"
+
+quality_assurance:
+  caca_validation:
+    test_coverage: "85%"
+    regression_tests: true
+    performance_benchmarks: true
+    
+  validation_criteria:
+    response_quality: ">80% keyword relevance"
+    context_awareness: "Brand and regional specificity"
+    actionability: "Concrete recommendations provided"
+    accuracy: "Aligned with CES framework"
+
+deployment:
+  status: "production_ready"
+  environment: "vercel"
+  database: "azure_sql"
+  llm_backend: "azure_openai"
+  
+monitoring:
+  metrics:
+    - response_time
+    - query_volume
+    - user_satisfaction
+    - accuracy_scores
+    
+  alerts:
+    - performance_degradation
+    - error_rate_threshold
+    - qa_test_failures
+
+notes:
+  - "CESAI is now connected to live Azure OpenAI model"
+  - "QA validation enabled via Caca snapshot tests"
+  - "Brand/region/date context syncs via Ask CES API"
+  - "All creative analysis routes through unified LLM backend"
+  - "Production deployment with monitoring and alerts active"
+  
+last_updated: "2025-01-15"
+validated_by: "Claude Code Assistant"

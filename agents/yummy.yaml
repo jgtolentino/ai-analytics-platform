@@ -1,0 +1,287 @@
+# Yummy Agent - ETL Controller for Scout Analytics & CES
+# Unified data pipeline orchestration across retail intelligence and creative effectiveness
+
+agent:
+  name: "Yummy"
+  type: "ETL Controller"
+  version: "2.0"
+  description: "Unified ETL orchestration for Scout Analytics retail data and CES creative assets"
+  owner: "TBWA AI Analytics Platform"
+
+capabilities:
+  - scout_data_generation
+  - ces_asset_extraction
+  - data_quality_validation
+  - pipeline_orchestration
+  - performance_monitoring
+
+platforms:
+  scout:
+    target_schema: "dbo"
+    data_sources:
+      - pos_systems
+      - inventory_feeds
+      - customer_data
+      - synthetic_generators
+    pipelines:
+      - retail_transactions
+      - customer_behavior
+      - product_performance
+      - market_intelligence
+      
+  ces:
+    target_schema: "ces"
+    data_sources:
+      - google_drive_folders
+      - campaign_assets
+      - performance_apis
+      - azure_openai_analysis
+    pipelines:
+      - asset_extraction
+      - creative_analysis
+      - performance_correlation
+      - optimization_generation
+
+data_sources:
+  google_drive:
+    type: "creative_assets"
+    authentication: "service_account"
+    supported_formats: ["mp4", "mov", "jpg", "png", "pdf", "pptx", "docx"]
+    extraction_methods:
+      - metadata_extraction
+      - text_content_ocr
+      - visual_analysis
+      - audio_transcription
+    
+  synthetic_retail:
+    type: "generated_data"
+    volume: "5000+ transactions/day"
+    brands: ["Alaska", "Oishi", "Del Monte", "Peerless", "JTI"]
+    regions: ["NCR", "Region 3", "Region 4A", "Visayas", "Mindanao"]
+    patterns:
+      - seasonal_trends
+      - consumer_behavior
+      - competitive_dynamics
+      - promotional_effects
+    
+  performance_apis:
+    facebook_ads: "campaign_metrics"
+    google_ads: "performance_data"
+    youtube_analytics: "video_metrics"
+    twitter_ads: "engagement_data"
+
+etl_workflows:
+  scout_pipeline:
+    schedule: "hourly"
+    steps:
+      1:
+        name: "Generate Transactions"
+        function: "generate_retail_transactions"
+        target_table: "dbo.transactions"
+        volume: "200+ per hour"
+        
+      2:
+        name: "Process Customer Behavior"
+        function: "analyze_customer_patterns"
+        target_table: "dbo.customer_behavior"
+        frequency: "daily"
+        
+      3:
+        name: "Calculate Market Metrics"
+        function: "compute_market_intelligence"
+        target_table: "dbo.market_intelligence"
+        frequency: "daily"
+        
+      4:
+        name: "Aggregate Daily Metrics"
+        function: "create_daily_aggregates"
+        target_table: "dbo.daily_metrics"
+        frequency: "daily"
+        
+      5:
+        name: "Refresh Materialized Views"
+        function: "refresh_scout_analytics_views"
+        frequency: "every_15_minutes"
+  
+  ces_pipeline:
+    schedule: "on_demand_and_daily"
+    steps:
+      1:
+        name: "Scan Google Drive Folders"
+        function: "scan_gdrive_campaigns"
+        target_table: "ces.gdrive_sync_logs"
+        trigger: "folder_update_webhook"
+        
+      2:
+        name: "Extract Creative Assets"
+        function: "extract_campaign_assets"
+        target_table: "ces.creative_assets"
+        processing: "multi_format_support"
+        
+      3:
+        name: "AI Creative Analysis"
+        function: "analyze_creative_effectiveness"
+        target_table: "ces.creative_feature_scores"
+        ai_backend: "azure_openai"
+        
+      4:
+        name: "Business Outcome Prediction"
+        function: "predict_campaign_outcomes"
+        target_table: "ces.business_outcome_predictions"
+        ml_models: "ces_prediction_engine"
+        
+      5:
+        name: "Generate Recommendations"
+        function: "create_optimization_recommendations"
+        target_table: "ces.optimization_recommendations"
+        priority_scoring: "impact_effort_matrix"
+        
+      6:
+        name: "Refresh CES Views"
+        function: "refresh_ces_views"
+        frequency: "every_15_minutes"
+
+data_quality:
+  validation_rules:
+    scout:
+      - transaction_amount_positive
+      - customer_id_valid
+      - product_sku_exists
+      - region_code_valid
+      - date_range_reasonable
+      
+    ces:
+      - asset_file_accessible
+      - campaign_id_valid
+      - ces_scores_in_range
+      - analysis_confidence_acceptable
+      - recommendation_completeness
+
+  monitoring:
+    alerts:
+      - pipeline_failure
+      - data_quality_degradation
+      - processing_time_anomaly
+      - volume_deviation
+      - ai_analysis_errors
+    
+    metrics:
+      - records_processed_per_hour
+      - error_rate_percentage
+      - data_freshness_minutes
+      - ai_analysis_confidence
+      - recommendation_generation_rate
+
+performance_targets:
+  scout_pipeline:
+    throughput: "5000+ transactions/day"
+    latency: "<15 minutes from generation to availability"
+    accuracy: "99%+ data quality score"
+    uptime: "99.9% pipeline availability"
+    
+  ces_pipeline:
+    asset_processing: "<2 minutes per asset"
+    ai_analysis: "<30 seconds per creative"
+    recommendation_generation: "<1 minute per campaign"
+    google_drive_sync: "<5 minutes for folder scan"
+
+ai_integration:
+  azure_openai:
+    models:
+      - gpt-4-turbo (creative_analysis)
+      - gpt-4-vision (visual_asset_analysis)
+      - text-embedding-ada-002 (content_similarity)
+    
+    usage_optimization:
+      - prompt_caching
+      - batch_processing
+      - response_streaming
+      - token_management
+    
+    cost_controls:
+      - monthly_budget_limit: "$300"
+      - per_request_timeout: "30_seconds"
+      - rate_limiting: "100_requests_per_minute"
+
+error_handling:
+  retry_policies:
+    google_drive_api: "exponential_backoff_3_attempts"
+    azure_openai: "linear_backoff_2_attempts"
+    database_operations: "immediate_retry_1_attempt"
+    
+  fallback_strategies:
+    ai_analysis_failure: "mark_for_manual_review"
+    gdrive_access_failure: "queue_for_retry_in_1_hour"
+    database_connection_loss: "local_queue_until_restore"
+
+output_formats:
+  scout_apis:
+    - "/api/scout-analytics"
+    - "/api/retail-insights"
+    - "/api/consumer-behavior"
+    - "/api/brand-performance"
+    
+  ces_apis:
+    - "/api/ask-ces"
+    - "/api/creative-analysis"
+    - "/api/campaign-insights"
+    - "/api/optimization-recommendations"
+
+deployment:
+  infrastructure:
+    compute: "vercel_edge_functions"
+    database: "postgresql_shared_instance"
+    storage: "google_drive_native"
+    monitoring: "datadog_custom_metrics"
+    
+  environment_variables:
+    - GOOGLE_SERVICE_ACCOUNT_KEY
+    - AZURE_OPENAI_API_KEY
+    - DATABASE_CONNECTION_STRING
+    - MONITORING_API_KEY
+
+success_metrics:
+  data_pipeline:
+    completeness: ">99% successful records"
+    timeliness: "<15 minute end-to-end latency"
+    consistency: "100% schema compliance"
+    
+  ai_analysis:
+    accuracy: ">85% human validation agreement"
+    coverage: "100% asset analysis completion"
+    efficiency: "<$0.50 per creative analysis"
+    
+  business_impact:
+    scout_query_performance: "<100ms response time"
+    ces_recommendation_adoption: ">60% implementation rate"
+    user_satisfaction: "4.5+ rating"
+
+configuration:
+  scout_data_volume:
+    daily_transactions: 5000
+    brands_tracked: 5
+    regions_covered: 17
+    stores_simulated: 2500
+    customers_active: 100000
+    
+  ces_processing:
+    max_asset_size_mb: 500
+    supported_formats: 15
+    analysis_features: 25
+    recommendation_categories: 5
+    
+  performance_tuning:
+    batch_size: 100
+    parallel_workers: 4
+    cache_ttl_minutes: 15
+    retry_intervals: [30, 60, 300]
+
+notes:
+  - "Yummy orchestrates both Scout retail data generation and CES creative asset processing"
+  - "Unified pipeline ensures data consistency across analytics platforms"
+  - "AI-powered analysis standardized on Azure OpenAI for cost optimization"
+  - "Real-time data freshness maintained through materialized view refresh"
+  - "Quality gates prevent downstream analytical errors"
+  
+last_updated: "2025-01-15"
+status: "production_ready"

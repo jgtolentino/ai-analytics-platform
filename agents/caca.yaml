@@ -1,0 +1,335 @@
+# Caca Agent - QA Validator for Scout Analytics & CES
+# Unified quality assurance and regression testing across AI analytics platform
+
+agent:
+  name: "Caca"
+  type: "QA Validator"
+  version: "2.0"
+  description: "Comprehensive QA validation for Scout Analytics and CES systems with automated regression testing"
+  owner: "TBWA AI Analytics Platform"
+
+capabilities:
+  - cross_platform_testing
+  - regression_validation
+  - performance_benchmarking
+  - data_quality_monitoring
+  - ai_response_validation
+  - automated_reporting
+
+testing_scope:
+  scout_analytics:
+    schema: "dbo"
+    components:
+      - retail_intelligence_apis
+      - dashboard_metrics
+      - consumer_insights
+      - brand_performance
+      - transaction_processing
+    
+  ces_creative:
+    schema: "ces"
+    components:
+      - creative_analysis_engine
+      - ask_ces_conversational_ai
+      - campaign_optimization
+      - business_outcome_predictions
+      - asset_processing_pipeline
+
+test_categories:
+  functional_tests:
+    scout:
+      api_endpoints:
+        - "/api/scout-analytics"
+        - "/api/retail-insights"
+        - "/api/consumer-behavior"
+        - "/api/brand-performance"
+      
+      database_functions:
+        - get_brand_performance()
+        - get_consumer_insights()
+        - get_transaction_trends()
+        - refresh_scout_analytics_views()
+      
+      data_validation:
+        - transaction_data_integrity
+        - customer_behavior_consistency
+        - market_intelligence_accuracy
+        - regional_data_completeness
+    
+    ces:
+      api_endpoints:
+        - "/api/ask-ces"
+        - "/api/creative-analysis"
+        - "/api/campaign-insights"
+        - "/api/optimization-recommendations"
+      
+      ai_analysis:
+        - creative_feature_scoring
+        - business_outcome_predictions
+        - optimization_recommendations
+        - conversation_quality
+      
+      data_validation:
+        - asset_metadata_completeness
+        - ces_score_ranges
+        - analysis_confidence_levels
+        - recommendation_relevance
+
+  performance_tests:
+    response_time_targets:
+      scout_queries: "<100ms p95"
+      ces_analysis: "<2s per creative"
+      ask_ces_chat: "<3s per response"
+      dashboard_load: "<1s full render"
+    
+    throughput_targets:
+      concurrent_users: "100+"
+      api_requests_per_minute: "1000+"
+      batch_processing: "500 assets/hour"
+      
+    resource_utilization:
+      cpu_usage: "<70% average"
+      memory_usage: "<80% peak"
+      database_connections: "<50 concurrent"
+
+  integration_tests:
+    data_flow:
+      - scout_etl_to_dashboard
+      - ces_gdrive_to_analysis
+      - ai_analysis_to_recommendations
+      - cross_schema_queries
+    
+    external_systems:
+      - google_drive_api
+      - azure_openai_api
+      - vercel_deployment
+      - supabase_database
+
+validation_framework:
+  test_cases:
+    scout_retail_intelligence:
+      - id: "scout_001"
+        name: "Alaska Brand Performance NCR"
+        query: "How is Alaska performing in NCR vs other regions?"
+        expected_keywords: ["market_share", "NCR", "regional", "Alaska", "performance"]
+        context: {"brand": "Alaska", "region": "NCR"}
+        
+      - id: "scout_002"
+        name: "Consumer Behavior Dairy Category"
+        query: "What are shopping patterns for dairy products?"
+        expected_keywords: ["consumer", "behavior", "dairy", "patterns", "shopping"]
+        context: {"category": "dairy"}
+        
+      - id: "scout_003"
+        name: "Transaction Trends Analysis"
+        query: "Show me transaction volume trends for last 30 days"
+        expected_keywords: ["transaction", "trends", "volume", "30 days", "analysis"]
+        
+      - id: "scout_004"
+        name: "Competitive Intelligence Oishi"
+        query: "How does Oishi compare to competitors in snacks category?"
+        expected_keywords: ["Oishi", "competitors", "snacks", "category", "compare"]
+        context: {"brand": "Oishi"}
+    
+    ces_creative_effectiveness:
+      - id: "ces_001"
+        name: "Alaska Creative Strategy"
+        query: "What makes effective creative for Alaska brand?"
+        expected_keywords: ["creative", "Alaska", "effective", "brand", "strategy"]
+        context: {"brand": "Alaska"}
+        
+      - id: "ces_002"
+        name: "CES Framework Application"
+        query: "How can I improve brand recall for this campaign?"
+        expected_keywords: ["brand_recall", "improve", "campaign", "memorability", "ces"]
+        
+      - id: "ces_003"
+        name: "Emotional Resonance Optimization"
+        query: "What emotional triggers work best for Oishi snacks?"
+        expected_keywords: ["emotional", "triggers", "Oishi", "snacks", "resonance"]
+        context: {"brand": "Oishi"}
+        
+      - id: "ces_004"
+        name: "Creative Optimization Recommendations"
+        query: "Analyze this video creative and suggest improvements"
+        expected_keywords: ["analyze", "creative", "improvements", "optimization", "video"]
+        
+      - id: "ces_005"
+        name: "Business Outcome Prediction"
+        query: "What's the predicted ROI for this creative campaign?"
+        expected_keywords: ["predicted", "ROI", "creative", "campaign", "business"]
+
+quality_metrics:
+  response_quality:
+    keyword_relevance: ">80% match rate"
+    context_awareness: "brand + regional specificity required"
+    actionability: "concrete recommendations provided"
+    accuracy: "aligned with framework guidelines"
+    
+  performance_benchmarks:
+    api_response_time: "<2s average"
+    database_query_time: "<100ms p95"
+    ai_analysis_time: "<30s per asset"
+    error_rate: "<0.1% of requests"
+    
+  data_quality:
+    completeness: ">99% non-null critical fields"
+    consistency: "100% referential integrity"
+    accuracy: ">95% human validation agreement"
+    timeliness: "<15 minute data freshness"
+
+automation:
+  test_execution:
+    schedule: "every_2_hours"
+    triggers:
+      - code_deployment
+      - database_migration
+      - configuration_change
+      - manual_execution
+    
+    parallel_execution: true
+    timeout_per_test: "60_seconds"
+    retry_on_failure: 1
+    
+  reporting:
+    formats: ["json", "markdown", "html_dashboard"]
+    destinations:
+      - github_actions_summary
+      - slack_notifications
+      - datadog_metrics
+      - internal_dashboard
+    
+    alert_thresholds:
+      failure_rate: ">5%"
+      performance_degradation: ">20% slower"
+      error_spike: ">10 errors in 1 hour"
+
+monitoring_integration:
+  datadog:
+    custom_metrics:
+      - caca.test.pass_rate
+      - caca.test.response_time
+      - caca.test.keyword_match_rate
+      - caca.test.ai_confidence_score
+    
+    alerts:
+      - qa_failure_rate_high
+      - performance_regression_detected
+      - ai_response_quality_degraded
+    
+  github_actions:
+    workflow_integration: true
+    pr_checks: "required_passing"
+    deployment_gates: "qa_validation_required"
+
+test_data_management:
+  scout_test_data:
+    synthetic_transactions: "1000+ realistic records"
+    brand_portfolio: "Alaska, Oishi, Del Monte, Peerless, JTI"
+    regional_coverage: "All 17 Philippine regions"
+    time_periods: "Historical + current + future projections"
+    
+  ces_test_data:
+    sample_campaigns: "10+ diverse creative campaigns"
+    asset_types: "video, image, document, presentation"
+    brand_variations: "Different creative approaches per brand"
+    analysis_scenarios: "Various CES scoring patterns"
+
+regression_protection:
+  baseline_storage:
+    response_patterns: "golden_dataset_responses"
+    performance_benchmarks: "historical_timing_data"
+    quality_scores: "validated_output_quality"
+    
+  change_detection:
+    response_similarity: ">90% semantic similarity required"
+    performance_variance: "<20% deviation allowed"
+    quality_degradation: "immediate alert if <80% keyword match"
+    
+  rollback_triggers:
+    critical_failure_rate: ">10% of tests failing"
+    performance_regression: ">50% slower responses"
+    quality_degradation: "<70% keyword match rate"
+
+failure_analysis:
+  categorization:
+    - api_endpoint_errors
+    - database_connectivity_issues
+    - ai_model_response_degradation
+    - data_quality_problems
+    - performance_regressions
+    - integration_failures
+    
+  root_cause_analysis:
+    automated_debugging: true
+    log_correlation: "error_pattern_matching"
+    performance_profiling: "bottleneck_identification"
+    
+  recovery_procedures:
+    auto_retry: "transient_failures"
+    alert_escalation: "persistent_issues"
+    rollback_recommendation: "critical_failures"
+
+reporting_dashboard:
+  real_time_metrics:
+    - current_test_status
+    - pass_fail_rates
+    - response_time_trends
+    - error_distribution
+    
+  historical_analysis:
+    - quality_trends_over_time
+    - performance_regression_tracking
+    - failure_pattern_analysis
+    - improvement_recommendations
+    
+  stakeholder_reports:
+    - executive_summary
+    - technical_deep_dive
+    - sla_compliance_status
+    - cost_quality_analysis
+
+configuration:
+  test_environments:
+    development: "localhost + test_database"
+    staging: "vercel_preview + staging_db"
+    production: "scout-mvp.vercel.app + prod_db"
+    
+  execution_settings:
+    max_concurrent_tests: 10
+    test_timeout_seconds: 60
+    retry_attempts: 1
+    failure_threshold_percentage: 5
+    
+  notification_preferences:
+    slack_alerts: true
+    email_summaries: false
+    github_comments: true
+    dashboard_updates: true
+
+success_criteria:
+  overall_system_health:
+    test_pass_rate: ">95%"
+    response_time_compliance: ">90% within SLA"
+    zero_critical_failures: "no_system_down_scenarios"
+    
+  ai_quality_standards:
+    keyword_relevance: ">80% match rate"
+    context_awareness: "consistent_brand_regional_specificity"
+    response_coherence: "human_readable_recommendations"
+    
+  performance_standards:
+    scout_analytics: "<100ms query response"
+    ces_analysis: "<2s creative analysis"
+    ask_ces_chat: "<3s conversational response"
+    dashboard_rendering: "<1s full page load"
+
+notes:
+  - "Caca provides unified QA validation across Scout and CES platforms"
+  - "Automated regression testing prevents quality degradation"
+  - "Real-time monitoring enables rapid issue detection and resolution"
+  - "Cross-platform testing ensures seamless user experience"
+  - "AI response validation maintains analytical accuracy"
+  
+last_updated: "2025-01-15"
+status: "production_ready"

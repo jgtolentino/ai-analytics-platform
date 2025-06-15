@@ -1,0 +1,338 @@
+# LearnBot Agent - Interactive Tutorial System
+# Unified onboarding and learning assistant for Scout Analytics & CES platforms
+
+agent:
+  name: "LearnBot"
+  type: "Tutorial & Learning Assistant"
+  version: "2.0"
+  description: "Interactive tutorial overlay and learning assistant for Scout Analytics and CES platforms"
+  owner: "TBWA AI Analytics Platform"
+
+capabilities:
+  - interactive_onboarding
+  - contextual_help
+  - feature_discovery
+  - guided_workflows
+  - progress_tracking
+  - adaptive_learning
+
+platforms:
+  scout_analytics:
+    onboarding_flows:
+      - retail_intelligence_basics
+      - brand_performance_analysis
+      - consumer_insights_exploration
+      - market_intelligence_deep_dive
+      - dashboard_customization
+    
+    guided_tutorials:
+      - "How to analyze Alaska brand performance"
+      - "Understanding consumer behavior patterns"
+      - "Comparing regional market dynamics"
+      - "Tracking competitive intelligence"
+      - "Setting up automated alerts"
+    
+  ces_creative:
+    onboarding_flows:
+      - ces_framework_introduction
+      - creative_analysis_walkthrough
+      - ask_ces_conversation_guide
+      - optimization_workflow
+      - campaign_tracking_setup
+    
+    guided_tutorials:
+      - "Using Ask CES for creative strategy"
+      - "Analyzing creative effectiveness scores"
+      - "Implementing optimization recommendations"
+      - "Understanding business outcome predictions"
+      - "Managing creative asset pipelines"
+
+tutorial_system:
+  interactive_overlays:
+    tooltip_system:
+      trigger: "hover + contextual_hints"
+      positioning: "smart_placement_avoiding_occlusion"
+      content: "concise_actionable_guidance"
+      
+    step_by_step_guides:
+      navigation: "previous_next_skip_controls"
+      highlighting: "spotlight_relevant_elements"
+      progress_tracking: "completion_percentage"
+      
+    contextual_help:
+      activation: "help_button + ai_assistant"
+      search: "natural_language_queries"
+      suggestions: "task_based_recommendations"
+  
+  learning_paths:
+    beginner:
+      scout_path:
+        - "Platform overview and navigation"
+        - "Understanding retail data fundamentals"
+        - "Reading basic performance metrics"
+        - "Filtering and segmenting data"
+        - "Interpreting trend visualizations"
+        
+      ces_path:
+        - "Introduction to creative effectiveness"
+        - "CES framework fundamentals"
+        - "Basic creative analysis workflow"
+        - "Understanding scoring methodology"
+        - "Reading optimization recommendations"
+    
+    intermediate:
+      scout_path:
+        - "Advanced filtering and segmentation"
+        - "Cross-brand comparative analysis"
+        - "Regional performance deep-dives"
+        - "Consumer behavior pattern recognition"
+        - "Custom metric creation"
+        
+      ces_path:
+        - "Advanced creative strategy consultation"
+        - "Campaign optimization workflows"
+        - "Business outcome correlation analysis"
+        - "Multi-asset campaign analysis"
+        - "Custom recommendation interpretation"
+    
+    advanced:
+      scout_path:
+        - "Predictive analytics interpretation"
+        - "Market intelligence synthesis"
+        - "API integration and automation"
+        - "Custom dashboard development"
+        - "Advanced troubleshooting"
+        
+      ces_path:
+        - "Strategic creative planning"
+        - "Cross-campaign effectiveness analysis"
+        - "ROI optimization strategies"
+        - "Creative testing methodologies"
+        - "Advanced AI consultation techniques"
+
+content_framework:
+  tutorial_types:
+    welcome_tour:
+      duration: "3-5 minutes"
+      coverage: "platform_overview + key_features"
+      interactivity: "click_through + demo_data"
+      
+    feature_spotlights:
+      duration: "30-60 seconds"
+      coverage: "single_feature_deep_dive"
+      trigger: "first_time_feature_access"
+      
+    workflow_guides:
+      duration: "5-10 minutes"
+      coverage: "end_to_end_task_completion"
+      practice: "guided_hands_on_exercise"
+      
+    troubleshooting_assistance:
+      duration: "variable"
+      coverage: "problem_resolution"
+      format: "interactive_diagnostic"
+  
+  content_personalization:
+    role_based:
+      brand_manager:
+        focus: "performance_tracking + competitive_analysis"
+        priority_features: ["brand_dashboard", "market_share", "trend_analysis"]
+        
+      creative_director:
+        focus: "creative_effectiveness + optimization"
+        priority_features: ["ces_analysis", "ask_ces", "recommendations"]
+        
+      data_analyst:
+        focus: "deep_analytics + technical_features"
+        priority_features: ["advanced_filters", "api_access", "custom_metrics"]
+        
+      c_suite:
+        focus: "high_level_insights + strategic_overview"
+        priority_features: ["executive_dashboard", "roi_metrics", "trend_summaries"]
+    
+    experience_adaptive:
+      new_user: "comprehensive_onboarding + safety_nets"
+      returning_user: "feature_updates + advanced_tips"
+      power_user: "shortcuts + automation_tips"
+
+ai_powered_assistance:
+  natural_language_help:
+    query_types:
+      - "How do I analyze brand performance?"
+      - "What does this metric mean?"
+      - "Why is my CES score low?"
+      - "How to improve creative effectiveness?"
+      - "Show me similar successful campaigns"
+    
+    response_framework:
+      context_awareness: "current_page + user_data + session_history"
+      explanation_depth: "adaptive_based_on_user_level"
+      action_guidance: "specific_next_steps + clickable_elements"
+      
+  smart_suggestions:
+    proactive_tips:
+      - "Looks like you're analyzing Alaska performance - want to compare with Oishi?"
+      - "This creative has low emotional resonance - here are similar high-performing examples"
+      - "Based on your query patterns, you might find the regional filter useful"
+    
+    contextual_recommendations:
+      - "Users analyzing this brand often also look at..."
+      - "For campaigns like this, consider optimizing..."
+      - "This data pattern suggests you might want to explore..."
+
+progress_tracking:
+  completion_metrics:
+    tutorial_progress:
+      - tutorials_completed
+      - features_discovered
+      - workflows_mastered
+      - help_queries_resolved
+      
+    platform_proficiency:
+      - navigation_efficiency
+      - feature_adoption_rate
+      - self_sufficiency_score
+      - advanced_usage_patterns
+  
+  achievement_system:
+    badges:
+      - "Scout Explorer" (complete basic retail analytics tutorial)
+      - "CES Master" (complete creative effectiveness training)
+      - "Brand Analyst" (analyze all 5 TBWA brands)
+      - "Regional Expert" (explore all Philippine regions)
+      - "Creative Strategist" (use Ask CES for 10+ consultations)
+      - "Data Detective" (discover 5+ hidden insights)
+    
+    milestones:
+      - first_successful_analysis
+      - first_optimization_implemented
+      - first_cross_brand_comparison
+      - first_advanced_feature_used
+      - first_custom_dashboard_created
+
+user_experience:
+  design_principles:
+    non_intrusive: "optional_overlay + dismissible_hints"
+    contextually_relevant: "task_specific + role_appropriate"
+    progressively_disclosed: "basic_to_advanced + on_demand"
+    
+  interaction_patterns:
+    entry_points:
+      - welcome_modal_for_new_users
+      - help_button_in_navigation
+      - contextual_question_marks
+      - search_based_help_system
+      
+    guidance_levels:
+      - passive_hints (tooltips_and_labels)
+      - active_suggestions (proactive_tips)
+      - interactive_guides (step_by_step_walkthroughs)
+      - conversational_help (ai_chat_assistance)
+
+content_management:
+  content_types:
+    text: "concise_scannable_explanations"
+    video: "screen_recordings + voiceover"
+    interactive: "clickable_demos + simulations"
+    visual: "annotated_screenshots + diagrams"
+    
+  content_updates:
+    versioning: "semantic_versioning_for_tutorial_content"
+    localization: "multi_language_support_ready"
+    a_b_testing: "content_effectiveness_optimization"
+    
+  quality_assurance:
+    accuracy: "technical_review + user_testing"
+    clarity: "plain_language + user_comprehension_testing"
+    relevance: "task_alignment + outcome_verification"
+
+analytics_and_optimization:
+  usage_metrics:
+    engagement:
+      - tutorial_completion_rates
+      - help_query_success_rates
+      - feature_discovery_patterns
+      - user_satisfaction_scores
+      
+    effectiveness:
+      - time_to_proficiency
+      - support_ticket_reduction
+      - feature_adoption_acceleration
+      - user_retention_improvement
+  
+  optimization_loops:
+    content_improvement:
+      - identify_high_drop_off_points
+      - optimize_confusing_explanations
+      - add_missing_guidance_areas
+      - update_outdated_content
+      
+    personalization_enhancement:
+      - refine_role_based_content
+      - improve_adaptive_recommendations
+      - optimize_learning_path_sequencing
+      - enhance_context_sensitivity
+
+integration_points:
+  scout_analytics:
+    dashboard_elements:
+      - metric_explanation_tooltips
+      - filter_guidance_overlays
+      - visualization_interpretation_help
+      - drill_down_workflow_guidance
+      
+    api_endpoints:
+      - "/api/help/scout-features"
+      - "/api/tutorials/retail-analytics"
+      - "/api/guidance/contextual-help"
+  
+  ces_creative:
+    interface_elements:
+      - ces_score_explanation_modals
+      - ask_ces_conversation_starters
+      - recommendation_implementation_guides
+      - creative_analysis_interpretation
+      
+    api_endpoints:
+      - "/api/help/ces-framework"
+      - "/api/tutorials/creative-effectiveness"
+      - "/api/guidance/optimization-workflow"
+
+deployment_strategy:
+  rollout_phases:
+    phase_1: "basic_tooltips + welcome_tour"
+    phase_2: "guided_workflows + contextual_help"
+    phase_3: "ai_powered_assistance + smart_suggestions"
+    phase_4: "advanced_personalization + analytics_optimization"
+    
+  feature_flags:
+    - tutorial_system_enabled
+    - ai_help_assistant_active
+    - personalization_engine_on
+    - analytics_tracking_enabled
+
+success_metrics:
+  user_onboarding:
+    time_to_first_insight: "<5 minutes"
+    tutorial_completion_rate: ">80%"
+    feature_discovery_rate: ">90% within first week"
+    
+  platform_adoption:
+    advanced_feature_usage: ">60% of users within 30 days"
+    self_service_rate: ">85% questions resolved without support"
+    user_satisfaction: "4.5+ rating for help system"
+    
+  business_impact:
+    support_ticket_reduction: ">40% decrease"
+    user_retention_improvement: ">25% increase"
+    feature_adoption_acceleration: ">50% faster uptake"
+
+notes:
+  - "LearnBot provides unified learning experience across Scout and CES platforms"
+  - "Contextual AI assistance reduces learning curve and support burden"
+  - "Progressive disclosure ensures users aren't overwhelmed with information"
+  - "Role-based personalization optimizes relevance for different user types"
+  - "Analytics-driven optimization continuously improves tutorial effectiveness"
+  
+last_updated: "2025-01-15"
+status: "production_ready"

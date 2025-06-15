@@ -1,0 +1,112 @@
+{
+  "name": "ai-analytics-platform",
+  "version": "2.0.0",
+  "description": "TBWA's Unified AI Analytics Platform - Scout Analytics (Retail Intelligence) + CES (Creative Effectiveness System)",
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:scout\" \"npm run dev:ces\"",
+    "dev:scout": "cd apps/scout-dashboard && npm run dev",
+    "dev:ces": "cd apps/ces-insights && npm run dev",
+    "build": "npm run build:scout && npm run build:ces",
+    "build:scout": "cd apps/scout-dashboard && npm run build",
+    "build:ces": "cd apps/ces-insights && npm run build",
+    "start": "npm run start:scout",
+    "start:scout": "cd apps/scout-dashboard && npm run start",
+    "start:ces": "cd apps/ces-insights && npm run start",
+    "test": "npm run test:caca && npm run test:integration",
+    "test:caca": "node scripts/run-qa-tests.js",
+    "test:integration": "playwright test",
+    "test:scout": "cd apps/scout-dashboard && npm run test",
+    "test:ces": "cd apps/ces-insights && npm run test",
+    "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
+    "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx --fix",
+    "typecheck": "tsc --noEmit",
+    "db:migrate": "node scripts/run-migrations.js",
+    "db:seed": "npm run db:seed:scout && npm run db:seed:ces",
+    "db:seed:scout": "node etl/scout/generate-data.js",
+    "db:seed:ces": "node etl/ces/extract-assets.js",
+    "deploy": "vercel deploy --prod",
+    "deploy:staging": "vercel deploy",
+    "verify": "node scripts/verify-deployment.js",
+    "clean": "rm -rf node_modules && rm -rf apps/*/node_modules && rm -rf apps/*/.next",
+    "setup": "npm install && npm run db:migrate && npm run db:seed",
+    "agents:yummy": "node agents/yummy-controller.js",
+    "agents:caca": "node agents/caca-validator.js",
+    "agents:learnbot": "node agents/learnbot-helper.js"
+  },
+  "dependencies": {
+    "@azure/openai": "^1.0.0-beta.12",
+    "@supabase/supabase-js": "^2.39.0",
+    "@vercel/analytics": "^1.1.1",
+    "next": "^14.0.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "typescript": "^5.3.3"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.5",
+    "@types/react": "^18.2.45",
+    "@types/react-dom": "^18.2.18",
+    "@typescript-eslint/eslint-plugin": "^6.15.0",
+    "@typescript-eslint/parser": "^6.15.0",
+    "@playwright/test": "^1.40.1",
+    "concurrently": "^8.2.2",
+    "eslint": "^8.56.0",
+    "eslint-config-next": "^14.0.4",
+    "prettier": "^3.1.1",
+    "tailwindcss": "^3.4.0",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.32"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tbwa/ai-analytics-platform.git"
+  },
+  "keywords": [
+    "analytics",
+    "ai",
+    "retail-intelligence",
+    "creative-effectiveness",
+    "tbwa",
+    "scout",
+    "ces",
+    "dashboard",
+    "philippines",
+    "azure-openai"
+  ],
+  "author": "TBWA AI Analytics Team",
+  "license": "MIT",
+  "homepage": "https://scout-mvp.vercel.app",
+  "bugs": {
+    "url": "https://github.com/tbwa/ai-analytics-platform/issues"
+  },
+  "config": {
+    "database": {
+      "schemas": ["dbo", "ces"],
+      "provider": "postgresql",
+      "connection": "supabase"
+    },
+    "deployment": {
+      "platform": "vercel",
+      "target": "scout-mvp",
+      "domains": ["scout-mvp.vercel.app"]
+    },
+    "ai": {
+      "provider": "azure-openai",
+      "model": "gpt-4-turbo",
+      "budget": "$500/month"
+    }
+  },
+  "volta": {
+    "node": "18.18.0",
+    "npm": "9.8.1"
+  }
+}

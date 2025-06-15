@@ -1,0 +1,383 @@
+# AI Analytics Platform - Unified Deployment Registry
+# Consolidated tracking for Scout Analytics + CES Creative Intelligence Platform
+
+registry:
+  name: "AI Analytics Platform Deployment Registry"
+  version: "2.0"
+  last_updated: "2025-01-15"
+  monorepo: "ai-analytics-platform"
+  
+platform:
+  infrastructure: "azure + vercel + supabase"
+  database: "postgresql_shared_dual_schema"
+  model_backend: "azure-openai"
+  deployment_strategy: "unified_edge_deployment"
+  monitoring: "datadog + sentry"
+
+unified_deployment:
+  target_url: "https://scout-mvp.vercel.app"
+  backup_url: "https://ai-analytics-platform.vercel.app"
+  
+  schemas:
+    scout: "dbo (retail intelligence)"
+    ces: "ces (creative effectiveness)"
+  
+  shared_services:
+    authentication: "supabase_auth_unified"
+    llm_backend: "azure_openai_shared"
+    caching: "redis_shared_instance"
+    monitoring: "unified_observability"
+
+applications:
+  scout_analytics:
+    status: "production_ready"
+    version: "2.0.0"
+    type: "retail_intelligence_platform"
+    
+    routes:
+      dashboard: "/"
+      brand_performance: "/brands"
+      consumer_insights: "/consumers"
+      market_intelligence: "/market"
+      
+    api_endpoints:
+      - "/api/scout-analytics"
+      - "/api/retail-insights"
+      - "/api/consumer-behavior"
+      - "/api/brand-performance"
+      - "/api/market-intelligence"
+      
+    database_schema: "dbo"
+    data_volume: "5,000+ daily transactions"
+    performance_sla: "<100ms query response"
+    brands_tracked: ["Alaska", "Oishi", "Del Monte", "Peerless", "JTI"]
+    regions_covered: 17
+    
+  ces_creative_intelligence:
+    status: "production_ready"
+    version: "2.0.0"
+    type: "creative_effectiveness_platform"
+    
+    routes:
+      dashboard: "/ces"
+      ask_ces: "/ces/chat"
+      campaign_analysis: "/ces/campaigns"
+      optimization: "/ces/optimize"
+      
+    api_endpoints:
+      - "/api/ask-ces"
+      - "/api/creative-analysis"
+      - "/api/campaign-insights"
+      - "/api/optimization-recommendations"
+      
+    database_schema: "ces"
+    analysis_capacity: "500+ assets/hour"
+    performance_sla: "<2s creative analysis"
+    ai_frameworks: ["CES 5-pillar methodology", "Business outcome prediction"]
+
+shared_infrastructure:
+  database:
+    provider: "postgresql_15"
+    hosting: "supabase + azure_backup"
+    schemas: ["dbo", "ces"]
+    connection_pooling: "pgbouncer"
+    backup_frequency: "hourly"
+    
+  llm_backend:
+    provider: "azure_openai"
+    endpoint: "${AZURE_OPENAI_ENDPOINT}"
+    deployment_id: "${AZURE_OPENAI_DEPLOYMENT_ID}"
+    model: "gpt-4-turbo"
+    cost_optimization: "prompt_caching + batching"
+    monthly_budget: "$500"
+    
+  caching:
+    provider: "redis_cloud"
+    ttl_strategy: "15_minute_dashboard_cache"
+    invalidation: "event_driven"
+    hit_rate_target: ">90%"
+    
+  authentication:
+    provider: "supabase_auth"
+    methods: ["sso", "email_password", "oauth"]
+    session_duration: "24_hours"
+    rbac: "row_level_security"
+
+agents:
+  yummy:
+    type: "etl_controller"
+    status: "production_active"
+    responsibilities:
+      - scout_data_generation
+      - ces_asset_extraction
+      - pipeline_orchestration
+      - data_quality_validation
+    
+    pipelines:
+      scout: "hourly_retail_data + daily_aggregations"
+      ces: "on_demand_asset_processing + ai_analysis"
+      
+    performance:
+      scout_throughput: "5,000+ transactions/day"
+      ces_processing: "<2 minutes per asset"
+      data_freshness: "<15 minutes"
+      
+  caca:
+    type: "qa_validator"
+    status: "production_active"
+    responsibilities:
+      - cross_platform_testing
+      - regression_validation
+      - performance_benchmarking
+      - ai_response_quality
+    
+    test_coverage:
+      scout: "15+ test cases"
+      ces: "12+ test cases"
+      integration: "8+ test cases"
+      
+    success_criteria:
+      pass_rate: ">95%"
+      response_time: "<100ms scout, <2s ces"
+      keyword_relevance: ">80%"
+      
+  learnbot:
+    type: "tutorial_assistant"
+    status: "production_active"
+    responsibilities:
+      - interactive_onboarding
+      - contextual_help
+      - feature_discovery
+      - progress_tracking
+    
+    coverage:
+      scout_tutorials: "5 guided workflows"
+      ces_tutorials: "5 guided workflows"
+      ai_assistance: "natural_language_help"
+      
+    metrics:
+      completion_rate: ">80%"
+      satisfaction: "4.5+ rating"
+      time_to_proficiency: "<5 minutes"
+
+api_endpoints:
+  scout_analytics:
+    "/api/scout-analytics":
+      method: "GET"
+      purpose: "general retail intelligence queries"
+      response_time_sla: "<100ms"
+      
+    "/api/retail-insights":
+      method: "GET"
+      purpose: "detailed retail market analysis"
+      response_time_sla: "<200ms"
+      
+    "/api/consumer-behavior":
+      method: "GET"
+      purpose: "consumer patterns and segmentation"
+      response_time_sla: "<150ms"
+      
+    "/api/brand-performance":
+      method: "GET"
+      purpose: "brand-specific performance metrics"
+      response_time_sla: "<100ms"
+      
+  ces_creative:
+    "/api/ask-ces":
+      method: "POST"
+      purpose: "conversational creative intelligence"
+      response_time_sla: "<3s"
+      
+    "/api/creative-analysis":
+      method: "POST"
+      purpose: "CES framework creative scoring"
+      response_time_sla: "<2s"
+      
+    "/api/campaign-insights":
+      method: "GET"
+      purpose: "campaign performance analytics"
+      response_time_sla: "<1s"
+      
+    "/api/optimization-recommendations":
+      method: "GET"
+      purpose: "AI-generated optimization suggestions"
+      response_time_sla: "<500ms"
+      
+  unified_qa:
+    "/api/qa/caca":
+      method: "GET/POST"
+      purpose: "automated quality assurance testing"
+      response_time_sla: "<10s"
+
+performance_targets:
+  response_times:
+    scout_dashboard_load: "<1s"
+    scout_api_queries: "<100ms p95"
+    ces_creative_analysis: "<2s per asset"
+    ask_ces_conversation: "<3s per response"
+    
+  throughput:
+    concurrent_users: "500+"
+    api_requests_minute: "2,000+"
+    data_processing: "10,000+ records/hour"
+    
+  availability:
+    uptime_sla: "99.9%"
+    error_rate: "<0.1%"
+    recovery_time: "<5 minutes"
+
+cost_structure:
+  infrastructure:
+    vercel_pro: "$95/month"
+    supabase_pro: "$25/month"
+    redis_cloud: "$30/month"
+    
+  ai_services:
+    azure_openai: "$500/month"
+    
+  monitoring:
+    datadog: "$50/month"
+    sentry: "$20/month"
+    
+  total_monthly: "$720/month"
+  cost_per_user: "<$5/month"
+  cost_per_query: "<$0.01"
+
+monitoring_and_alerting:
+  key_metrics:
+    - response_time_p95
+    - error_rate_percentage
+    - user_satisfaction_score
+    - data_freshness_minutes
+    - ai_analysis_confidence
+    - cost_per_operation
+    
+  alert_conditions:
+    critical:
+      - system_downtime
+      - error_rate_above_1_percent
+      - response_time_above_5_seconds
+      
+    warning:
+      - response_time_above_sla
+      - error_rate_above_0.5_percent
+      - cost_budget_80_percent
+      
+  notification_channels:
+    - slack_alerts
+    - email_escalation
+    - pagerduty_critical
+    - github_issues
+
+security_and_compliance:
+  data_protection:
+    encryption_at_rest: "aes_256"
+    encryption_in_transit: "tls_1_3"
+    key_management: "azure_key_vault"
+    
+  access_control:
+    authentication: "multi_factor_required"
+    authorization: "rbac + rls"
+    session_management: "secure_tokens"
+    
+  audit_and_compliance:
+    access_logging: "comprehensive"
+    data_lineage: "tracked"
+    gdpr_compliance: "data_privacy_framework"
+    soc2_readiness: "type_ii_controls"
+
+disaster_recovery:
+  backup_strategy:
+    database: "hourly_automated + point_in_time_recovery"
+    code: "git_repository + automated_deployments"
+    configuration: "version_controlled"
+    
+  recovery_targets:
+    rpo: "1_hour_maximum_data_loss"
+    rto: "4_hours_maximum_downtime"
+    
+  testing:
+    frequency: "quarterly"
+    scope: "full_system_recovery"
+    documentation: "runbook_maintained"
+
+integration_ecosystem:
+  external_apis:
+    google_drive: "creative_asset_management"
+    azure_services: "ai_and_key_management"
+    analytics_platforms: "performance_tracking"
+    
+  webhook_endpoints:
+    campaign_updates: "/webhooks/campaign-update"
+    asset_changes: "/webhooks/asset-change"
+    performance_alerts: "/webhooks/performance-alert"
+    
+  export_capabilities:
+    data_formats: ["csv", "excel", "pdf", "api"]
+    scheduling: "automated_reports"
+    custom_exports: "user_defined_queries"
+
+development_workflow:
+  deployment_pipeline:
+    environments: ["development", "staging", "production"]
+    testing: "automated_qa_via_caca"
+    approval: "required_for_production"
+    
+  feature_flags:
+    - unified_dashboard_enabled
+    - ask_ces_chat_active
+    - advanced_analytics_beta
+    - new_user_onboarding
+    
+  release_management:
+    strategy: "blue_green_deployment"
+    rollback: "automated_on_failure"
+    monitoring: "real_time_health_checks"
+
+roadmap:
+  q1_2025:
+    - ✅ monorepo_consolidation_complete
+    - ✅ azure_openai_standardization
+    - ✅ unified_deployment_pipeline
+    - 🎯 advanced_ml_models_integration
+    
+  q2_2025:
+    - 🎯 multi_tenant_architecture
+    - 🎯 southeast_asia_expansion
+    - 🎯 white_label_platform
+    - 🎯 mobile_app_development
+    
+  q3_2025:
+    - 🎯 ar_vr_data_visualization
+    - 🎯 iot_sensor_integration
+    - 🎯 advanced_ai_capabilities
+    - 🎯 api_marketplace
+
+success_metrics:
+  technical_kpis:
+    system_performance: "99.9% uptime, <100ms response"
+    data_quality: ">99% accuracy score"
+    ai_effectiveness: ">85% user satisfaction"
+    cost_efficiency: "<$5 per user per month"
+    
+  business_kpis:
+    user_adoption: "80%+ weekly active users"
+    decision_impact: "20%+ campaign ROI improvement"
+    time_savings: "5+ hours per user per week"
+    platform_stickiness: "90%+ monthly retention"
+    
+  innovation_kpis:
+    feature_velocity: "bi_weekly_releases"
+    ai_model_accuracy: ">90% prediction accuracy"
+    automation_rate: "80%+ routine_tasks_automated"
+
+notes:
+  - "Unified platform consolidates Scout retail intelligence and CES creative effectiveness"
+  - "Shared infrastructure optimizes costs while maintaining performance"
+  - "AI agents (Yummy, Caca, LearnBot) provide automated operations and quality assurance"
+  - "Dual-schema database approach enables specialized analytics while sharing resources"
+  - "Production-ready deployment with comprehensive monitoring and disaster recovery"
+
+deployment_status: "production_active"
+last_deployment: "2025-01-15T00:00:00Z"
+next_planned_update: "2025-01-22T00:00:00Z"
