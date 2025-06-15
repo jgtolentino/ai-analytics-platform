@@ -8,6 +8,8 @@ import { DateRangePicker } from '../src/components/DateRangePicker.jsx';
 import Navigation from '../src/components/Navigation';
 import CollapsibleSection, { sectionPresets } from '../src/components/layout/CollapsibleSection';
 import BasketShareTreemap, { sampleBasketShareData } from '../src/components/charts/BasketShareTreemap';
+import SKUCombinationNetwork from '../src/components/charts/SKUCombinationNetwork';
+import SubstitutionSankeyChart from '../src/components/charts/SubstitutionSankeyChart';
 
 export default function ProductMixAndSKU() {
   return (
@@ -109,32 +111,7 @@ export default function ProductMixAndSKU() {
             badge="Network"
             defaultExpanded={true}
           >
-            <div className="bg-white rounded-lg p-6 border border-gray-200">
-              <div className="h-96 flex items-center justify-center bg-gray-50 rounded-lg">
-                <div className="text-center">
-                  <div className="text-4xl mb-4">🕸️</div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">SKU Combination Network</h3>
-                  <p className="text-gray-600">Interactive network graph showing product relationships</p>
-                  <div className="mt-4 text-sm text-gray-500">
-                    Features: Node clustering, relationship strength, cross-sell suggestions
-                  </div>
-                  
-                  {/* Sample combination cards */}
-                  <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4 max-w-2xl mx-auto">
-                    {[
-                      { combo: 'Coke + Chips', confidence: '78%', color: 'bg-red-100 text-red-800' },
-                      { combo: 'Shampoo + Conditioner', confidence: '65%', color: 'bg-blue-100 text-blue-800' },
-                      { combo: 'Milk + Bread', confidence: '52%', color: 'bg-green-100 text-green-800' }
-                    ].map((item, index) => (
-                      <div key={index} className={`${item.color} rounded-lg p-3`}>
-                        <div className="font-medium text-sm">{item.combo}</div>
-                        <div className="text-xs mt-1">{item.confidence} together</div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
+            <SKUCombinationNetwork />
           </CollapsibleSection>
 
           {/* Product Substitution Flow */}
@@ -145,48 +122,7 @@ export default function ProductMixAndSKU() {
             badge="Sankey"
             defaultExpanded={true}
           >
-            <div className="bg-white rounded-lg p-6 border border-gray-200">
-              <div className="h-80 flex items-center justify-center bg-gray-50 rounded-lg">
-                <div className="text-center">
-                  <div className="text-4xl mb-4">🌊</div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">Substitution Sankey Flow</h3>
-                  <p className="text-gray-600">Visual flow of product substitutions and customer switching</p>
-                  <div className="mt-4 text-sm text-gray-500">
-                    Features: Flow thickness, interactive paths, substitution rates
-                  </div>
-                </div>
-              </div>
-              
-              {/* Sample substitution insights */}
-              <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="bg-blue-50 rounded-lg p-4">
-                  <h4 className="font-semibold text-blue-900 mb-2">🔄 Top Substitutions</h4>
-                  <div className="space-y-2 text-sm">
-                    <div className="flex justify-between">
-                      <span>Coke → Pepsi</span>
-                      <span className="font-medium">12.3% switch rate</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Head & Shoulders → Pantene</span>
-                      <span className="font-medium">8.7% switch rate</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Lay's → Pringles</span>
-                      <span className="font-medium">6.2% switch rate</span>
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="bg-green-50 rounded-lg p-4">
-                  <h4 className="font-semibold text-green-900 mb-2">💡 Retention Opportunities</h4>
-                  <div className="space-y-2 text-sm">
-                    <div>• <strong>Brand loyalty programs</strong> for high-switch categories</div>
-                    <div>• <strong>Price matching</strong> for competitive substitutions</div>
-                    <div>• <strong>Bundle promotions</strong> to reduce switching</div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <SubstitutionSankeyChart />
           </CollapsibleSection>
 
           {/* Basket Size Analysis */}
