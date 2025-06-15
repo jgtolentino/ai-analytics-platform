@@ -179,7 +179,7 @@ export default function PurchaseFrequencyCard({
         <div className="flex items-center justify-between">
           <div className="flex items-center">
             <div className="w-3 h-3 bg-red-500 rounded-full mr-2"></div>
-            <span className="text-sm text-gray-600">Rare (<1/mo)</span>
+            <span className="text-sm text-gray-600">Rare (&lt;1/mo)</span>
           </div>
           <div className="text-right">
             <div className="text-sm font-semibold text-red-600">

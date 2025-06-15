@@ -1,3 +1,8 @@
+/* Dashboard CSS with Tailwind base styles */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* Dashboard-specific styles for Scout Analytics */
 
 .grid-cols-dashboard {

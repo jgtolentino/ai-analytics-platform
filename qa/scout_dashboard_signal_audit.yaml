@@ -5,10 +5,115 @@
 
 dashboard_audit:
   id: scout-signal-audit
-  version: 1.0.0
+  version: 1.1.1
   domain: transaction-insights
   platform: scout-analytics-mvp
   environment: production
+  
+  data_ingestion:
+    mock_data_allowed: false
+    batch_load:
+      enabled: true
+      size: 1000
+      method: stream-buffer
+      error_handling: retry-with-backoff
+    qa_check:
+      - label: "Reject if more than 10% records are NULL in critical fields"
+        fields: ["transaction_date", "sku_id", "amount"]
+      - label: "Verify schema consistency per batch load"
+        required: true
+
+  integration:
+    orchestrator: Pulser 4.0.0
+    ai_agents:
+      - name: Yummy
+        role: SKU insights, substitution logic, category summaries
+      - name: RetailBot
+        role: transaction signal parsing, price/unit analysis
+      - name: LearnBot
+        role: interactive onboarding, tutorial walk-through
+    features:
+      - name: learnbot_interactive_tutorial
+        type: modal_tour
+        status: enabled
+      - name: ai_contextual_filtering
+        type: smart_filter_agent
+        status: active
+      - name: ai_explanation_panel
+        type: insight_overlay
+        status: active
+      - name: pulser_orchestration
+        type: runtime_context_routing
+        status: production
+      - name: caca_audit_module
+        type: automated_validation
+        status: linked
+
+  visualization:
+    gender_chart:
+      type: silhouette
+      layout: horizontal_mirror
+      categories:
+        - male
+        - female
+      style:
+        color_palette: ["#3b82f6", "#ec4899"]
+        border_radius: full
+        width: 100%
+        accessibility: alt-text-male-female-distribution
+    interactivity_parity:
+      enforce: true
+      checks:
+        - label: "Touch support for filters and tooltips"
+          platforms: [mobile, tablet]
+        - label: "Keyboard accessibility for all chart elements"
+          platforms: [desktop]
+        - label: "Chart zoom/pan parity across viewport widths"
+          platforms: [all]
+        - label: "AI Insight panels must open fluidly in responsive layout"
+          critical: true
+
+  direct_query_qa:
+    database_validation:
+      - query: "SELECT COUNT(*) as total_transactions FROM dbo.transactions WHERE transaction_date >= CURRENT_DATE - INTERVAL '30 days'"
+        expected_display: "dashboard_overview.total_transactions"
+        tolerance: 0
+        description: "Transaction count must match exactly between DB and dashboard"
+        
+      - query: "SELECT SUM(total_amount) as total_revenue FROM dbo.transactions WHERE transaction_date >= CURRENT_DATE - INTERVAL '30 days'"
+        expected_display: "dashboard_overview.total_revenue"
+        tolerance: 0.01
+        description: "Revenue figures must be accurate within 1 centavo"
+        
+      - query: "SELECT AVG(total_amount) as avg_order_value FROM dbo.transactions WHERE transaction_date >= CURRENT_DATE - INTERVAL '30 days'"
+        expected_display: "dashboard_overview.avg_order_value"
+        tolerance: 0.01
+        description: "Average order value calculation must be precise"
+        
+      - query: "SELECT COUNT(DISTINCT customer_id) as unique_customers FROM dbo.transactions WHERE transaction_date >= CURRENT_DATE - INTERVAL '30 days'"
+        expected_display: "dashboard_overview.unique_customers"
+        tolerance: 0
+        description: "Unique customer count must be exact"
+        
+      - query: "SELECT r.region_name, COUNT(t.transaction_id) as txn_count FROM dbo.transactions t JOIN dbo.regions r ON t.region_id = r.region_id WHERE t.transaction_date >= CURRENT_DATE - INTERVAL '30 days' GROUP BY r.region_name ORDER BY txn_count DESC"
+        expected_display: "regional_chart.data"
+        tolerance: 0
+        description: "Regional breakdown must match database aggregation exactly"
+        
+      - query: "SELECT b.brand_name, SUM(ti.total_price) as brand_revenue FROM dbo.transaction_items ti JOIN dbo.products p ON ti.product_id = p.product_id JOIN dbo.brands b ON p.brand_id = b.brand_id JOIN dbo.transactions t ON ti.transaction_id = t.transaction_id WHERE t.transaction_date >= CURRENT_DATE - INTERVAL '30 days' GROUP BY b.brand_name"
+        expected_display: "brand_performance_chart.data"
+        tolerance: 0.01
+        description: "Brand revenue calculations must be accurate"
+        
+      - query: "SELECT gender, COUNT(*) as count FROM dbo.customers c JOIN dbo.transactions t ON c.customer_id = t.customer_id WHERE t.transaction_date >= CURRENT_DATE - INTERVAL '30 days' GROUP BY gender"
+        expected_display: "gender_silhouette_chart.data"
+        tolerance: 0
+        description: "Gender distribution for silhouette chart must be exact"
+        
+      - query: "SELECT p.category, COUNT(ti.item_id) as item_count FROM dbo.transaction_items ti JOIN dbo.products p ON ti.product_id = p.product_id JOIN dbo.transactions t ON ti.transaction_id = t.transaction_id WHERE t.transaction_date >= CURRENT_DATE - INTERVAL '30 days' GROUP BY p.category ORDER BY item_count DESC LIMIT 10"
+        expected_display: "top_categories_chart.data"
+        tolerance: 0
+        description: "Top categories ranking must match database query results"
   
   metadata:
     description: "Comprehensive QA validation for Scout Analytics dashboard components"

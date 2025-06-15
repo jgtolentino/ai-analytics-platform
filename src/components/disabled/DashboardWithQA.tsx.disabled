@@ -1,0 +1,376 @@
+// DashboardWithQA.tsx - Scout Dashboard with integrated QA validation
+// Displays validation status and ensures data accuracy
+// Version: 1.0.0
+
+import React, { useState, useEffect } from 'react';
+// import useQAValidation, { ValidationBadge, ValidationDetails } from '../common/QAValidationBadge';
+
+interface DashboardMetrics {
+  total_transactions: number;
+  total_revenue: number;
+  avg_order_value: number;
+  unique_customers: number;
+}
+
+interface RegionalData {
+  region_name: string;
+  txn_count: number;
+  total_revenue: number;
+}
+
+interface BrandData {
+  brand_name: string;
+  brand_revenue: number;
+}
+
+interface GenderData {
+  gender: string;
+  count: number;
+}
+
+interface CategoryData {
+  category: string;
+  item_count: number;
+}
+
+interface DashboardData {
+  dashboard_overview: DashboardMetrics;
+  regional_chart: { data: RegionalData[] };
+  brand_performance_chart: { data: BrandData[] };
+  gender_silhouette_chart: { data: GenderData[] };
+  top_categories_chart: { data: CategoryData[] };
+}
+
+export default function DashboardWithQA() {
+  const [dashboardData, setDashboardData] = useState<DashboardData | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [showValidationDetails, setShowValidationDetails] = useState(false);
+
+  // Initialize QA validation with auto-validation enabled
+  const qaValidation = useQAValidation(dashboardData || {}, {
+    autoValidate: true,
+    validationInterval: 15, // Validate every 15 minutes
+    enableLogging: true
+  });
+
+  // Simulate loading dashboard data (replace with actual API calls)
+  useEffect(() => {
+    const loadDashboardData = async () => {
+      try {
+        setIsLoading(true);
+        
+        // Simulate API call delay
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        
+        // Mock data that would come from your actual API
+        const mockData: DashboardData = {
+          dashboard_overview: {
+            total_transactions: 15420,
+            total_revenue: 2847592.50,
+            avg_order_value: 184.65,
+            unique_customers: 8932
+          },
+          regional_chart: {
+            data: [
+              { region_name: 'NCR', txn_count: 5234, total_revenue: 1245632.30 },
+              { region_name: 'CALABARZON', txn_count: 3892, total_revenue: 892341.75 },
+              { region_name: 'Central Luzon', txn_count: 2851, total_revenue: 567890.25 },
+              { region_name: 'Western Visayas', txn_count: 1923, total_revenue: 423567.80 },
+              { region_name: 'Northern Mindanao', txn_count: 1520, total_revenue: 318160.40 }
+            ]
+          },
+          brand_performance_chart: {
+            data: [
+              { brand_name: 'Coca-Cola', brand_revenue: 485672.30 },
+              { brand_name: 'Nestle', brand_revenue: 398234.75 },
+              { brand_name: 'Unilever', brand_revenue: 327891.50 },
+              { brand_name: 'Procter & Gamble', brand_revenue: 287654.20 },
+              { brand_name: 'Kraft Heinz', brand_revenue: 198743.65 }
+            ]
+          },
+          gender_silhouette_chart: {
+            data: [
+              { gender: 'Male', count: 4521 },
+              { gender: 'Female', count: 4411 }
+            ]
+          },
+          top_categories_chart: {
+            data: [
+              { category: 'Beverages', item_count: 3254 },
+              { category: 'Snacks', item_count: 2987 },
+              { category: 'Personal Care', item_count: 2543 },
+              { category: 'Household', item_count: 2198 },
+              { category: 'Dairy', item_count: 1876 }
+            ]
+          }
+        };
+
+        setDashboardData(mockData);
+      } catch (error) {
+        console.error('Failed to load dashboard data:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadDashboardData();
+  }, []);
+
+  // Format currency values
+  const formatCurrency = (amount: number) => {
+    return new Intl.NumberFormat('en-PH', {
+      style: 'currency',
+      currency: 'PHP',
+      minimumFractionDigits: 2
+    }).format(amount);
+  };
+
+  // Format number with commas
+  const formatNumber = (num: number) => {
+    return new Intl.NumberFormat('en-PH').format(num);
+  };
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading Scout Analytics Dashboard...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!dashboardData) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center text-red-600">
+          <p>Failed to load dashboard data</p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-gray-50 p-6">
+      {/* Header with QA Validation Status */}
+      <div className="mb-8">
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900">Scout Analytics Dashboard</h1>
+            <p className="text-gray-600 mt-1">Real-time retail intelligence with data validation</p>
+          </div>
+          
+          <div className="flex items-center gap-4">
+            <ValidationBadge validation={qaValidation} showDetails={true} />
+            
+            <button
+              onClick={() => qaValidation.validate()}
+              disabled={qaValidation.isValidating}
+              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 flex items-center gap-2"
+            >
+              {qaValidation.isValidating ? (
+                <>
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                  Validating...
+                </>
+              ) : (
+                <>
+                  🔍 Validate Data
+                </>
+              )}
+            </button>
+            
+            <button
+              onClick={() => setShowValidationDetails(!showValidationDetails)}
+              className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300"
+            >
+              {showValidationDetails ? 'Hide Details' : 'Show Details'}
+            </button>
+          </div>
+        </div>
+        
+        {/* Validation Details Panel */}
+        {showValidationDetails && (
+          <div className="mt-6 bg-white rounded-lg shadow p-6">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">QA Validation Details</h3>
+            <ValidationDetails validation={qaValidation} />
+          </div>
+        )}
+      </div>
+
+      {/* Key Metrics Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <MetricCard
+          title="Total Transactions"
+          value={formatNumber(dashboardData.dashboard_overview.total_transactions)}
+          icon="📊"
+          isValid={qaValidation.isMetricValid('dashboard_overview.total_transactions')}
+        />
+        <MetricCard
+          title="Total Revenue"
+          value={formatCurrency(dashboardData.dashboard_overview.total_revenue)}
+          icon="💰"
+          isValid={qaValidation.isMetricValid('dashboard_overview.total_revenue')}
+        />
+        <MetricCard
+          title="Avg Order Value"
+          value={formatCurrency(dashboardData.dashboard_overview.avg_order_value)}
+          icon="🛒"
+          isValid={qaValidation.isMetricValid('dashboard_overview.avg_order_value')}
+        />
+        <MetricCard
+          title="Unique Customers"
+          value={formatNumber(dashboardData.dashboard_overview.unique_customers)}
+          icon="👥"
+          isValid={qaValidation.isMetricValid('dashboard_overview.unique_customers')}
+        />
+      </div>
+
+      {/* Charts Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Regional Performance Chart */}
+        <ChartCard
+          title="Regional Performance"
+          isValid={qaValidation.isMetricValid('regional_chart.data')}
+        >
+          <div className="space-y-3">
+            {dashboardData.regional_chart.data.map((region, index) => (
+              <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded">
+                <span className="font-medium">{region.region_name}</span>
+                <div className="text-right">
+                  <div className="text-sm text-gray-600">{formatNumber(region.txn_count)} transactions</div>
+                  <div className="font-medium">{formatCurrency(region.total_revenue)}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </ChartCard>
+
+        {/* Brand Performance Chart */}
+        <ChartCard
+          title="Top Brands by Revenue"
+          isValid={qaValidation.isMetricValid('brand_performance_chart.data')}
+        >
+          <div className="space-y-3">
+            {dashboardData.brand_performance_chart.data.map((brand, index) => (
+              <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded">
+                <span className="font-medium">{brand.brand_name}</span>
+                <span className="font-medium">{formatCurrency(brand.brand_revenue)}</span>
+              </div>
+            ))}
+          </div>
+        </ChartCard>
+
+        {/* Gender Distribution */}
+        <ChartCard
+          title="Customer Demographics"
+          isValid={qaValidation.isMetricValid('gender_silhouette_chart.data')}
+        >
+          <div className="space-y-3">
+            {dashboardData.gender_silhouette_chart.data.map((demo, index) => (
+              <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded">
+                <span className="font-medium">{demo.gender}</span>
+                <span className="font-medium">{formatNumber(demo.count)} customers</span>
+              </div>
+            ))}
+          </div>
+        </ChartCard>
+
+        {/* Top Categories */}
+        <ChartCard
+          title="Top Product Categories"
+          isValid={qaValidation.isMetricValid('top_categories_chart.data')}
+        >
+          <div className="space-y-3">
+            {dashboardData.top_categories_chart.data.map((category, index) => (
+              <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded">
+                <span className="font-medium">{category.category}</span>
+                <span className="font-medium">{formatNumber(category.item_count)} items</span>
+              </div>
+            ))}
+          </div>
+        </ChartCard>
+      </div>
+
+      {/* QA Validation Status Footer */}
+      {qaValidation.summary && (
+        <div className="mt-8 bg-white rounded-lg shadow p-6">
+          <div className="flex items-center justify-between">
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900">Data Quality Status</h3>
+              <p className="text-gray-600">
+                Last validated: {qaValidation.lastValidation?.toLocaleString()}
+              </p>
+            </div>
+            <div className="text-right">
+              <div className="text-2xl font-bold text-gray-900">
+                {qaValidation.summary.passRate.toFixed(1)}%
+              </div>
+              <div className="text-sm text-gray-600">
+                {qaValidation.summary.passed}/{qaValidation.summary.total} checks passed
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// Metric Card Component with validation status
+function MetricCard({ 
+  title, 
+  value, 
+  icon, 
+  isValid 
+}: { 
+  title: string;
+  value: string;
+  icon: string;
+  isValid: boolean | null;
+}) {
+  return (
+    <div className="bg-white rounded-lg shadow p-6 relative">
+      {/* Validation indicator */}
+      <div className="absolute top-2 right-2">
+        {isValid === true && <span className="text-green-500 text-sm">✅</span>}
+        {isValid === false && <span className="text-red-500 text-sm">❌</span>}
+        {isValid === null && <span className="text-gray-400 text-sm">❓</span>}
+      </div>
+      
+      <div className="flex items-center">
+        <div className="text-2xl mr-3">{icon}</div>
+        <div>
+          <p className="text-sm font-medium text-gray-600">{title}</p>
+          <p className="text-2xl font-bold text-gray-900">{value}</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Chart Card Component with validation status
+function ChartCard({ 
+  title, 
+  children, 
+  isValid 
+}: { 
+  title: string;
+  children: React.ReactNode;
+  isValid: boolean | null;
+}) {
+  return (
+    <div className="bg-white rounded-lg shadow p-6 relative">
+      {/* Validation indicator */}
+      <div className="absolute top-4 right-4">
+        {isValid === true && <span className="text-green-500 text-sm">✅</span>}
+        {isValid === false && <span className="text-red-500 text-sm">❌</span>}
+        {isValid === null && <span className="text-gray-400 text-sm">❓</span>}
+      </div>
+      
+      <h3 className="text-lg font-semibold text-gray-900 mb-4">{title}</h3>
+      {children}
+    </div>
+  );
+}

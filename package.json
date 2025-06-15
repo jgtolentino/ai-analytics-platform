@@ -18,6 +18,12 @@
     "test:integration": "playwright test",
     "test:scout": "cd apps/scout-dashboard && npm run test",
     "test:ces": "cd apps/ces-insights && npm run test",
+    "qa:validate": "ts-node scripts/run-qa-validation.ts",
+    "qa:validate:scout": "ts-node scripts/run-qa-validation.ts '' '' markdown scout",
+    "qa:validate:ces": "ts-node scripts/run-qa-validation.ts '' '' markdown ces",
+    "qa:validate:both": "ts-node scripts/run-qa-validation.ts '' '' markdown both",
+    "qa:validate:save": "ts-node scripts/run-qa-validation.ts '' '' json scout --save-db",
+    "test:dynamic-transactions": "ts-node scripts/test-dynamic-transactions.ts",
     "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
     "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx --fix",
     "typecheck": "tsc --noEmit",
@@ -37,26 +43,31 @@
   "dependencies": {
     "@azure/openai": "^1.0.0-beta.12",
     "@supabase/supabase-js": "^2.39.0",
+    "@tailwindcss/forms": "^0.5.10",
     "@vercel/analytics": "^1.1.1",
+    "dotenv": "^16.3.1",
+    "js-yaml": "^4.1.0",
     "next": "^14.0.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "typescript": "^5.3.3"
   },
   "devDependencies": {
+    "@playwright/test": "^1.40.1",
+    "@types/js-yaml": "^4.0.9",
     "@types/node": "^20.10.5",
     "@types/react": "^18.2.45",
     "@types/react-dom": "^18.2.18",
     "@typescript-eslint/eslint-plugin": "^6.15.0",
     "@typescript-eslint/parser": "^6.15.0",
-    "@playwright/test": "^1.40.1",
+    "autoprefixer": "^10.4.16",
     "concurrently": "^8.2.2",
     "eslint": "^8.56.0",
     "eslint-config-next": "^14.0.4",
+    "postcss": "^8.4.32",
     "prettier": "^3.1.1",
     "tailwindcss": "^3.4.0",
-    "autoprefixer": "^10.4.16",
-    "postcss": "^8.4.32"
+    "ts-node": "^10.9.1"
   },
   "workspaces": [
     "apps/*",
@@ -90,14 +101,19 @@
   },
   "config": {
     "database": {
-      "schemas": ["dbo", "ces"],
+      "schemas": [
+        "dbo",
+        "ces"
+      ],
       "provider": "postgresql",
       "connection": "supabase"
     },
     "deployment": {
       "platform": "vercel",
       "target": "scout-mvp",
-      "domains": ["scout-mvp.vercel.app"]
+      "domains": [
+        "scout-mvp.vercel.app"
+      ]
     },
     "ai": {
       "provider": "azure-openai",
