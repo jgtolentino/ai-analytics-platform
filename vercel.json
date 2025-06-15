@@ -1,60 +1,18 @@
 {
   "version": 2,
-  "name": "ai-analytics-platform",
-  "alias": ["scout-mvp.vercel.app"],
   "framework": "nextjs",
   
-  "builds": [
-    {
-      "src": "apps/scout-dashboard/package.json",
-      "use": "@vercel/next",
-      "config": {
-        "distDir": ".next"
-      }
+  "functions": {
+    "pages/api/*.js": {
+      "maxDuration": 30
+    },
+    "pages/api/ask-ces.js": {
+      "maxDuration": 60
+    },
+    "pages/api/creative-analysis.js": {
+      "maxDuration": 120
     }
-  ],
-  
-  "routes": [
-    {
-      "src": "/ces/(.*)",
-      "dest": "/ces/$1"
-    },
-    {
-      "src": "/api/ask-ces",
-      "dest": "/api/ask-ces"
-    },
-    {
-      "src": "/api/creative-analysis",
-      "dest": "/api/creative-analysis"
-    },
-    {
-      "src": "/api/qa/caca",
-      "dest": "/api/qa/caca"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/apps/scout-dashboard/$1"
-    }
-  ],
-  
-  "rewrites": [
-    {
-      "source": "/api/scout-analytics",
-      "destination": "/api/scout-analytics"
-    },
-    {
-      "source": "/api/retail-insights",
-      "destination": "/api/retail-insights"
-    },
-    {
-      "source": "/api/consumer-behavior",
-      "destination": "/api/consumer-behavior"
-    },
-    {
-      "source": "/api/brand-performance",
-      "destination": "/api/brand-performance"
-    }
-  ],
+  },
   
   "headers": [
     {
@@ -84,18 +42,6 @@
     }
   ],
   
-  "functions": {
-    "apps/scout-dashboard/pages/api/*.js": {
-      "maxDuration": 30
-    },
-    "apps/scout-dashboard/pages/api/ask-ces.js": {
-      "maxDuration": 60
-    },
-    "apps/scout-dashboard/pages/api/creative-analysis.js": {
-      "maxDuration": 120
-    }
-  },
-  
   "env": {
     "NEXT_PUBLIC_SITE_URL": "https://scout-mvp.vercel.app",
     "NEXT_PUBLIC_PLATFORM_NAME": "AI Analytics Platform",
@@ -108,16 +54,5 @@
     "enabled": true,
     "autoAlias": true,
     "autoJobCancelation": true
-  },
-  
-  "crons": [
-    {
-      "path": "/api/cron/refresh-data",
-      "schedule": "0 */4 * * *"
-    },
-    {
-      "path": "/api/cron/run-qa-tests",
-      "schedule": "0 */2 * * *"
-    }
-  ]
+  }
 }
