@@ -1,18 +1,21 @@
-// pages/ai-assist.tsx - RetailBot & AI Insights Page
-// AI chat panel, recommendations, and intelligent retail assistance
-// Version: 1.0.0
+// pages/ai-assist.tsx - Unified AI Assistant Page
+// Integration point for LearnBot, RetailBot, and Vibe TestBot
+// Version: 1.2
 
 import React, { useState } from 'react';
 import { Header } from '../src/components/Header.jsx';
 import { DateRangePicker } from '../src/components/DateRangePicker.jsx';
 import Navigation from '../src/components/Navigation';
 import CollapsibleSection from '../src/components/layout/CollapsibleSection';
+import AIAssistantPanel from '../src/components/AIAssistantPanel';
 
-export default function AIAssistRetailBot() {
+export default function AIAssistCombo() {
+  const [isAIPanelOpen, setIsAIPanelOpen] = useState(false);
+  const [activeAgent, setActiveAgent] = useState<'LearnBot' | 'RetailBot' | 'Vibe TestBot'>('RetailBot');
   const [chatMessages, setChatMessages] = useState([
     {
       type: 'bot',
-      message: 'Hello! I\'m RetailBot, your AI assistant for Scout Analytics. I can help you analyze trends, recommend actions, and answer questions about your retail data. What would you like to explore?',
+      message: 'Welcome to Scout AI Assistant! I integrate LearnBot, RetailBot, and Vibe TestBot to provide comprehensive support for your analytics platform.',
       timestamp: '2025-06-15T12:30:00Z'
     }
   ]);
@@ -56,12 +59,61 @@ export default function AIAssistRetailBot() {
         {/* Page Header */}
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">🤖 RetailBot & AI Insights</h1>
-            <p className="text-lg text-gray-600 mt-2">Intelligent retail assistance and recommendations</p>
+            <h1 className="text-3xl font-bold text-gray-900">🤖 Scout AI Assistant</h1>
+            <p className="text-lg text-gray-600 mt-2">Unified LearnBot + RetailBot + Vibe TestBot Intelligence</p>
           </div>
           <DateRangePicker 
             onDateChange={(range) => console.log('Date range changed:', range)}
           />
+        </div>
+
+        {/* AI Agent Launcher */}
+        <div className="mb-8">
+          <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">Launch AI Assistants</h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              
+              <button
+                onClick={() => { setActiveAgent('LearnBot'); setIsAIPanelOpen(true); }}
+                className="p-4 bg-blue-50 border border-blue-200 rounded-lg hover:bg-blue-100 transition-colors text-left"
+              >
+                <div className="flex items-center space-x-3">
+                  <span className="text-2xl">🎓</span>
+                  <div>
+                    <div className="font-medium text-blue-900">LearnBot</div>
+                    <div className="text-sm text-blue-700">Dashboard tutorials & help</div>
+                  </div>
+                </div>
+              </button>
+
+              <button
+                onClick={() => { setActiveAgent('RetailBot'); setIsAIPanelOpen(true); }}
+                className="p-4 bg-green-50 border border-green-200 rounded-lg hover:bg-green-100 transition-colors text-left"
+              >
+                <div className="flex items-center space-x-3">
+                  <span className="text-2xl">🛍️</span>
+                  <div>
+                    <div className="font-medium text-green-900">RetailBot</div>
+                    <div className="text-sm text-green-700">FMCG analytics specialist</div>
+                  </div>
+                </div>
+              </button>
+
+              <button
+                onClick={() => { setActiveAgent('Vibe TestBot'); setIsAIPanelOpen(true); }}
+                className="p-4 bg-purple-50 border border-purple-200 rounded-lg hover:bg-purple-100 transition-colors text-left"
+              >
+                <div className="flex items-center space-x-3">
+                  <span className="text-2xl">✨</span>
+                  <div>
+                    <div className="font-medium text-purple-900">Vibe TestBot</div>
+                    <div className="text-sm text-purple-700">AI code QA assistant</div>
+                  </div>
+                </div>
+              </button>
+
+            </div>
+          </div>
         </div>
 
         {/* Dashboard Layout */}
@@ -78,8 +130,8 @@ export default function AIAssistRetailBot() {
                       <span className="text-white text-lg">🤖</span>
                     </div>
                     <div>
-                      <h3 className="text-lg font-semibold text-gray-900">RetailBot Assistant</h3>
-                      <p className="text-sm text-gray-600">AI-powered retail intelligence advisor</p>
+                      <h3 className="text-lg font-semibold text-gray-900">Scout AI Combo</h3>
+                      <p className="text-sm text-gray-600">Unified AI assistant platform</p>
                     </div>
                   </div>
                   
@@ -304,11 +356,22 @@ export default function AIAssistRetailBot() {
         {/* Footer */}
         <div className="mt-12 py-8 border-t border-gray-200">
           <div className="text-center text-sm text-gray-500">
-            <p>RetailBot & AI Insights - Scout Analytics v2.0</p>
-            <p className="mt-1">Powered by Azure OpenAI and advanced retail intelligence</p>
+            <p>Scout AI Combo - LearnBot + RetailBot + Vibe TestBot v2.0</p>
+            <p className="mt-1">Powered by Azure OpenAI and InsightPulseAI orchestration</p>
           </div>
         </div>
       </div>
+
+      {/* AI Assistant Panel */}
+      <AIAssistantPanel
+        isOpen={isAIPanelOpen}
+        onClose={() => setIsAIPanelOpen(false)}
+        activeAgent={activeAgent}
+        context={{
+          page: 'ai-assist',
+          data: { chatMessages, voiceMode }
+        }}
+      />
     </div>
   );
 }
@@ -316,8 +379,8 @@ export default function AIAssistRetailBot() {
 export async function getStaticProps() {
   return {
     props: {
-      title: 'RetailBot & AI Insights - Scout Analytics',
-      description: 'AI-powered retail assistance and intelligent recommendations'
+      title: 'Scout AI Combo - Unified AI Assistant',
+      description: 'LearnBot + RetailBot + Vibe TestBot integrated AI assistance platform'
     },
     revalidate: 60
   };

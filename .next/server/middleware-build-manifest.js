@@ -1,18 +1,1 @@
-self.__BUILD_MANIFEST = {
-  "polyfillFiles": [
-    "static/chunks/polyfills.js"
-  ],
-  "devFiles": [],
-  "ampDevFiles": [],
-  "lowPriorityFiles": [],
-  "rootMainFiles": [],
-  "pages": {
-    "/_app": []
-  },
-  "ampFirstPages": []
-};
-self.__BUILD_MANIFEST.lowPriorityFiles = [
-"/static/" + process.env.__NEXT_BUILD_ID + "/_buildManifest.js",
-,"/static/" + process.env.__NEXT_BUILD_ID + "/_ssgManifest.js",
-
-];
+self.__BUILD_MANIFEST={polyfillFiles:["static/chunks/polyfills-42372ed130431b0a.js"],devFiles:[],ampDevFiles:[],lowPriorityFiles:[],rootMainFiles:[],pages:{"/":["static/chunks/webpack-8fa1640cc84ba8fe.js","static/chunks/framework-64ad27b21261a9ce.js","static/chunks/main-b72093f7aa2e45f9.js","static/chunks/424-ca7471161a310844.js","static/chunks/645-b99ccd1a6eeaaa41.js","static/chunks/130-113d40c6b8937794.js","static/chunks/598-4f14adf1d0242f78.js","static/chunks/pages/index-c9f1354a32db552c.js"],"/_app":["static/chunks/webpack-8fa1640cc84ba8fe.js","static/chunks/framework-64ad27b21261a9ce.js","static/chunks/main-b72093f7aa2e45f9.js","static/css/72f9d8ff1ac72210.css","static/chunks/pages/_app-6c31c4fdeb6a4888.js"],"/_error":["static/chunks/webpack-8fa1640cc84ba8fe.js","static/chunks/framework-64ad27b21261a9ce.js","static/chunks/main-b72093f7aa2e45f9.js","static/chunks/pages/_error-7a92967bea80186d.js"],"/ai-assist":["static/chunks/webpack-8fa1640cc84ba8fe.js","static/chunks/framework-64ad27b21261a9ce.js","static/chunks/main-b72093f7aa2e45f9.js","static/chunks/424-ca7471161a310844.js","static/chunks/274-f7c4e16d4ca4cde6.js","static/chunks/130-113d40c6b8937794.js","static/chunks/598-4f14adf1d0242f78.js","static/chunks/pages/ai-assist-ee4880b5eb3927b3.js"],"/products":["static/chunks/webpack-8fa1640cc84ba8fe.js","static/chunks/framework-64ad27b21261a9ce.js","static/chunks/main-b72093f7aa2e45f9.js","static/chunks/424-ca7471161a310844.js","static/chunks/130-113d40c6b8937794.js","static/chunks/598-4f14adf1d0242f78.js","static/chunks/pages/products-47daf63fed5e7530.js"],"/trends":["static/chunks/webpack-8fa1640cc84ba8fe.js","static/chunks/framework-64ad27b21261a9ce.js","static/chunks/main-b72093f7aa2e45f9.js","static/chunks/424-ca7471161a310844.js","static/chunks/130-113d40c6b8937794.js","static/chunks/598-4f14adf1d0242f78.js","static/chunks/pages/trends-47d0c5cc23f7b2d4.js"],"/vibe":["static/chunks/webpack-8fa1640cc84ba8fe.js","static/chunks/framework-64ad27b21261a9ce.js","static/chunks/main-b72093f7aa2e45f9.js","static/chunks/424-ca7471161a310844.js","static/chunks/274-f7c4e16d4ca4cde6.js","static/chunks/130-113d40c6b8937794.js","static/chunks/pages/vibe-39c8473620753d19.js"]},ampFirstPages:[]},self.__BUILD_MANIFEST.lowPriorityFiles=["/static/"+process.env.__NEXT_BUILD_ID+"/_buildManifest.js",,"/static/"+process.env.__NEXT_BUILD_ID+"/_ssgManifest.js"];

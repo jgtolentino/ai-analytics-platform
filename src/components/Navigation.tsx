@@ -47,6 +47,14 @@ const navigationItems: NavigationItem[] = [
     href: '/ai-assist',
     icon: '🤖',
     badge: 'AI Powered'
+  },
+  {
+    id: 'vibe',
+    title: 'Vibe TestBot',
+    subtitle: 'AI Code QA',
+    href: '/vibe',
+    icon: '✨',
+    badge: 'v1.2'
   }
 ];
 

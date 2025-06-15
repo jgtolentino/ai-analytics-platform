@@ -1,0 +1,63 @@
+{
+  "dashboard": {
+    "theme": "light",
+    "layout": "responsive",
+    "autoRefresh": true,
+    "refreshInterval": 30000
+  },
+  "agents": {
+    "scoutAICombo": {
+      "enabled": true,
+      "autoLoad": true,
+      "version": "1.2"
+    },
+    "vibeTestBot": {
+      "enabled": true,
+      "sidePanel": true,
+      "autoShow": "on_error",
+      "style": "terminal_embedded"
+    },
+    "learnBot": {
+      "enabled": true,
+      "enableFloatingPanel": true,
+      "autoShow": "on_help_request",
+      "style": "chat_interface",
+      "position": "bottom_right"
+    },
+    "retailBot": {
+      "enabled": true,
+      "overlayWidget": true,
+      "autoShow": "on_data_issue",
+      "style": "alert_system"
+    }
+  },
+  "ui": {
+    "showNavigationStats": true,
+    "enableBreadcrumbs": true,
+    "compactMode": false,
+    "animations": true
+  },
+  "features": {
+    "aiAssistance": true,
+    "realTimeMonitoring": true,
+    "fixReplays": true,
+    "socialSharing": true,
+    "contextualHelp": true
+  },
+  "notifications": {
+    "enabled": true,
+    "position": "top_right",
+    "autoHide": true,
+    "duration": 5000
+  },
+  "performance": {
+    "lazyLoading": true,
+    "cacheEnabled": true,
+    "preloadComponents": ["VibeTestBot", "LearnBot"]
+  },
+  "integration": {
+    "pulserCLI": true,
+    "githubActions": true,
+    "vercelDeployments": true
+  }
+}
