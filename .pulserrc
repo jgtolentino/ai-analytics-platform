@@ -8,7 +8,10 @@ agents_path: packages/agents
 agent_lock:
   repo: sha256:d79be9b36ccbfa287b9e19a63c54a585b498eda045ea7dca38444d15dcc29e60
   keykey: sha256:fd7f47f9ad9178c543358f073935aceb975e4e0c067e079b9730dd20c9876d6e
+  claude: sha256:a29a2fbbd156f5b08d14e1c40f2360025c80a71a7062c25ef2047e6692b0e696
 # Agents allowed to operate across repository boundaries
 cross_repo_allowed:
   - repo # RepoAgent may fetch / cherry-pick other repos
   - keykey
+wander_watchlist:
+  - claude # 🔒 flagged as "most likely to wander"

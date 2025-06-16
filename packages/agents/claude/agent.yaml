@@ -1,0 +1,13 @@
+name: Claude
+codename: claude
+description: >
+  Claude-Code CLI-parity agent. Powerful but prone to cross-repo "wandering".
+  Must stay inside the project root unless explicitly overridden.
+permissions:
+  - git:read
+  - fs:project-readonly       # read-only outside /tmp; prevents writes
+  - cwd_lock                  # Pulser runtime enforces CWD == monorepo_root
+memory_tags:
+  - claude
+  - code
+  - high_wander_risk
