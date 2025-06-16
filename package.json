@@ -33,7 +33,12 @@
     "setup": "npm install && npm run db:migrate && npm run db:seed",
     "agents:yummy": "node agents/yummy-controller.js",
     "agents:caca": "node agents/caca-validator.js",
-    "agents:learnbot": "node agents/learnbot-helper.js"
+    "agents:learnbot": "node agents/learnbot-helper.js",
+    "agents:keykey": "node agents/keykey.cjs",
+    "keykey:sync": "node agents/keykey.cjs sync",
+    "keykey:preview": "node agents/keykey.cjs preview",
+    "keykey:status": "node agents/keykey.cjs status",
+    "setup:keykey": "./scripts/setup-with-keykey.sh"
   },
   "dependencies": {
     "@azure/openai": "^1.0.0-beta.12",

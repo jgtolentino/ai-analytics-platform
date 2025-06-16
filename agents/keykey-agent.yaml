@@ -1,0 +1,159 @@
+# keykey-agent.yaml
+# Agent Registry Entry for KeyKey Environment Synchronizer
+# Compatible with Pulser orchestration system
+
+agent:
+  name: KeyKey
+  version: 1.0.0
+  type: env_sync
+  category: infrastructure
+  
+  description: |
+    Securely fetches, verifies, and applies environment files (.env, .env.production, .env.local) 
+    from a designated source repository to target monorepo. Includes file integrity checks, 
+    backup functionality, and sync metadata logging.
+
+  capabilities:
+    - environment_file_synchronization
+    - file_integrity_verification  
+    - backup_and_restore
+    - metadata_logging
+    - preview_mode
+    - confirmation_prompts
+
+  src: agents/keykey.ts
+  
+  dependencies:
+    runtime:
+      - node: ">=18.0.0"
+      - typescript: "^5.0.0"
+    packages:
+      - dotenv: "^16.0.0"
+  
+  configuration:
+    sourceRepoPath: 
+      type: string
+      default: "../scout-mvp"
+      description: "Path to source repository containing environment files"
+    
+    targetRoot:
+      type: string  
+      default: "process.cwd()"
+      description: "Target directory for environment files"
+    
+    envFiles:
+      type: array
+      default: [".env", ".env.production", ".env.local", ".env.example"]
+      description: "List of environment files to synchronize"
+    
+    backupExisting:
+      type: boolean
+      default: true
+      description: "Create backups of existing files before overwriting"
+    
+    requireConfirmation:
+      type: boolean
+      default: false
+      description: "Require user confirmation before making changes"
+    
+    logMetadata:
+      type: boolean
+      default: true
+      description: "Save sync metadata to .keykey-sync.json"
+
+  usage:
+    cli:
+      sync: "npx ts-node agents/keykey.ts sync"
+      preview: "npx ts-node agents/keykey.ts preview"
+      status: "npx ts-node agents/keykey.ts status"
+      interactive: "npx ts-node agents/keykey.ts sync --confirm"
+    
+    programmatic: |
+      import KeyKey from './agents/keykey';
+      
+      const keykey = new KeyKey({
+        sourceRepoPath: '../scout-mvp',
+        requireConfirmation: true
+      });
+      
+      await keykey.syncEnvFiles();
+
+  security:
+    - "Does not log or expose environment variable values"
+    - "Creates backups before overwriting existing files"  
+    - "Uses SHA256 hashing for file integrity verification"
+    - "Skips missing files without crashing"
+    - "Requires explicit confirmation for destructive operations"
+
+  integration:
+    pulser:
+      task_type: "env_sync"
+      execution_mode: "on_demand"
+      priority: "high"
+      retry_count: 3
+      
+    workflow_hooks:
+      pre_setup: true
+      post_clone: true
+      environment_refresh: true
+
+  outputs:
+    metadata_file: ".keykey-sync.json"
+    backup_pattern: "*.backup-*"
+    
+    success_criteria:
+      - "All specified environment files found and synced"
+      - "No critical errors during synchronization"
+      - "File integrity verification passed"
+    
+    failure_modes:
+      - "Source repository not accessible"
+      - "Permission denied writing to target directory"
+      - "File corruption detected during sync"
+
+  monitoring:
+    metrics:
+      - sync_duration
+      - files_synced_count
+      - backup_files_created
+      - errors_encountered
+      
+    alerts:
+      - env_file_missing_in_source
+      - sync_failure_critical
+      - file_integrity_mismatch
+
+  examples:
+    basic_sync: |
+      # Basic synchronization
+      npx ts-node agents/keykey.ts sync
+      
+    preview_changes: |
+      # Preview what will be changed without making modifications  
+      npx ts-node agents/keykey.ts preview
+      
+    interactive_mode: |
+      # Interactive mode with confirmation prompts
+      npx ts-node agents/keykey.ts sync --confirm
+      
+    custom_source: |
+      # Programmatic usage with custom configuration
+      const keykey = new KeyKey({
+        sourceRepoPath: '../different-repo',
+        envFiles: ['.env', '.env.staging'],
+        backupExisting: false
+      });
+      await keykey.syncEnvFiles();
+
+  changelog:
+    v1.0.0:
+      - "Initial implementation with file sync and integrity verification"
+      - "Backup functionality for existing files"
+      - "Preview mode and confirmation prompts"
+      - "Metadata logging and status reporting"
+      - "CLI and programmatic interfaces"
+
+author: "TBWA AI Analytics Team"
+license: "MIT"
+created: "2025-06-15"
+updated: "2025-06-15"
