@@ -4,3 +4,11 @@ agents:
   - basher
   - caca
   - repo
+agents_path: packages/agents
+agent_lock:
+  repo: sha256:d79be9b36ccbfa287b9e19a63c54a585b498eda045ea7dca38444d15dcc29e60
+  keykey: sha256:fd7f47f9ad9178c543358f073935aceb975e4e0c067e079b9730dd20c9876d6e
+# Agents allowed to operate across repository boundaries
+cross_repo_allowed:
+  - repo # RepoAgent may fetch / cherry-pick other repos
+  - keykey

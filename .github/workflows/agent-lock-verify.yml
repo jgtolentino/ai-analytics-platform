@@ -1,0 +1,35 @@
+name: Verify Agent Locks
+on: [push, pull_request]
+
+jobs:
+  lockcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install yq
+        run: |
+          sudo wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
+          sudo chmod +x /usr/local/bin/yq
+      - name: Loop over all agent locks
+        run: |
+          set -euo pipefail
+          allowed=$(yq '.cross_repo_allowed[]' .pulserrc || echo "")
+          for agent_dir in packages/agents/* ; do
+            agent=$(basename "$agent_dir")
+            # Skip hash-check if agent is on cross-repo allow-list
+            if echo "$allowed" | grep -qx "$agent"; then
+              echo "↪︎ $agent is cross-repo-enabled; skipping lock verification"
+              continue
+            fi
+            actual=$(tar -cf - "$agent_dir" | sha256sum | awk '{print $1}')
+            expect=$(yq ".agent_lock.$agent" .pulserrc | cut -d: -f2 || true)
+            if [[ -z "$expect" ]]; then
+              echo "::warning ::No lock recorded for $agent — run scripts/lock-agent.sh $agent"
+              exit 1
+            fi
+            if [[ "$actual" != "$expect" ]]; then
+              echo "::error ::Hash mismatch for $agent. Run scripts/lock-agent.sh $agent"
+              exit 1
+            fi
+            echo "✓ $agent lock OK"
+          done
