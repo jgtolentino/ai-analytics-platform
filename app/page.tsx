@@ -1,4 +1,4 @@
-// Scout Analytics v3.2.0 - Main Page with Advanced Insights
+// Scout Analytics v3.3.0 - Main Page with Advanced Insights + BrandBot Integration
 import AdvancedInsightsPanel from '../src/components/ScoutAnalytics/AdvancedInsightsPanel';
 
 export default function HomePage() {
@@ -13,7 +13,7 @@ export default function HomePage() {
                 <span className="text-white font-bold text-sm">S</span>
               </div>
               <div>
-                <h1 className="text-xl font-bold text-gray-900">Scout Analytics v3.2.0</h1>
+                <h1 className="text-xl font-bold text-gray-900">Scout Analytics v3.3.0</h1>
                 <p className="text-sm text-gray-600">AI-Powered Retail Intelligence Platform</p>
               </div>
             </div>
@@ -51,6 +51,12 @@ export default function HomePage() {
             <div className="flex items-center text-green-700">
               <span className="mr-2">✅</span> Advanced Insights Panel
             </div>
+            <div className="flex items-center text-green-700">
+              <span className="mr-2">🧠</span> BrandBot v1.0 Active
+            </div>
+            <div className="flex items-center text-green-700">
+              <span className="mr-2">🔄</span> Dual-DB Architecture
+            </div>
           </div>
         </div>
       </div>
@@ -63,12 +69,13 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-6 py-6">
           <div className="text-center text-sm text-gray-500">
             <p className="mb-2">
-              Scout Analytics v3.2.0 | Sophisticated Data Model Implementation Complete
+              Scout Analytics v3.3.0 | Dual-DB Architecture + Agent-Aware Analytics
             </p>
             <div className="flex items-center justify-center space-x-4">
               <span>🎨 Brand Dictionary with Color Psychology</span>
-              <span>🧠 Emotional & Contextual Analysis</span>
+              <span>🧠 BrandBot AI Agent with Dual-DB Routing</span>
               <span>📦 AI-Driven Bundling Opportunities</span>
+              <span>🔍 QA Audit Chain (Caca → Claudia → Dash)</span>
             </div>
             <p className="mt-2 text-xs">
               Powered by Next.js 14, TypeScript, Tailwind CSS | 

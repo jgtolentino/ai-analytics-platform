@@ -2,18 +2,6 @@
   "version": 2,
   "framework": "nextjs",
   
-  "functions": {
-    "pages/api/*.js": {
-      "maxDuration": 30
-    },
-    "pages/api/ask-ces.js": {
-      "maxDuration": 60
-    },
-    "pages/api/creative-analysis.js": {
-      "maxDuration": 120
-    }
-  },
-  
   "headers": [
     {
       "source": "/(.*)",
@@ -32,11 +20,11 @@
         },
         {
           "key": "X-System-ID",
-          "value": "ai-analytics-platform"
+          "value": "scout-analytics-v3.3"
         },
         {
           "key": "X-Platform-Version",
-          "value": "2.0"
+          "value": "3.3.0"
         }
       ]
     }
@@ -44,9 +32,14 @@
   
   "env": {
     "NEXT_PUBLIC_SITE_URL": "https://scout-mvp.vercel.app",
-    "NEXT_PUBLIC_PLATFORM_NAME": "AI Analytics Platform",
-    "NEXT_PUBLIC_VERSION": "2.0.0"
+    "NEXT_PUBLIC_PLATFORM_NAME": "Scout Analytics",
+    "NEXT_PUBLIC_VERSION": "3.3.0",
+    "NODE_ENV": "production"
   },
+  
+  "buildCommand": "npm run build",
+  "outputDirectory": ".next",
+  "installCommand": "npm install",
   
   "regions": ["sin1", "syd1", "hkg1"],
   
@@ -54,5 +47,18 @@
     "enabled": true,
     "autoAlias": true,
     "autoJobCancelation": true
-  }
-}  "/favicon.ico",
+  },
+  
+  "functions": {
+    "app/**": {
+      "memory": 1024
+    }
+  },
+  
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/$1"
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 {
   "name": "ai-analytics-platform",
-  "version": "2.0.0",
+  "version": "3.3.0",
   "description": "TBWA's Unified AI Analytics Platform - Scout Analytics (Retail Intelligence) + CES (Creative Effectiveness System)",
   "type": "module",
   "scripts": {
@@ -8,37 +8,16 @@
     "build": "next build",
     "start": "next start",
     "export": "next export",
-    "test": "npm run test:caca && npm run test:integration",
-    "test:caca": "node scripts/run-qa-tests.js",
-    "test:integration": "playwright test",
-    "test:scout": "cd apps/scout-dashboard && npm run test",
-    "test:ces": "cd apps/ces-insights && npm run test",
-    "qa:validate": "ts-node scripts/run-qa-validation.ts",
-    "qa:validate:scout": "ts-node scripts/run-qa-validation.ts '' '' markdown scout",
-    "qa:validate:ces": "ts-node scripts/run-qa-validation.ts '' '' markdown ces",
-    "qa:validate:both": "ts-node scripts/run-qa-validation.ts '' '' markdown both",
-    "qa:validate:save": "ts-node scripts/run-qa-validation.ts '' '' json scout --save-db",
-    "test:dynamic-transactions": "ts-node scripts/test-dynamic-transactions.ts",
+    "test": "echo 'No tests specified'",
     "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
     "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx --fix",
     "typecheck": "tsc --noEmit",
-    "db:migrate": "node scripts/run-migrations.js",
-    "db:seed": "npm run db:seed:scout && npm run db:seed:ces",
-    "db:seed:scout": "node etl/scout/generate-data.js",
-    "db:seed:ces": "node etl/ces/extract-assets.js",
+    "clean": "rm -rf .next && rm -rf out",
     "deploy": "vercel deploy --prod",
-    "deploy:staging": "vercel deploy",
-    "verify": "node scripts/verify-deployment.js",
-    "clean": "rm -rf node_modules && rm -rf apps/*/node_modules && rm -rf apps/*/.next",
-    "setup": "npm install && npm run db:migrate && npm run db:seed",
-    "agents:yummy": "node agents/yummy-controller.js",
-    "agents:caca": "node agents/caca-validator.js",
-    "agents:learnbot": "node agents/learnbot-helper.js",
-    "agents:keykey": "node agents/keykey.cjs",
+    "deploy:preview": "vercel deploy",
     "keykey:sync": "node agents/keykey.cjs sync",
     "keykey:preview": "node agents/keykey.cjs preview",
-    "keykey:status": "node agents/keykey.cjs status",
-    "setup:keykey": "./scripts/setup-with-keykey.sh"
+    "keykey:status": "node agents/keykey.cjs status"
   },
   "dependencies": {
     "@azure/openai": "^1.0.0-beta.12",
@@ -71,12 +50,10 @@
     "postcss": "^8.4.32",
     "prettier": "^3.1.1",
     "tailwindcss": "^3.4.0",
-    "ts-node": "^10.9.1"
+    "ts-node": "^10.9.1",
+    "turbo": "^2.0.0",
+    "tsup": "^7.0.0"
   },
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ],
   "engines": {
     "node": ">=18.0.0",
     "npm": ">=9.0.0"

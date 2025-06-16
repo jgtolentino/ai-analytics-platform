@@ -1,0 +1,452 @@
+# Scout Analytics v3.3.0 - Dash Provisioning Deployment Kit
+# Cloud-Native Dual-DB Architecture with Agent-Aware Schema Routing
+# Complete YAML Wiring for Production Deployment
+
+version: "v3.3.0"
+deployment_kit: "dash_provisioning"
+environment: "production"
+tenant_support: true
+agent_orchestration: true
+
+# =============================================
+# Infrastructure Configuration
+# =============================================
+
+infrastructure:
+  dual_database:
+    azure_sql:
+      enabled: true
+      purpose: "brand_intelligence_analytics"
+      schema_version: "brandbot_v1.0"
+      connection_pool:
+        max: 10
+        min: 2
+        idle_timeout: 30000
+      rls_enabled: true
+      backup_strategy: "point_in_time"
+      
+    supabase:
+      enabled: true
+      purpose: "retail_analytics_transactions"
+      schema_version: "v3.2.0"
+      edge_functions: true
+      realtime: true
+      rls_enabled: true
+
+  hosting:
+    platform: "vercel"
+    framework: "nextjs_14"
+    regions: ["sin1", "syd1", "hkg1"]
+    edge_runtime: true
+    
+  cdn:
+    provider: "vercel_edge"
+    caching_strategy: "aggressive"
+    invalidation: "on_deploy"
+
+# =============================================
+# Agent Configuration
+# =============================================
+
+agents:
+  brandbot:
+    version: "v1.0"
+    status: "active"
+    capabilities:
+      - "brand_intelligence_runtime"
+      - "dual_db_routing"
+      - "natural_language_to_sql"
+      - "insight_generation"
+    database_context: "azure_sql"
+    fallback_provider: "supabase"
+    ai_model: "gpt-4-turbo"
+    prompt_caching: true
+    
+  retailbot:
+    version: "v2.1"
+    status: "active"
+    capabilities:
+      - "kpi_explanation"
+      - "trend_analysis"
+      - "retail_insights"
+    database_context: "supabase"
+    ai_model: "gpt-4-turbo"
+    
+  learnbot:
+    version: "v1.6"
+    status: "active"
+    capabilities:
+      - "tutorial_guidance"
+      - "brand_education"
+      - "context_help"
+    database_context: "shared_metadata"
+    
+  vibeTestBot:
+    version: "v1.1"
+    status: "active"
+    capabilities:
+      - "headless_qa"
+      - "placeholder_detection"
+      - "filter_wiring_validation"
+      - "null_visual_detection"
+      - "layout_compliance_gpt"
+    testing_scope: "full_stack"
+    
+  caca:
+    version: "v1.1"
+    status: "active"
+    capabilities:
+      - "visual_qa_orchestration"
+      - "interaction_testing"
+      - "compliance_scoring"
+    audit_chain: true
+    
+  claudia:
+    version: "v1.0"
+    status: "active" 
+    capabilities:
+      - "environment_dispatch"
+      - "tag_aware_routing"
+      - "configuration_validation"
+      - "integration_health_checks"
+    scope: "infrastructure"
+    
+  dash:
+    version: "v1.0"
+    status: "active"
+    capabilities:
+      - "ui_regression_detection"
+      - "layout_compliance"
+      - "brand_consistency_validation"
+      - "accessibility_compliance"
+    visual_ai: true
+
+# =============================================
+# QA Audit Chain Configuration
+# =============================================
+
+qa_audit_chain:
+  enabled: true
+  execution_order:
+    - "caca"      # Visual + Interaction QA
+    - "claudia"   # Environment + Configuration
+    - "dash"      # UI Overlay + Compliance
+    
+  audit_triggers:
+    - "on_deployment"
+    - "on_pull_request"
+    - "on_schedule" # daily at 2 AM UTC
+    
+  issue_tracking:
+    format: "structured_json"
+    severity_levels: ["critical", "high", "medium", "low"]
+    categories: ["ui", "data", "performance", "security", "accessibility", "business_logic"]
+    auto_assignment: true
+    
+  notifications:
+    slack_webhook: "${SLACK_QA_WEBHOOK}"
+    email_recipients: ["qa-team@tbwa.com"]
+    github_issues: true
+    severity_threshold: "high"
+
+# =============================================
+# Database Schema Deployment
+# =============================================
+
+schema_deployment:
+  azure_sql:
+    migration_scripts:
+      - "sql-server-migration/sqlserver_schema_brandbot.sql"
+    tables_created: 7
+    security_features:
+      - "row_level_security"
+      - "multi_tenant_filtering"
+      - "audit_triggers"
+      - "gdpr_compliance"
+    performance_optimizations:
+      - "brand_analytics_indexes"
+      - "cross_table_correlations"
+      - "connection_pooling"
+      
+  supabase:
+    existing_schema: "v3.2.0"
+    rpc_functions: 
+      - "execute_dynamic_query"
+      - "get_brand_analytics"
+    realtime_subscriptions:
+      - "transaction_updates"
+      - "kpi_changes"
+
+# =============================================
+# Component Integration
+# =============================================
+
+components:
+  advanced_insights_panel:
+    data_sources: ["azure_sql", "typescript_fallback"]
+    agent_integration: ["brandbot", "learnbot"]
+    qa_validation:
+      - "placeholder_detection"
+      - "filter_wiring"
+      - "data_binding"
+    fallback_states: ["loading", "error", "no_data"]
+    
+  brand_dictionary_display:
+    data_sources: ["azure_sql", "typescript_models"]
+    agent_integration: ["brandbot"]
+    features:
+      - "color_psychology"
+      - "generational_analysis"
+      - "emotional_triggers"
+    qa_validation:
+      - "visual_consistency"
+      - "data_accuracy"
+      
+  emotional_analysis_panel:
+    data_sources: ["azure_sql"]
+    agent_integration: ["brandbot"]
+    ai_features:
+      - "sentiment_analysis"
+      - "emotional_correlations"
+      - "engagement_scoring"
+    qa_validation:
+      - "ai_response_validation"
+      - "correlation_accuracy"
+      
+  bundling_opportunities_engine:
+    data_sources: ["azure_sql", "supabase"]
+    agent_integration: ["brandbot", "retailbot"]
+    algorithms:
+      - "roi_calculation"
+      - "cross_brand_analysis"
+      - "demographic_targeting"
+    qa_validation:
+      - "calculation_accuracy"
+      - "recommendation_quality"
+
+# =============================================
+# Security & Compliance
+# =============================================
+
+security:
+  row_level_security:
+    enabled: true
+    tenant_isolation: true
+    user_filtering: "fn_filter_by_tenant"
+    
+  data_classification:
+    levels: ["public", "internal", "confidential", "restricted"]
+    brand_data: "confidential"
+    transaction_data: "internal"
+    
+  access_control:
+    role_based: true
+    agent_permissions:
+      brandbot: ["azure_sql_read", "supabase_fallback"]
+      retailbot: ["supabase_read"]
+      vibeTestBot: ["ui_testing", "qa_reporting"]
+      
+  compliance:
+    gdpr: true
+    data_retention_days: 2555  # ~7 years
+    audit_logging: true
+    encryption_at_rest: true
+
+# =============================================
+# Performance & Monitoring
+# =============================================
+
+performance:
+  targets:
+    brand_profile_load: "< 500ms"
+    fuzzy_matching: "< 100ms"
+    sql_server_response: "< 1s"
+    ui_component_render: "< 200ms"
+    brand_analytics_calculation: "< 2s"
+    
+  caching:
+    brand_profiles: "1 hour"
+    static_assets: "24 hours"
+    api_responses: "15 minutes"
+    
+  monitoring:
+    error_tracking: "vercel_analytics"
+    performance_monitoring: "web_vitals"
+    database_monitoring: "azure_insights"
+    uptime_monitoring: true
+
+# =============================================
+# Deployment Pipeline
+# =============================================
+
+deployment:
+  strategy: "blue_green"
+  verification_steps:
+    - "schema_migration_check"
+    - "agent_health_check"
+    - "qa_audit_chain"
+    - "performance_baseline"
+    - "security_scan"
+    
+  rollback_triggers:
+    - "critical_qa_failures"
+    - "performance_degradation_20%"
+    - "security_vulnerability"
+    
+  environments:
+    production:
+      url: "https://scout-mvp.vercel.app"
+      database: "azure_sql_production"
+      agents: "all_active"
+      monitoring: "full"
+      
+    staging:
+      url: "https://scout-staging.vercel.app"
+      database: "azure_sql_staging"
+      agents: "testing_mode"
+      monitoring: "qa_focused"
+
+# =============================================
+# Feature Flags
+# =============================================
+
+feature_flags:
+  brand_intelligence_sql_server: true
+  dual_database_routing: true
+  ai_powered_insights: true
+  advanced_qa_chain: true
+  real_time_validation: true
+  gpt_layout_compliance: true
+  multi_tenant_isolation: true
+
+# =============================================
+# Integration Tests
+# =============================================
+
+integration_tests:
+  brand_intelligence_workflow:
+    - "brand_selection_updates_all_panels"
+    - "sql_server_data_loads_correctly"
+    - "fallback_to_typescript_works"
+    - "ai_insights_generation_functional"
+    
+  qa_audit_chain_workflow:
+    - "caca_detects_placeholder_issues"
+    - "claudia_validates_environment"
+    - "dash_checks_layout_compliance"
+    - "full_chain_generates_report"
+    
+  dual_database_workflow:
+    - "brandbot_routes_to_azure_sql"
+    - "retailbot_uses_supabase"
+    - "fallback_routing_works"
+    - "performance_within_targets"
+
+# =============================================
+# Maintenance & Updates
+# =============================================
+
+maintenance:
+  automated_backups:
+    frequency: "daily"
+    retention: "30_days"
+    verification: "automated"
+    
+  schema_updates:
+    process: "migration_scripts"
+    testing: "staging_first"
+    rollback: "automated"
+    
+  agent_updates:
+    strategy: "gradual_rollout"
+    testing: "a_b_testing"
+    monitoring: "real_time"
+    
+  dependency_updates:
+    security_patches: "immediate"
+    feature_updates: "monthly"
+    major_versions: "quarterly"
+
+# =============================================
+# Documentation & Training
+# =============================================
+
+documentation:
+  deployment_guide: "README_v3.3.0.md"
+  agent_integration: "agents/README.md"
+  qa_procedures: "qa/QA_GUIDE.md"
+  troubleshooting: "TROUBLESHOOTING_v3.3.0.md"
+  
+training:
+  qa_team: "qa_audit_chain_training.md"
+  developers: "dual_db_architecture_guide.md"
+  stakeholders: "brand_intelligence_overview.md"
+
+# =============================================
+# Success Metrics
+# =============================================
+
+success_metrics:
+  deployment_success: "zero_downtime"
+  qa_automation: "> 90% issues auto_detected"
+  performance: "all_targets_met"
+  brand_intelligence: "3_brands_fully_profiled"
+  agent_reliability: "> 99% uptime"
+  user_satisfaction: "feedback_positive"
+
+# =============================================
+# Emergency Procedures
+# =============================================
+
+emergency:
+  rollback_procedure:
+    - "disable_feature_flags"
+    - "revert_database_migrations"
+    - "restore_previous_deployment"
+    - "notify_stakeholders"
+    
+  incident_response:
+    - "assess_impact"
+    - "engage_response_team"
+    - "implement_mitigation"
+    - "post_incident_review"
+    
+  escalation:
+    level_1: "qa_team"
+    level_2: "engineering_lead"
+    level_3: "platform_architect"
+    level_4: "cto"
+
+# =============================================
+# Contact Information
+# =============================================
+
+contacts:
+  deployment_lead: "dash_provisioning_team@tbwa.com"
+  qa_lead: "qa_audit_chain@tbwa.com"
+  platform_architect: "platform_team@tbwa.com"
+  emergency_contact: "emergency_response@tbwa.com"
+
+# =============================================
+# Version History
+# =============================================
+
+version_history:
+  v3.3.0:
+    date: "2024-12-17"
+    changes:
+      - "Added BrandBot v1.0 with dual-DB architecture"
+      - "Implemented QA Audit Chain (Caca → Claudia → Dash)"
+      - "Added 7 production-safe Azure SQL tables"
+      - "Enhanced multi-tenant security with RLS"
+      - "Integrated GPT-based layout compliance"
+    migration_notes: "Requires Azure SQL setup and environment variables"
+    
+  v3.2.0:
+    date: "2024-12-15"
+    changes:
+      - "Sophisticated data model implementation"
+      - "Brand Dictionary with 3 enhanced profiles"
+      - "Emotional Context Analyzer functional"
+      - "Bundling Opportunities Engine active"
+    status: "current_production"
