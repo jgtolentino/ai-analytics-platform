@@ -1,0 +1,22 @@
+name: RepoAgent CI
+
+on:
+  pull_request:
+    paths:
+      - "**/*"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run test -- --ci
+      - name: Report to Caca
+        run: |
+          echo "::notice file=repo-agent-ci,title=QA::CI Passed for ${{ github.sha }}"

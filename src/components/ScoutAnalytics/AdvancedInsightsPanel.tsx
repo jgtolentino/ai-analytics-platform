@@ -379,11 +379,40 @@ export default function AdvancedInsightsPanel({
       setBrandbotLoading(true);
       setBrandbotResponse('');
       
-      // Simulate API call to BrandBot
-      setTimeout(() => {
+      try {
+        // Real API call to BrandBot backend
+        const response = await fetch('/api/brand-intelligence', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            brand: selectedBrand,
+            query: query,
+            analysisType: query.includes('performance') ? 'performance' : 
+                         query.includes('competitor') ? 'competitive' : 'targeting'
+          })
+        });
+
+        const result = await response.json();
+        
+        if (result.success) {
+          const fullResponse = `${result.data.insight}
+
+⚡ **Performance:** Query executed in ${result.data.metadata.processingTime} via ${result.data.metadata.dualDbRouting}
+🔄 **Data Source:** ${result.data.metadata.dataSource} (Confidence: ${(result.data.metadata.confidence * 100).toFixed(0)}%)`;
+          
+          setBrandbotResponse(fullResponse);
+        } else {
+          throw new Error(result.error || 'Failed to get AI response');
+        }
+      } catch (error) {
+        console.error('BrandBot API error:', error);
+        
+        // Fallback to mock response
         const mockResponse = `**BrandBot v1.0 Analysis for ${brandProfile?.name || selectedBrand}:**
 
-📊 **Dual-DB Routing:** Azure SQL → Brand Intelligence Layer
+📊 **Dual-DB Routing:** Azure SQL → Brand Intelligence Layer (Fallback Mode)
 🧠 **AI Insight:** Based on current brand profile analysis:
 
 • **Loyalty Score:** ${brandProfile?.brandAffinity.loyaltyScore ? (brandProfile.brandAffinity.loyaltyScore * 100).toFixed(0) + '%' : 'N/A'}
@@ -395,12 +424,12 @@ export default function AdvancedInsightsPanel({
 2. Leverage ${brandProfile?.emotionalTriggers.primary[0]?.replace('_', ' ') || 'emotional'} triggers in campaigns
 3. Consider cross-brand opportunities with ${brandProfile?.brandAffinity.crossBrandAssociations[0] || 'complementary brands'}
 
-⚡ **Performance:** Query executed in 247ms via dual-DB architecture
-🔄 **Fallback:** TypeScript models active (SQL Server integration pending)`;
-
+⚠️ **Fallback Mode:** Using local data models (API connection failed)`;
+        
         setBrandbotResponse(mockResponse);
+      } finally {
         setBrandbotLoading(false);
-      }, 1500);
+      }
     };
 
     return (

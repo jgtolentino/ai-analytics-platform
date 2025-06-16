@@ -1,0 +1,27 @@
+name: RepoAgent
+codename: repo
+description: >
+  Autonomous Git-ops agent that cherry-picks code, docs, and CI logic across multiple
+  remote repositories to assemble the best-practice blueprint (or hot-fix plan) for the
+  next build / deployment attempt.  Prevents repeat mistakes by harvesting "lessons
+  learned" commits and embedding them into project docs and pipelines.
+permissions:
+  - git:read
+  - git:write
+  - github_api:full
+  - vercel_api:deploy
+  - fs:project
+  - caca_report:write        # quality gate integration
+triggers:
+  - "/repo"
+  - "/cherry"
+  - "PR label:repo-bot"
+outputs:
+  - summary_markdown
+  - pr_branch
+  - pr_number
+memory_tags:
+  - repo
+  - git
+  - ci-cd
+  - lessons-learned

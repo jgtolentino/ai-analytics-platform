@@ -1,1 +1,6 @@
 monorepo_root: /Users/tbwa/Documents/GitHub/ai-analytics-platform
+agents:
+  - dash
+  - basher
+  - caca
+  - repo
