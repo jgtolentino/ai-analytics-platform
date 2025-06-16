@@ -1,6 +1,8 @@
-# AI Analytics Platform - Unified Monorepo
+# Scout Analytics Monorepo v3.1.0
 
-**TBWA's Unified AI Analytics Platform** - Consolidating Scout Analytics (Retail Intelligence) and CES (Creative Effectiveness System) into a single, powerful analytics platform.
+> Next-generation retail analytics platform powered by AI agents, interactive visualizations, and real-time insights.
+
+**TBWA's Unified AI Analytics Platform** - Consolidating Scout Analytics (Retail Intelligence) and CES (Creative Effectiveness System) into a single, powerful analytics platform with AI agent orchestration.
 
 ## 🏗️ Architecture Overview
 

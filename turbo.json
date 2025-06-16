@@ -1,6 +1,5 @@
 {
-  "$schema": "https://turborepo.org/schema.json",
-  "globalDotEnv": [".env"],
+  "$schema": "https://turbo.build/schema.json",
   "pipeline": {
     "build": {
       "dependsOn": ["^build"],
@@ -36,6 +35,11 @@
       "inputs": ["src/**", "test/**", "specs/**"],
       "outputs": ["test-results/**"]
     },
+    "test:agents": {
+      "dependsOn": ["^build"],
+      "inputs": ["agents/**", "src/**"],
+      "outputs": ["test-results/**"]
+    },
     "lint": {
       "outputs": []
     },
@@ -56,11 +60,20 @@
     "deploy:preview": {
       "dependsOn": ["build", "lint"],
       "cache": false
+    },
+    "agents:start": {
+      "cache": false,
+      "persistent": true
+    },
+    "agents:test": {
+      "dependsOn": ["^build"],
+      "outputs": ["test-results/**"]
     }
   },
   "globalEnv": [
     "VERCEL_URL",
     "VERCEL_ENV",
     "NODE_ENV"
-  ]
+  ],
+  "globalDependencies": ["**/.env.*local"]
 }

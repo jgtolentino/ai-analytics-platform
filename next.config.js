@@ -1,49 +1,51 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Enable React Strict Mode for better error handling
-  reactStrictMode: true,
-  
-  // Optimize for production
-  swcMinify: true,
-  
-  // Output configuration
-  output: 'standalone',
-  
-  // Environment variables
-  env: {
-    NEXT_PUBLIC_VERSION: '3.2.0',
-    NEXT_PUBLIC_PLATFORM_NAME: 'Scout Analytics'
+  // Direct redirect from root to dashboard - bypasses landing page completely
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/dashboard',
+        permanent: false, // Use 307 redirect to avoid caching
+      },
+    ]
   },
   
-  // Experimental features
+  // Additional security headers
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'X-Frame-Options',
+            value: 'SAMEORIGIN',
+          },
+          {
+            key: 'X-Content-Type-Options',
+            value: 'nosniff',
+          },
+          {
+            key: 'Referrer-Policy',
+            value: 'strict-origin-when-cross-origin',
+          },
+        ],
+      },
+    ]
+  },
+  
+  // Performance optimizations
   experimental: {
-    // App directory is now stable in Next.js 14
+    optimizeCss: true,
   },
   
   // Image optimization
   images: {
-    domains: ['localhost', 'scout-mvp.vercel.app'],
-    unoptimized: true
+    domains: ['vercel.app'],
   },
   
-  // Disable X-Powered-By header
+  // Disable x-powered-by header
   poweredByHeader: false,
-  
-  // Development configuration
-  devIndicators: {
-    buildActivity: true,
-    buildActivityPosition: 'bottom-left'
-  },
-  
-  // ESLint configuration
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
-  
-  // TypeScript configuration
-  typescript: {
-    ignoreBuildErrors: true,
-  }
-};
+}
 
-export default nextConfig;
+module.exports = nextConfig;

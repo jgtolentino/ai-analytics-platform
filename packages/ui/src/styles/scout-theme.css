@@ -1,0 +1,145 @@
+/* Scout Analytics Theme */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom CSS Variables */
+:root {
+  --scout-primary: #3B82F6;
+  --scout-secondary: #6B7280;
+  --scout-success: #10B981;
+  --scout-warning: #F59E0B;
+  --scout-error: #EF4444;
+  --scout-ai-purple: #8B5CF6;
+  
+  --scout-font-family: 'Inter', system-ui, sans-serif;
+  --scout-border-radius: 0.5rem;
+  --scout-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+}
+
+/* Base Styles */
+body {
+  font-family: var(--scout-font-family);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Scout Component Classes */
+.scout-card {
+  @apply bg-white rounded-lg border border-gray-200 shadow-sm;
+}
+
+.scout-button {
+  @apply inline-flex items-center justify-center px-4 py-2 font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2;
+}
+
+.scout-button-primary {
+  @apply scout-button bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500;
+}
+
+.scout-badge {
+  @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-sm font-medium;
+}
+
+.scout-input {
+  @apply block w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500;
+}
+
+.scout-nav-tab {
+  @apply flex items-center space-x-3 py-4 px-1 border-b-2 font-medium text-sm whitespace-nowrap transition-colors duration-200;
+}
+
+.scout-nav-tab-active {
+  @apply scout-nav-tab border-blue-500 text-blue-600;
+}
+
+.scout-nav-tab-inactive {
+  @apply scout-nav-tab border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300;
+}
+
+/* Chart Styles */
+.scout-chart-container {
+  @apply bg-white rounded-lg border border-gray-200 p-6;
+}
+
+.scout-tooltip {
+  @apply bg-gray-900 text-white px-3 py-2 rounded-lg text-sm shadow-lg;
+}
+
+/* Animation Classes */
+.scout-fade-in {
+  animation: scoutFadeIn 0.3s ease-in-out;
+}
+
+.scout-slide-up {
+  animation: scoutSlideUp 0.3s ease-out;
+}
+
+@keyframes scoutFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scoutSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Utilities */
+.scout-container {
+  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+.scout-grid {
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6;
+}
+
+/* AI Agent Specific Styles */
+.scout-ai-panel {
+  @apply bg-gradient-to-r from-purple-50 to-blue-50 border-l-4 border-purple-500 p-4 rounded-r-lg;
+}
+
+.scout-ai-badge {
+  @apply bg-purple-100 text-purple-800 px-2 py-1 rounded-full text-xs font-medium;
+}
+
+/* Chart Interaction Styles */
+.scout-chart-node:hover {
+  @apply opacity-80 transition-opacity duration-200;
+}
+
+.scout-chart-edge {
+  @apply transition-opacity duration-200;
+}
+
+.scout-chart-edge:hover {
+  @apply opacity-100;
+}
+
+/* Loading States */
+.scout-loading {
+  @apply animate-pulse;
+}
+
+.scout-skeleton {
+  @apply bg-gray-200 rounded;
+}
+
+/* Error States */
+.scout-error {
+  @apply bg-red-50 border border-red-200 text-red-700 p-4 rounded-lg;
+}
+
+.scout-warning {
+  @apply bg-yellow-50 border border-yellow-200 text-yellow-700 p-4 rounded-lg;
+}
+
+.scout-success {
+  @apply bg-green-50 border border-green-200 text-green-700 p-4 rounded-lg;
+}

@@ -16,6 +16,7 @@
     "clean": "rm -rf .next && rm -rf out",
     "deploy": "vercel deploy --prod",
     "deploy:preview": "vercel deploy",
+    "deploy:end-state": "node deploy-end-state.js",
     "keykey:sync": "node agents/keykey.cjs sync",
     "keykey:preview": "node agents/keykey.cjs preview",
     "keykey:status": "node agents/keykey.cjs status"

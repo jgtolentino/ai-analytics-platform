@@ -1,0 +1,74 @@
+version: "v3.2.0"
+from: "v2.1"
+env: ".env.production"
+qa: [ "keykey", "caca" ]
+deployment:
+  url: "https://scout-mvp.vercel.app"
+  provider: "vercel"
+  strategy: "promote"
+  
+build:
+  skipMockData: true
+  layoutRestore: true
+  safeModeFallback: true
+  enableAI: true
+  failSafeUI: true
+  
+components:
+  layout:
+    source: "v2.1"
+    enhancements: "cruip"
+    sidebar: "stable"
+    
+  kpiCards:
+    source: "v2.1"
+    guards: 
+      - "ErrorBoundary"
+      - "fallbackLoader"
+      - "dataTimeout"
+      
+  aiAgents:
+    retailBot:
+      enabled: true
+      fallback: "stubbed"
+      timeout: 30000
+      
+    learnBot:
+      enabled: true
+      modules: ["tooltips", "pageHelp", "tutorials"]
+      autoStart: false
+      
+    vibeTestBot:
+      enabled: true
+      hidden: true
+      qaOnly: true
+      
+  database:
+    provider: "supabase"
+    liveQueries: true
+    fallbackMode: "SKIP_DATA"
+    retryPolicy:
+      maxAttempts: 3
+      backoff: "exponential"
+      
+validation:
+  preDeployment:
+    - "keykey verify --env .env.production"
+    - "caca audit-ui --page all"
+    - "npm run test:integration"
+    
+  postDeployment:
+    - "caca audit-production --url https://scout-mvp.vercel.app"
+    - "keykey status --production"
+    
+monitoring:
+  errorBoundary: true
+  rehydrationSafety: true
+  layoutTest: true
+  performanceThreshold: 3000
+  
+fallbacks:
+  data: "fallbackStats"
+  ui: "ErrorBoundary.tsx"
+  api: "stubbed"
+  ai: "disabled"
