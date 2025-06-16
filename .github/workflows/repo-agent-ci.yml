@@ -17,6 +17,8 @@ jobs:
       - run: npm ci
       - run: npm run lint
       - run: npm run test -- --ci
+      - name: Next.js compile check
+        run: npx next build --no-lint --no-javascript-obfuscation
       - name: Report to Caca
         run: |
           echo "::notice file=repo-agent-ci,title=QA::CI Passed for ${{ github.sha }}"
