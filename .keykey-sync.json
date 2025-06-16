@@ -1,0 +1,35 @@
+{
+  "timestamp": "2025-06-16T01:39:00.890Z",
+  "sourceRepo": "../scout-mvp",
+  "files": [
+    {
+      "name": ".env",
+      "hash": "f2166b901d06efc7",
+      "size": 653,
+      "synced": false,
+      "existed": true
+    },
+    {
+      "name": ".env.production",
+      "hash": "",
+      "size": 0,
+      "synced": false,
+      "existed": false
+    },
+    {
+      "name": ".env.local",
+      "hash": "",
+      "size": 0,
+      "synced": false,
+      "existed": false
+    },
+    {
+      "name": ".env.example",
+      "hash": "65ae3afcc268ca56",
+      "size": 393,
+      "synced": false,
+      "existed": true
+    }
+  ],
+  "errors": []
+}

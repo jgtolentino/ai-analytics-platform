@@ -1,0 +1,17 @@
+release: v3.1.0
+date: "2025-06-16"
+monorepo: ai-analytics-platform
+status: production
+agents:
+  - RetailBot
+  - LearnBot
+  - VibeTestBot
+env:
+  keykey_sync: true
+  sources:
+    - .env
+    - .env.production
+deploy:
+  platform: vercel
+  target: apps/dashboard
+  alias: scout-mvp
