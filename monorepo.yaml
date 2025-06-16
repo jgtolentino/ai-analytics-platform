@@ -1,0 +1,340 @@
+# monorepo.yaml
+# Scout AI Monorepo Central Specification v3.1.0
+# Owner: TBWA AI Analytics Team
+# Status: Production Ready
+
+version: 3.1.0
+name: Scout AI Monorepo
+description: "Unified retail intelligence platform with AI agent integration"
+
+# Environment Configuration
+env:
+  mode: production
+  uses_dotenv: true
+  keykey_enabled: true
+  source_repo: "../scout-mvp"
+  environment_files:
+    - .env
+    - .env.production
+    - .env.local
+    - .env.example
+
+# Deployment Configuration
+deployment:
+  target: vercel
+  vercel_project: scout-mvp
+  domain: scout-mvp.vercel.app
+  branch: main
+  static_assets: true
+  build_command: "npm run build"
+  output_directory: "apps/dashboard/.next"
+  node_version: "18.x"
+  
+  environments:
+    production:
+      domain: scout-mvp.vercel.app
+      branch: main
+    preview:
+      domain: scout-mvp-git-preview.vercel.app
+      branch: preview/*
+
+# AI Agents Registry
+agents:
+  - name: RetailBot
+    version: "1.2.0"
+    type: validator
+    category: analytics
+    src: agents/retailbot/index.ts
+    capabilities:
+      - kpi_validation
+      - trend_analysis
+      - recommendation_engine
+      - data_quality_checks
+    integration: unified_ai_panel
+    
+  - name: LearnBot
+    version: "1.1.0"
+    type: tutorial
+    category: education
+    src: agents/learnbot/index.ts
+    capabilities:
+      - interactive_tooltips
+      - step_by_step_guidance
+      - feature_explanations
+      - keyboard_shortcuts
+    integration: unified_ai_panel
+    
+  - name: VibeTestBot
+    version: "1.0.0"
+    type: qa
+    category: testing
+    src: agents/testbot/index.ts
+    capabilities:
+      - real_time_probing
+      - code_quality_analysis
+      - performance_monitoring
+      - no_reload_testing
+    integration: unified_ai_panel
+    
+  - name: KeyKey
+    version: "1.0.0"
+    type: env_sync
+    category: infrastructure
+    src: agents/keykey.cjs
+    capabilities:
+      - environment_synchronization
+      - file_integrity_verification
+      - backup_and_restore
+      - metadata_logging
+
+# UI Configuration
+ui:
+  layout_file: ui/layouts/scout_dashboard_end_state.yaml
+  preview_layout: ui/layouts/scout_dashboard_preview.yaml
+  theme: packages/ui/styles/scout-theme.css
+  navigation: tab_style
+  design_system:
+    primary_color: "#3B82F6"
+    secondary_color: "#6B7280"
+    ai_color: "#8B5CF6"
+    font_family: "Inter, system-ui, sans-serif"
+
+# Build System Configuration
+build:
+  system: turborepo
+  frontend: apps/dashboard
+  landing_page: apps/landing-page
+  shared_packages:
+    - packages/ui
+    - packages/utils
+    - packages/types
+    - packages/charts
+  
+  pipeline:
+    build:
+      dependsOn: ["^build"]
+      outputs: ["dist/**", ".next/**", "build/**"]
+    dev:
+      cache: false
+      persistent: true
+    test:
+      dependsOn: ["^build"]
+      inputs: ["src/**", "test/**"]
+    lint:
+      outputs: []
+    deploy:
+      dependsOn: ["build", "test", "lint"]
+
+# Package Structure
+packages:
+  ui:
+    description: "Shared Tailwind + component library"
+    dependencies:
+      - react
+      - tailwindcss
+      - framer-motion
+    exports:
+      - components
+      - styles
+      - hooks
+      
+  utils:
+    description: "Reusable logic & utility functions"
+    dependencies:
+      - lodash
+      - date-fns
+    exports:
+      - formatters
+      - validators
+      - helpers
+      
+  types:
+    description: "Global TypeScript interfaces and types"
+    exports:
+      - chart_types
+      - api_types
+      - agent_types
+      
+  charts:
+    description: "Interactive chart components"
+    dependencies:
+      - d3
+      - recharts
+    exports:
+      - SKUCombinationNetwork
+      - SubstitutionSankeyChart
+      - DailyTransactionChart
+
+# Applications
+apps:
+  dashboard:
+    name: "Scout Analytics Dashboard"
+    description: "Main retail intelligence dashboard"
+    framework: nextjs
+    version: "14.0.4"
+    port: 3000
+    dependencies:
+      - "@ui/*"
+      - "@utils/*"
+      - "@types/*"
+      - "@charts/*"
+    features:
+      - overview_page
+      - trends_analysis
+      - product_mix
+      - ai_assistant
+      - vibe_testbot
+      
+  landing-page:
+    name: "Scout AI Landing Page"
+    description: "Marketing and onboarding page"
+    framework: nextjs
+    version: "14.0.4"
+    port: 3001
+    status: planned_v3.2.0
+
+# Data Sources
+data_sources:
+  supabase:
+    tables:
+      - consumer_segments
+      - transactions
+      - product_catalog
+      - customer_demographics
+      - sku_combinations
+      - substitution_patterns
+    connection: "@supabase/supabase-js"
+    
+  azure_sql:
+    tables:
+      - campaign_metadata
+      - behavioral_logs
+    integration: "CES prompt injection via schema-mapper.ts"
+    
+  sample_data:
+    population: "29,060 customers"
+    transactions: "15,642 transactions"
+    revenue: "₱3.84M"
+    categories: 5
+    products: 250
+
+# Scripts and Automation
+scripts:
+  setup: "scripts/setup-monorepo.sh"
+  keykey_sync: "npm run keykey:sync"
+  deploy_preview: "scripts/deploy-preview-promote.sh preview"
+  deploy_prod: "scripts/deploy-preview-promote.sh promote"
+  qa_validation: "scripts/qa-scout-v3-preview.cjs"
+  
+# Infrastructure
+infra:
+  vercel_config: infra/vercel.json
+  github_actions: .github/workflows/
+  monitoring:
+    - vercel_analytics
+    - error_tracking
+    - performance_monitoring
+  
+# Security Configuration
+security:
+  env_files_ignored: true
+  secrets_management: vercel_env_vars
+  access_control:
+    - role_based_auth  # planned v3.2.0
+    - api_key_rotation # planned v3.2.0
+  
+  compliance:
+    - data_encryption
+    - audit_logging
+    - gdpr_ready
+
+# Development Workflow
+workflow:
+  git_flow: true
+  branch_protection: true
+  pr_required: true
+  ci_cd: github_actions
+  
+  environments:
+    development:
+      - local development with npm run dev
+      - hot reloading enabled
+      - debug mode active
+    preview:
+      - automated PR deployments
+      - stakeholder review process
+      - QA validation required
+    production:
+      - main branch only
+      - full test suite required
+      - monitoring enabled
+
+# Monitoring and Analytics
+monitoring:
+  vercel_analytics: true
+  error_tracking: sentry  # planned
+  performance_monitoring: true
+  uptime_monitoring: true
+  
+  metrics:
+    - page_load_times
+    - user_interactions
+    - ai_agent_usage
+    - chart_render_performance
+    - api_response_times
+
+# Documentation
+documentation:
+  readme: README.md
+  api_docs: docs/api/
+  component_docs: docs/components/
+  deployment_guide: docs/deployment.md
+  agent_guide: agents/README-KeyKey.md
+
+# Version History
+changelog:
+  v3.1.0:
+    date: "2025-06-15"
+    features:
+      - Enhanced SKU combination network charts
+      - Substitution Sankey flow diagrams
+      - KeyKey environment synchronization agent
+      - Preview → Promote → Production deployment pattern
+      - Interactive chart components with hover states
+    
+  v3.0.0:
+    date: "2025-06-15"
+    features:
+      - 5-page dashboard architecture
+      - AI agent integration (RetailBot, LearnBot, VibeTestBot)
+      - Responsive design with mobile support
+      - Comprehensive QA validation system
+      
+# Roadmap
+roadmap:
+  v3.2.0:
+    planned_features:
+      - Landing page application
+      - Role-based access control
+      - Real-time data streaming
+      - Advanced AI insights
+      - Custom dashboard builder
+    target_date: "Q4 2025"
+    
+  v3.3.0:
+    planned_features:
+      - Multi-tenant support
+      - Advanced analytics exports
+      - Mobile app companion
+      - API marketplace
+    target_date: "Q1 2026"
+
+# Contact and Support
+maintainers:
+  - TBWA AI Analytics Team
+  - InsightPulseAI Development Team
+
+repository: "https://github.com/tbwa/ai-analytics-platform"
+license: MIT
+created: "2025-06-15"
+updated: "2025-06-15"

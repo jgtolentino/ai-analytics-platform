@@ -1,0 +1,66 @@
+{
+  "$schema": "https://turborepo.org/schema.json",
+  "globalDotEnv": [".env"],
+  "pipeline": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**", ".next/**", "build/**"],
+      "env": [
+        "NEXT_PUBLIC_SITE_URL",
+        "NEXT_PUBLIC_PLATFORM_NAME", 
+        "NEXT_PUBLIC_VERSION",
+        "NEXT_PUBLIC_ENVIRONMENT"
+      ]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true,
+      "env": [
+        "NEXT_PUBLIC_SITE_URL",
+        "NEXT_PUBLIC_PLATFORM_NAME",
+        "NEXT_PUBLIC_VERSION"
+      ]
+    },
+    "test": {
+      "dependsOn": ["^build"],
+      "inputs": ["src/**", "test/**", "specs/**"],
+      "outputs": ["coverage/**"]
+    },
+    "test:unit": {
+      "dependsOn": ["^build"],
+      "inputs": ["src/**", "test/**"],
+      "outputs": ["coverage/**"]
+    },
+    "test:integration": {
+      "dependsOn": ["^build"],
+      "inputs": ["src/**", "test/**", "specs/**"],
+      "outputs": ["test-results/**"]
+    },
+    "lint": {
+      "outputs": []
+    },
+    "lint:fix": {
+      "outputs": []
+    },
+    "typecheck": {
+      "dependsOn": ["^build"],
+      "outputs": []
+    },
+    "clean": {
+      "cache": false
+    },
+    "deploy": {
+      "dependsOn": ["build", "test", "lint"],
+      "cache": false
+    },
+    "deploy:preview": {
+      "dependsOn": ["build", "lint"],
+      "cache": false
+    }
+  },
+  "globalEnv": [
+    "VERCEL_URL",
+    "VERCEL_ENV",
+    "NODE_ENV"
+  ]
+}
