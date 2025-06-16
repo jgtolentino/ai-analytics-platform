@@ -1,0 +1,30 @@
+name: Post-Deploy Verification
+
+on:
+  workflow_run:
+    workflows: ["RepoAgent CI"]   # runs after RepoAgent merges PR
+    types: [completed]
+
+jobs:
+  verify-prod:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    env:
+      PROD_URL: https://scout-mvp.vercel.app    # 🔄 update if environment name changes
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Dependencies
+        run: |
+          npm ci
+          npx playwright install --with-deps
+      - name: Run Smoke Suite
+        run: npx playwright test --reporter=line,html
+      - name: Upload HTML Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report
+      - name: Notify Caca QA
+        if: failure()
+        run: |
+          echo "::error file=post-deploy,title=QA::Smoke tests failed – investigate report"

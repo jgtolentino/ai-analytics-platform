@@ -15,6 +15,18 @@ export default async function repoAgent(ctx: AgentContext) {
   }
 }
 
+/* ---------- post-deploy trigger ---------- */
+export async function afterMergeSuccess(ctx: AgentContext, prNumber: number) {
+  // Fire GitHub Actions workflow_dispatch if we need an immediate verify run
+  await ctx.github.dispatchWorkflow({
+    owner: ctx.repo.owner,
+    repo: ctx.repo.name,
+    workflow_id: "post-deploy-verification.yml",
+    ref: "main",
+  });
+  ctx.reply(`🚀 Verification suite started for PR #${prNumber}`);
+}
+
 /* ---------- helpers ---------- */
 function gitStatus() {
   return execSync("git status --short --branch", { encoding: "utf8" });

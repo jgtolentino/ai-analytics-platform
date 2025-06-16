@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "export": "next export",
-    "test": "echo 'No tests specified'",
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
     "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
     "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx --fix",
     "typecheck": "tsc --noEmit",
@@ -35,7 +36,7 @@
     "typescript": "^5.3.3"
   },
   "devDependencies": {
-    "@playwright/test": "^1.40.1",
+    "@playwright/test": "^1.53.0",
     "@types/js-yaml": "^4.0.9",
     "@types/node": "^20.10.5",
     "@types/react": "^18.2.45",
@@ -51,8 +52,8 @@
     "prettier": "^3.1.1",
     "tailwindcss": "^3.4.0",
     "ts-node": "^10.9.1",
-    "turbo": "^2.0.0",
-    "tsup": "^7.0.0"
+    "tsup": "^7.0.0",
+    "turbo": "^2.0.0"
   },
   "engines": {
     "node": ">=18.0.0",
