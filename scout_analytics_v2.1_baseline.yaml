@@ -1,0 +1,235 @@
+# Scout Analytics v2.1 Baseline Configuration
+# Clean, stable foundation for retail intelligence platform
+
+platform:
+  name: "Scout Analytics"
+  version: "2.1.0"
+  status: "stable_baseline"
+  description: "AI-Powered Retail Intelligence Platform - Clean Foundation"
+  deployment_date: "2025-06-17"
+
+architecture:
+  type: "single_spa_application"
+  framework: "next.js"
+  version: "14.0.4"
+  language: "typescript"
+  styling: "tailwindcss"
+  
+infrastructure:
+  deployment: "vercel"
+  database: "supabase_postgresql"
+  cdn: "vercel_edge"
+  monitoring: "basic_logging"
+  
+features:
+  core_dashboard:
+    status: "active"
+    pages: 4
+    navigation: "tab_based"
+    responsive: true
+    
+  page_structure:
+    overview:
+      path: "/"
+      title: "Overview"
+      icon: "📊"
+      description: "Executive dashboard with key metrics"
+      
+    trends:
+      path: "/trends"
+      title: "Trends"
+      icon: "📈"
+      description: "Market trends and patterns"
+      
+    products:
+      path: "/products"
+      title: "Products"
+      icon: "📦"
+      description: "Product performance analytics"
+      
+    ai_assist:
+      path: "/ai-assist"
+      title: "RetailBot"
+      icon: "🤖"
+      description: "AI-powered insights assistant"
+      badge: "AI Powered"
+
+  navigation_component:
+    status: "implemented"
+    type: "responsive_tabs"
+    features:
+      - active_state_highlighting
+      - mobile_responsive
+      - breadcrumb_ready
+      - stats_component_ready
+
+dependencies:
+  core:
+    - "next@^14.0.4"
+    - "react@^18.2.0"
+    - "react-dom@^18.2.0"
+    - "typescript@^5.3.3"
+    
+  styling:
+    - "tailwindcss@^3.4.0"
+    - "autoprefixer@^10.4.16"
+    - "postcss@^8.4.32"
+    
+  data:
+    - "@supabase/supabase-js@^2.39.0"
+    - "dotenv@^16.3.1"
+    
+  ai_integration:
+    - "@azure/openai@^1.0.0-beta.12"
+    - "js-yaml@^4.1.0"
+    
+  development:
+    - "@playwright/test@^1.40.1"
+    - "eslint@^8.56.0"
+    - "@typescript-eslint/eslint-plugin@^6.15.0"
+    - "prettier@^3.1.1"
+
+scripts:
+  development:
+    dev: "next dev"
+    build: "next build"
+    start: "next start"
+    
+  testing:
+    test: "npm run test:caca && npm run test:integration"
+    test_caca: "node scripts/run-qa-tests.js"
+    test_integration: "playwright test"
+    
+  deployment:
+    deploy: "vercel deploy --prod"
+    deploy_staging: "vercel deploy"
+    verify: "node scripts/verify-deployment.js"
+    
+  maintenance:
+    lint: "eslint . --ext .ts,.tsx,.js,.jsx"
+    typecheck: "tsc --noEmit"
+    clean: "rm -rf node_modules && rm -rf apps/*/node_modules"
+
+ci_cd_pipeline:
+  type: "simplified_2_job"
+  node_version: "18"
+  
+  jobs:
+    test_build:
+      steps:
+        - checkout
+        - setup_node_with_cache
+        - install_dependencies
+        - run_linting
+        - run_tests
+        - build_application
+        
+    deploy:
+      trigger: "main_branch_only"
+      steps:
+        - checkout
+        - deploy_to_vercel_production
+
+file_structure:
+  source:
+    - "pages/" # Next.js pages
+    - "src/components/" # React components
+    - "src/styles/" # CSS/styling
+    - "public/" # Static assets
+    
+  configuration:
+    - "package.json" # Dependencies
+    - "tsconfig.json" # TypeScript config
+    - "tailwind.config.js" # Styling config
+    - "vercel.json" # Deployment config
+    - ".github/workflows/ci.yml" # CI/CD pipeline
+    
+  scripts:
+    - "scripts/run-qa-tests.js"
+    - "scripts/verify-deployment.js"
+
+deployment_configuration:
+  vercel:
+    framework: "nextjs"
+    node_version: "18"
+    regions: ["sin1", "syd1", "hkg1"] # Asia-Pacific focus
+    
+    environment_variables:
+      - "NEXT_PUBLIC_SITE_URL"
+      - "NEXT_PUBLIC_PLATFORM_NAME"
+      - "NEXT_PUBLIC_VERSION"
+      
+    github_integration:
+      enabled: true
+      auto_alias: true
+      auto_job_cancelation: true
+
+quality_assurance:
+  testing_framework: "playwright"
+  linting: "eslint_typescript"
+  type_checking: "typescript_strict"
+  
+  test_coverage:
+    - basic_page_loading
+    - navigation_functionality
+    - responsive_design
+    - error_handling
+
+security:
+  headers:
+    - "X-Frame-Options: DENY"
+    - "X-Content-Type-Options: nosniff"
+    - "Referrer-Policy: strict-origin-when-cross-origin"
+    
+  content_security: "basic_headers"
+  environment_protection: "env_variable_validation"
+
+performance:
+  targets:
+    - "lighthouse_score: >80"
+    - "first_contentful_paint: <2s"
+    - "largest_contentful_paint: <3s"
+    - "bundle_size: <1MB"
+
+monitoring:
+  health_check: "basic_deployment_verification"
+  error_tracking: "console_error_detection"
+  performance_monitoring: "vercel_analytics"
+
+roadmap:
+  immediate:
+    - [ ] API endpoint implementation
+    - [ ] Real-time data integration
+    - [ ] Enhanced error handling
+    
+  short_term:
+    - [ ] Advanced analytics features
+    - [ ] User authentication
+    - [ ] Data visualization improvements
+    
+  long_term:
+    - [ ] AI model integration
+    - [ ] Multi-tenant architecture
+    - [ ] Advanced monitoring
+
+compatibility:
+  browsers:
+    - "Chrome 90+"
+    - "Firefox 88+"
+    - "Safari 14+"
+    - "Edge 90+"
+    
+  devices:
+    - "Desktop: Full functionality"
+    - "Tablet: Responsive design"
+    - "Mobile: Core features accessible"
+
+maintenance:
+  update_frequency: "monthly"
+  security_patches: "as_needed"
+  dependency_updates: "quarterly"
+  
+status:
+  current_deployment: "stable"
+  known_issues: "deprecated_dependency_warnings"
+  next_milestone: "v2.2_api_integration"

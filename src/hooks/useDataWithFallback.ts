@@ -3,7 +3,7 @@
 // Version: 1.0.0
 
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { createClient } from '@supabase/supabase-js';
+import { supabase } from '../../lib/supabaseClient';
 
 interface FallbackOptions {
   enableCaching?: boolean;
@@ -348,10 +348,6 @@ export function useDataWithFallback<T = any>(
 
 // Specialized hook for dashboard data with fallbacks
 export function useDashboardData() {
-  const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-  );
 
   const loadDashboardData = useCallback(async () => {
     // Load all dashboard data concurrently
