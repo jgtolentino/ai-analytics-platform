@@ -20,7 +20,14 @@
     "deploy:end-state": "node deploy-end-state.js",
     "keykey:sync": "node agents/keykey.cjs sync",
     "keykey:preview": "node agents/keykey.cjs preview",
-    "keykey:status": "node agents/keykey.cjs status"
+    "keykey:status": "node agents/keykey.cjs status",
+    "sync:env": "node scripts/sync-production-env.cjs",
+    "analyze:production": "node scripts/production-development-workflow.cjs",
+    "verify:env": "node scripts/verify-production-env.cjs",
+    "test:production": "node scripts/debug-deployment.cjs",
+    "dev:mock": "node scripts/dev-with-mock-data.cjs",
+    "dev:simple": "node scripts/dev-simple.cjs",
+    "setup:database": "node scripts/setup-database.cjs"
   },
   "dependencies": {
     "@azure/openai": "^1.0.0-beta.12",
@@ -31,6 +38,7 @@
     "dotenv": "^16.3.1",
     "framer-motion": "^12.18.1",
     "js-yaml": "^4.1.0",
+    "mssql": "^11.0.1",
     "next": "^14.0.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -89,8 +97,8 @@
         "dbo",
         "ces"
       ],
-      "provider": "postgresql",
-      "connection": "supabase"
+      "provider": "sqlserver",
+      "connection": "azure-sql"
     },
     "deployment": {
       "platform": "vercel",

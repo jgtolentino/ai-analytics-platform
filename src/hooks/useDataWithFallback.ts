@@ -3,7 +3,7 @@
 // Version: 1.0.0
 
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { supabase } from '../../lib/supabaseClient';
+import { getAzureSqlClient } from '../../lib/azureSqlClient';
 
 interface FallbackOptions {
   enableCaching?: boolean;
@@ -91,7 +91,7 @@ export function useDataWithFallback<T = any>(
   });
 
   const cacheKey = useRef<string>('');
-  const retryTimeoutRef = useRef<NodeJS.Timeout>();
+  const retryTimeoutRef = useRef<any.Timeout>();
   const mountedRef = useRef(true);
 
   // Initialize cache key
